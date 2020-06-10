@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，后面会讲 -->
+<mapper namespace="com.answer.base.dao.UserMapper">
+    <!-- id:statement的id 或者叫做sql的id-->
+    <!-- parameterType:声明输入参数的类型 -->
+    <!-- resultType:声明输出结果的类型，应该填写pojo的全路径 -->
+    <!-- #{}：输入参数的占位符，相当于jdbc的？ -->
+
+    <!-- 通过id查询一个用户 -->
+    <resultMap type="User" id="UserMap">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"></result>
+        <result column="password" property="password" jdbcType="VARCHAR"></result>
+        <result column="age" property="age" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <sql id="base_column_list">
+        id,user_name,password,age
+    </sql>
+
+
+    <select id="selectUser" parameterType="INTEGER" resultMap="UserMap">
+        select <include refid="base_column_list"></include> from user where id=#{id};
+    </select>
+
+    <insert id="insertUser" parameterType="com.answer.base.entity.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id !=null">
+                id,
+            </if>
+            <if test="userName !=null">
+                user_name,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="age!=null">
+                age,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userName!=null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password!=null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="age!=null">
+                #{age,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
