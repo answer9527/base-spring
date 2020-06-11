@@ -23,6 +23,10 @@ public class Customer extends BaseEntity {
 //    常住地
     private String resident;
     private String openId;
+    private String name;
+    private String password;
+    private String account;
+    private String tel;
 
 
 }

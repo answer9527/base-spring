@@ -6,6 +6,8 @@ import com.answer.base.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
@@ -13,5 +15,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getCustomer(int id) {
         return customerMapper.getCustomer(id);
+    }
+
+    @Override
+    public List<Customer> getAllCustomer(Integer limit) {
+        return customerMapper.getAllCount(limit);
     }
 }

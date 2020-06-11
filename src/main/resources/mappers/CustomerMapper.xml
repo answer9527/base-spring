@@ -23,11 +23,17 @@
         id,avatar_url,resident
     </sql>
 
-
+<!--根据id获取一个-->
     <select id="getCustomer" parameterType="INTEGER" resultMap="CustomerMap">
 <!--        select <include refid="base_column_list"></include> from user where id=#{id};-->
         select <include refid="base_column_list"></include> from customer where id=#{id};
     </select>
+
+<!--    获取所有的-->
+    <select id="getAllCount" parameterType="INTEGER" resultMap="CustomerMap">
+        select <include refid="base_column_list"></include> from customer;
+    </select>
+
 
 
 </mapper>

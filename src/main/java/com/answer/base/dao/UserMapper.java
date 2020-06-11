@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper {
     //    根据id查询
     User selectUser(int id);
-
     //    新增
     int insertUser(User user);
 
