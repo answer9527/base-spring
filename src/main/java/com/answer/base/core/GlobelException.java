@@ -7,12 +7,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
+import java.util.List;
 
 @ControllerAdvice
 public class GlobelException {
@@ -44,7 +46,51 @@ public class GlobelException {
         return r;
     }
 
-//
+//    处理Get请求校验异常
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public UnifyResponse handlerConstraintViolation(HttpServletRequest request,ConstraintViolationException e){
+        String url = request.getRequestURI();
+        String method = request.getMethod();
+        String msg = e.getMessage();
+        UnifyResponse unifyResponse = new UnifyResponse(9999,msg,method+" "+url);
+        return unifyResponse;
+    }
+//    处理Get请求未传参数的异常
+    @ExceptionHandler(value = MissingServletRequestParameterException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public UnifyResponse handlerMissingParameter(HttpServletRequest request,MissingServletRequestParameterException e){
+        String url = request.getRequestURI();
+        String method = request.getMethod();
+        String msg = e.getMessage();
+        UnifyResponse unifyResponse = new UnifyResponse(9999,msg,method+" "+url);
+        return unifyResponse;
+    }
+
+//    处理Post请求参数的异常
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public UnifyResponse handlerBeanValidation(HttpServletRequest request,MethodArgumentNotValidException e){
+        String url = request.getRequestURI();
+        String method = request.getMethod();
+        String msg = e.getMessage();
+        List<ObjectError> errors = e.getBindingResult().getAllErrors();
+        UnifyResponse unifyResponse = new UnifyResponse(9999,formatErrorMessage(errors),method+" "+url);
+        return unifyResponse;
+    }
+
+    public String formatErrorMessage(List<ObjectError> errors){
+        StringBuffer errMsg = new StringBuffer();
+        errors.forEach(
+                error->errMsg.append(error.getDefaultMessage()).append(",")
+        );
+        return errMsg.toString();
+    }
+
+
 }
 
 

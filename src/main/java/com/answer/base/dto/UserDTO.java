@@ -2,6 +2,7 @@ package com.answer.base.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 
@@ -10,7 +11,8 @@ import javax.validation.constraints.Min;
 public class UserDTO {
     private Integer id;
     private String userName;
+    @Length(min = 5,max = 16,message = "password的长度为5-16")
     private String password;
-    @Min(1)
+    @Min(value = 1,message = "age的长度必须大于0")
     private Integer age;
 }

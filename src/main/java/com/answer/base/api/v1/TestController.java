@@ -45,6 +45,10 @@ public class TestController {
     public void fail(@PathVariable @Max(1)  Long id){
         System.out.println(222);
     }
+    @GetMapping("/fail2")
+    public void fail2(@RequestParam(defaultValue = "1") @Max(10) Integer id,@RequestParam @Min(1) Integer age){
+
+    }
 
 
 }
