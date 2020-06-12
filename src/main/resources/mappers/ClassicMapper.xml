@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，后面会讲 -->
+<mapper namespace="com.answer.base.dao.ClassicMapper">
+    <!-- id:statement的id 或者叫做sql的id-->
+    <!-- parameterType:声明输入参数的类型 -->
+    <!-- resultType:声明输出结果的类型，应该填写pojo的全路径 -->
+    <!-- #{}：输入参数的占位符，相当于jdbc的？ -->
+
+    <!-- 通过id查询一个用户 -->
+    <resultMap type="Classic" id="ClassicMap">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+<!--            <result column="title" property="title" jdbcType="VARCHAR"></result>-->
+<!--            <result column="intro" property="intro" jdbcType="VARCHAR"></result>-->
+<!--            <result column="type" property="type" jdbcType="INTEGER"></result>-->
+<!--            <result column="url" property="url" jdbcType="VARCHAR"></result>-->
+<!--            <result column="image" property="image" jdbcType="VARCHAR"></result>-->
+<!--            <result column="author" property="author" jdbcType="VARCHAR"></result>-->
+    </resultMap>
+
+    <sql id="base_column_list">
+        id,title,intro,url,author,image,type
+    </sql>
+
+    <!--根据获取最新的一个-->
+    <select id="getRecommendLatest"  resultMap="ClassicMap">
+        select <include refid="base_column_list"></include> from classic where is_recommend=true ORDER by recommend_time desc limit 1;
+    </select>
+
+<!--    获取上一期-->
+    <select id="getRecommendPrevious" parameterType="INTEGER" resultMap="ClassicMap">
+
+        select * from classic a  join (select * from classic  where id=#{id}) b on b.recommend_time> a.recommend_time where a.is_recommend=true
+    </select>
+
+
+
+</mapper>
+
+
