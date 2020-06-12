@@ -25,18 +25,53 @@
         id,title,intro,url,author,image,type
     </sql>
 
+
     <!--根据获取最新的一个-->
     <select id="getRecommendLatest"  resultMap="ClassicMap">
-        select <include refid="base_column_list"></include> from classic where is_recommend=true ORDER by recommend_time desc limit 1;
+        select <include refid="base_column_list"></include> from classic where is_recommend=true and delete_time is NULL ORDER by recommend_time desc limit 1;
     </select>
 
-<!--    获取上一期-->
+<!--    获取上一期推荐-->
     <select id="getRecommendPrevious" parameterType="INTEGER" resultMap="ClassicMap">
-
-        select * from classic a  join (select * from classic  where id=#{id}) b on b.recommend_time> a.recommend_time where a.is_recommend=true
+        select * from classic a  join (select * from classic  where id=#{id}) b on b.recommend_time> a.recommend_time where a.is_recommend=true and a.delete_time is NULL ORDER by a.recommend_time desc limit 1;
     </select>
 
+<!--获取下一期推荐-->
+    <select id="getRecommendNext" parameterType="INTEGER" resultMap="ClassicMap">
+        select * from classic a  join (select * from classic  where id=#{id}) b on a.recommend_time> b.recommend_time where a.is_recommend=true and a.delete_time is NULL  ORDER by a.recommend_time  limit 1;
+    </select>
 
+<!--    添加一个内容-->
+    <insert id="insertOne" parameterType="com.answer.base.entity.Classic">
+        insert into classic(create_time,title,sub_title,intro,content,url,image,author,is_recommend) values(CURRENT_TIMESTAMP,#{title},#{sub_title},#{intro},#{content},#{url},#{image},#{author},#{is_recommend})
+    </insert>
+
+<!--    设置为推荐-->
+    <update id="RecommendOne" parameterType="INTEGER">
+        update classic
+        <set>
+            is_recommend=1
+        </set>
+        where id = #{id,jdbcType=INTEGER} and is_recommend!=1 and delete_time is null
+    </update>
+
+<!--    设置下架推荐-->
+    <update id="removeRecommend" parameterType="INTEGER">
+        update classic
+        <set>
+            is_recommend=0
+        </set>
+        where id = #{id,jdbcType=INTEGER} and is_recommend=1 and delete_time is null
+    </update>
+
+<!--    删除一条数据-->
+    <update id="deleteOne" parameterType="INTEGER">
+        update classic
+        <set>
+            delete_time = current_timestamp
+        </set>
+        where id =#{id,jdbcType =INTEGER} and delete_time is null
+    </update>
 
 </mapper>
 

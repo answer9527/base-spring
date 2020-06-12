@@ -10,7 +10,7 @@ import java.util.Date;
 public class Classic extends BaseEntity {
     private Integer id;
     private Date recommend_time;
-    private Boolean is_recommend;
+    private Boolean is_recommend=false;
     private String title;
     private String intro;
     private String sub_title;
