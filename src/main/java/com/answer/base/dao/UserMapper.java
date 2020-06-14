@@ -17,4 +17,11 @@ public interface UserMapper {
 
 //    注册用户
     int registerUser(UserRegisterDTO userRegisterDTO);
+
+//    根据openid 查询用户
+    User selectUserByOpenid(String openid);
+//  根据openid查询用户的id
+    Integer selectUidByOpenid(String openid);
+//    根据account查询用户的id
+    Integer selectUidByAccount(String account);
 }

@@ -1,13 +1,13 @@
 package com.answer.base.dto;
 
 import com.answer.base.core.enumeration.RegisterType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.util.DigestUtils;
 
 @Setter
 @Getter
 public class UserRegisterDTO {
+    private Integer id;
     private String userName;
     private String account;
     private String password;

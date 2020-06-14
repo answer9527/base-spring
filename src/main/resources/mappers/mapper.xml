@@ -17,19 +17,34 @@
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"></result>
         <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP"></result>
         <result column="user_name" property="userName" jdbcType="VARCHAR"></result>
-        <result column="avatar_url" property="avatar_url" jdbcType="VARCHAR"></result>
+        <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR"></result>
     </resultMap>
 
     <sql id="base_column_list">
         id,user_name,age,create_time
     </sql>
 
-
+<!--根据id查找用户-->
     <select id="selectUser" parameterType="INTEGER" resultMap="UserMap">
         select <include refid="base_column_list"></include> from user where id=#{id};
     </select>
 
-    <insert id="insertUser" parameterType="com.answer.base.entity.User">
+<!--  根据openid查找用户  -->
+    <select id="selectUserByOpenid" parameterType="String"  resultMap="UserMap">
+        select * from user where openid =#{openid} limit 1;
+    </select>
+
+<!--    根据openid查找用户id-->
+    <select id="selectUidByOpenid" parameterType="String" resultType="Integer">
+        select id from user where openid =#{openid} limit 1;
+    </select>
+
+<!--    根据account查询用户-->
+    <select id="selectUidByAccount" parameterType="String" resultType="Integer">
+        select id from user where account=#{account} limit 1;
+    </select>
+
+    <insert id="insertUser" parameterType="com.answer.base.entity.User" >
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id !=null">
@@ -62,8 +77,8 @@
     </insert>
 
 
-
-    <insert id="registerUser" parameterType="com.answer.base.dto.UserRegisterDTO">
+<!--    添加一条用户记录并且设置返回创建的用户的id-->
+    <insert id="registerUser" parameterType="com.answer.base.dto.UserRegisterDTO" useGeneratedKeys="true" keyProperty="id">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             create_time,user_name,
