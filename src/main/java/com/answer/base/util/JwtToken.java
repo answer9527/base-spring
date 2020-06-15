@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +34,7 @@ public class JwtToken {
     public static Optional<Map<String,Claim>> getClaim(String token){
         DecodedJWT decodedJWT;
         Algorithm algorithm = Algorithm.HMAC256(JwtToken.jwtKey);
-        JWTVerifier jwtVerifier =JWT.require(algorithm).build();
+        JWTVerifier jwtVerifier = JWT.require(algorithm).build();
         try {
             decodedJWT = jwtVerifier.verify(token);
         }catch (JWTDecodeException e){
