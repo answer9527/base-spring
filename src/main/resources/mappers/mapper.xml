@@ -44,6 +44,11 @@
         select id from user where account=#{account} limit 1;
     </select>
 
+<!--    根据account 和password查询uid-->
+    <select id="selectUidByAccPwd" parameterType="com.answer.base.dto.PwdTokenDTO" resultType="Integer">
+        select id from user where account=#{account} and password=#{password} limit 1;
+    </select>
+
     <insert id="insertUser" parameterType="com.answer.base.entity.User" >
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">

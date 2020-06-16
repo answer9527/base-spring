@@ -15,16 +15,16 @@ public interface ClassicMapper {
 //    获取下一个推荐
     Classic getRecommendNext(Integer id);
 
-//    插入一条数据
+//    插入一条数据  设置为Integer,Long返回是插入的数量  设置Boolean返回是否插入成功    update 和delete方法也是同理
     Integer insertOne(Classic classic);
 
 //    设置推荐一条数据
-    Integer RecommendOne(Integer id);
+    Boolean RecommendOne(Integer id);
 
 //    取消一条推荐
-    Integer removeRecommend(Integer id);
+    Boolean removeRecommend(Integer id);
 
 //    删除一条数据
-    Integer deleteOne(Integer id);
+    Boolean deleteOne(Integer id);
 
 }

@@ -1,6 +1,7 @@
 package com.answer.base.service.Impl;
 
 import com.answer.base.dao.UserMapper;
+import com.answer.base.dto.PwdTokenDTO;
 import com.answer.base.dto.UserRegisterDTO;
 import com.answer.base.entity.User;
 import com.answer.base.exception.http.ParameterException;
@@ -72,5 +73,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer selectUidByAccount(String account) {
         return userMapper.selectUidByAccount(account);
+    }
+
+    @Override
+    public Integer selectUidByAccPwd(PwdTokenDTO pwdTokenDTO) {
+        return userMapper.selectUidByAccPwd(pwdTokenDTO);
     }
 }

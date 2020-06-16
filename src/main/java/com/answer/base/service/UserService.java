@@ -1,5 +1,6 @@
 package com.answer.base.service;
 
+import com.answer.base.dto.PwdTokenDTO;
 import com.answer.base.dto.UserRegisterDTO;
 import com.answer.base.entity.User;
 
@@ -15,4 +16,9 @@ public interface UserService {
 
 //    根据account查询uid
     Integer selectUidByAccount(String account);
+
+//    根据account和password  验证登录
+    Integer selectUidByAccPwd(PwdTokenDTO pwdTokenDTO);
+
+
 }

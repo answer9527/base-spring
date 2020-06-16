@@ -1,5 +1,6 @@
 package com.answer.base.dao;
 
+import com.answer.base.dto.PwdTokenDTO;
 import com.answer.base.dto.UserRegisterDTO;
 import com.answer.base.entity.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,4 +25,7 @@ public interface UserMapper {
     Integer selectUidByOpenid(String openid);
 //    根据account查询用户的id
     Integer selectUidByAccount(String account);
+
+//    根据账号密码查找用户的id
+    Integer selectUidByAccPwd(PwdTokenDTO pwdTokenDTO);
 }
