@@ -1,5 +1,6 @@
 package com.answer.base.api.v1;
 
+import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.entity.Classic;
 import com.answer.base.service.ClassicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class ClassicController {
 
 //    获取最新的推荐
     @GetMapping("/latest")
+    @ScopeLevel(value = 10)
     public Classic getRecommendLatest(){
         Classic classic = classicService.getRecommendLatest();
         return classic;
