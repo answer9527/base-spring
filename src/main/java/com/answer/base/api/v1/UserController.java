@@ -12,11 +12,10 @@ import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -25,7 +24,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-//    用户注册
+//   账号密码形式 用户注册
     @PostMapping("/register")
     public Msg registerUserByAccount(@RequestBody @Validated UserRegisterDTO userRegisterDTO){
 //        Integer uid = userService.selectUidByAccount(userRegisterDTO.getAccount());
@@ -38,10 +37,11 @@ public class UserController {
         return ResultUtil.success("注册成功");
 
     }
-//   用户微信注册登录
 
-    @PostMapping("/wxToken")
-    public Msg getTokenByWx(@RequestBody  WxTokenDTO wxTokenDTO){
+
+//   用户微信新注册后登录
+    @PostMapping("/registerToken")
+    public Msg getTokenByWxRegister(@RequestBody  WxTokenDTO wxTokenDTO){
         String openid = userService.code2session(wxTokenDTO.getCode());
 //        User user = userService.selectUserIdByOpenid(openid);
         Optional<Integer> uidOptional = Optional.ofNullable(userService.selectUidByOpenid(openid));
@@ -59,7 +59,9 @@ public class UserController {
         }
 
         String token = JwtToken.makeToken(uid);
-        return ResultUtil.success(token,"登录成功");
+        Map<String,String> tokenMap = new HashMap<>();
+        tokenMap.put("token",token);
+        return ResultUtil.success(tokenMap,"登录成功");
     }
 
 //    用户的账号密码登录
@@ -70,4 +72,24 @@ public class UserController {
         String token = JwtToken.makeToken(uid);
         return ResultUtil.success(token,"登陆成功");
     }
+
+//    已注册的用户使用微信code直接登录
+    @GetMapping("/codeLogin")
+    public Msg getTokenByCode(@RequestParam String code){
+        String openid = userService.code2session(code);
+        Optional<Integer> uidOptional = Optional.ofNullable(userService.selectUidByOpenid(openid));
+        if(uidOptional.isPresent()){
+            Integer uid = uidOptional.get();
+            String token = JwtToken.makeToken(uid);
+            Map<String,String> tokenMap = new HashMap<>();
+            tokenMap.put("token",token);
+            return ResultUtil.success(tokenMap);
+        }else{
+            throw new TokenException(40005);
+        }
+    }
+
+
+
+
 }

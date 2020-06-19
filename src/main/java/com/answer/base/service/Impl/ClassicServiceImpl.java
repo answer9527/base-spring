@@ -8,6 +8,7 @@ import com.sun.org.apache.bcel.internal.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,5 +68,10 @@ public class ClassicServiceImpl implements ClassicService {
         if(!bool){
             throw new ParameterException(50002);
         }
+    }
+
+    @Override
+    public List<Classic> getMyLike(Integer id) {
+        return classicMapper.getMyLike(id);
     }
 }
