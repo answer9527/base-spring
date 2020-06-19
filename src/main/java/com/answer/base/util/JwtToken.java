@@ -1,5 +1,6 @@
 package com.answer.base.util;
 
+import com.answer.base.exception.http.TokenException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -9,6 +10,7 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -77,6 +79,20 @@ public class JwtToken {
         map.put("now",now);
         map.put("future",future);
         return map;
+    }
 
+//    解析token中的获取uid
+    public static Integer TokenGetUid(String bearer_token){
+        if(StringUtils.isEmpty(bearer_token)){
+            throw new TokenException(40001);
+        }
+        if(!bearer_token.startsWith("Bearer")){
+            throw new TokenException(40002);
+        }
+        String token = bearer_token.split(" ")[1];
+        Optional<Map<String, Claim>> optionalMap = JwtToken.getClaim(token);
+        Map<String,Claim> map = optionalMap.orElseThrow(()->new TokenException(40003));
+        Integer uid = map.get("uid").asInt();
+        return uid;
     }
 }

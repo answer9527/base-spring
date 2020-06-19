@@ -5,6 +5,8 @@ import com.answer.base.entity.Classic;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface ClassicMapper {
@@ -26,5 +28,8 @@ public interface ClassicMapper {
 
 //    删除一条数据
     Boolean deleteOne(Integer id);
+
+//    查找我喜欢的classic
+    List<Classic> getMyLike(Integer uid);
 
 }

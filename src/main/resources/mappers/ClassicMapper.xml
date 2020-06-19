@@ -73,6 +73,11 @@
         where id =#{id,jdbcType =INTEGER} and delete_time is null
     </update>
 
+
+    <select id="getMyLike" parameterType="INTEGER" resultMap="ClassicMap">
+       select * from classic a join user_like_classic b on b.uid=2 and a.id=b.cid
+    </select>
+
 </mapper>
 
 

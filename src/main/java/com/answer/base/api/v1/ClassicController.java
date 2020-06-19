@@ -3,12 +3,15 @@ package com.answer.base.api.v1;
 import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.entity.Classic;
 import com.answer.base.service.ClassicService;
+import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/classic")
@@ -18,7 +21,7 @@ public class ClassicController {
 
 //    获取最新的推荐
     @GetMapping("/latest")
-    @ScopeLevel(value = 10)
+//    @ScopeLevel(value = 10)
     public Msg getRecommendLatest(){
         Classic classic = classicService.getRecommendLatest();
         return ResultUtil.success(classic);
@@ -70,5 +73,15 @@ public class ClassicController {
     @GetMapping("/setLike/{id}")
     public void setLike(@PathVariable Integer id){
 
+    }
+
+//    查找我喜欢的
+    @PostMapping("/getMyLike")
+    @ScopeLevel(4)
+    public void getMyLiKe(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        List<Classic> classicList = classicService.getMyLike(uid);
+        return;
     }
 }

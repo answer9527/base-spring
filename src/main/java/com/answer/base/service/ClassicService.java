@@ -2,6 +2,8 @@ package com.answer.base.service;
 
 import com.answer.base.entity.Classic;
 
+import java.util.List;
+
 public interface ClassicService {
 //    获取最新推荐
     Classic getRecommendLatest();
@@ -22,4 +24,5 @@ public interface ClassicService {
 //    删除一条
     void deleteClassic(Integer id);
 
+    List<Classic> getMyLike(Integer id);
 }
