@@ -18,7 +18,7 @@ public class ClassicController {
 
 //    获取最新的推荐
     @GetMapping("/latest")
-    @ScopeLevel(value = 10)
+//    @ScopeLevel(value = 10)
     public Msg getRecommendLatest(){
         Classic classic = classicService.getRecommendLatest();
         return ResultUtil.success(classic);
