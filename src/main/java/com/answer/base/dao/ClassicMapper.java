@@ -1,6 +1,8 @@
 package com.answer.base.dao;
 
 
+import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UserLikeClassicDTO;
 import com.answer.base.entity.Classic;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -30,6 +32,9 @@ public interface ClassicMapper {
     Boolean deleteOne(Integer id);
 
 //    查找我喜欢的classic
-    List<Classic> getMyLike(Integer uid);
+    List<Classic> getMyLike(PagingDTO pagingDTO);
+
+//    设置我喜欢
+    Integer setLike(UserLikeClassicDTO userLikeClassicDTO);
 
 }

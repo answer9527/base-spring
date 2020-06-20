@@ -9,6 +9,7 @@
     <!-- parameterType:声明输入参数的类型 -->
     <!-- resultType:声明输出结果的类型，应该填写pojo的全路径 -->
     <!-- #{}：输入参数的占位符，相当于jdbc的？ -->
+<!--    ${}：字符串拼接-->
 
     <!-- 通过id查询一个用户 -->
     <resultMap type="Classic" id="ClassicMap">
@@ -74,9 +75,14 @@
     </update>
 
 
-    <select id="getMyLike" parameterType="INTEGER" resultMap="ClassicMap">
-       select * from classic a join user_like_classic b on b.uid=2 and a.id=b.cid
+    <select id="getMyLike" parameterType="com.answer.base.dto.PagingDTO" resultMap="ClassicMap">
+       select * from classic a join user_like_classic b on b.uid=#{id} and a.id=b.cid limit #{size} offset ${size*(page-1)}
     </select>
+
+    <insert id="setLike" parameterType="com.answer.base.dto.UserLikeClassicDTO">
+        insert into user_like_classic(create_time,uid,cid) select CURRENT_TIMESTAMP,#{uid},#{cid} from dual where not exists (select 1 from user_like_classic where uid=#{uid} and cid=#{cid})
+
+    </insert>
 
 </mapper>
 

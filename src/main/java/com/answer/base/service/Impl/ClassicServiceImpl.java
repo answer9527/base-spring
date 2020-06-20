@@ -1,10 +1,11 @@
 package com.answer.base.service.Impl;
 
 import com.answer.base.dao.ClassicMapper;
+import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UserLikeClassicDTO;
 import com.answer.base.entity.Classic;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.ClassicService;
-import com.sun.org.apache.bcel.internal.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class ClassicServiceImpl implements ClassicService {
     @Autowired
     private ClassicMapper classicMapper;
+
     @Override
     public Classic getRecommendLatest() {
         Optional<Classic> classicOptional = Optional.ofNullable(classicMapper.getRecommendLatest());
@@ -71,7 +73,13 @@ public class ClassicServiceImpl implements ClassicService {
     }
 
     @Override
-    public List<Classic> getMyLike(Integer id) {
-        return classicMapper.getMyLike(id);
+    public Integer setLike(Integer uid, Integer cid) {
+        UserLikeClassicDTO userLikeClassicDTO =UserLikeClassicDTO.builder().uid(uid).cid(cid).build();
+        return classicMapper.setLike(userLikeClassicDTO);
+    }
+
+    @Override
+    public List<Classic> getMyLike(PagingDTO pagingDTO) {
+        return classicMapper.getMyLike(pagingDTO);
     }
 }

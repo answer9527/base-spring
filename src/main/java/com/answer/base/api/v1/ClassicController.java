@@ -1,6 +1,7 @@
 package com.answer.base.api.v1;
 
 import com.answer.base.core.interceptors.ScopeLevel;
+import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Classic;
 import com.answer.base.service.ClassicService;
 import com.answer.base.util.JwtToken;
@@ -71,17 +72,21 @@ public class ClassicController {
 
 //    设置喜欢
     @GetMapping("/setLike/{id}")
-    public void setLike(@PathVariable Integer id){
-
+    public Msg setLike(HttpServletRequest request,@PathVariable Integer id){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        Integer count = classicService.setLike(uid,id);
+        return ResultUtil.success();
     }
 
 //    查找我喜欢的
     @PostMapping("/getMyLike")
     @ScopeLevel(4)
-    public void getMyLiKe(HttpServletRequest request){
+    public Msg getMyLiKe(HttpServletRequest request, @RequestBody PagingDTO pagingDTO){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
-        List<Classic> classicList = classicService.getMyLike(uid);
-        return;
+        pagingDTO.setId(uid);
+        List<Classic> classicList = classicService.getMyLike(pagingDTO);
+        return ResultUtil.success(classicList);
     }
 }
