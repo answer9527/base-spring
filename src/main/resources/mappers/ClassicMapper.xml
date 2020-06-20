@@ -74,15 +74,33 @@
         where id =#{id,jdbcType =INTEGER} and delete_time is null
     </update>
 
-
+<!--    分页查找我喜欢的列表-->
     <select id="getMyLike" parameterType="com.answer.base.dto.PagingDTO" resultMap="ClassicMap">
        select * from classic a join user_like_classic b on b.uid=#{id} and a.id=b.cid limit #{size} offset ${size*(page-1)}
     </select>
 
-    <insert id="setLike" parameterType="com.answer.base.dto.UserLikeClassicDTO">
+<!--  设置喜欢  -->
+    <insert id="setLike" parameterType="com.answer.base.dto.UserLikeUnlikeClassicDTO">
         insert into user_like_classic(create_time,uid,cid) select CURRENT_TIMESTAMP,#{uid},#{cid} from dual where not exists (select 1 from user_like_classic where uid=#{uid} and cid=#{cid})
-
     </insert>
+
+<!--  设置取消喜欢 -->
+    <delete id="cancelLike" parameterType="com.answer.base.dto.UserLikeUnlikeClassicDTO">
+        delete from user_like_classic where uid=#{uid} and cid=#{cid}
+    </delete>
+
+    <update id="updateLikeCount" parameterType="com.answer.base.dto.ChangeLikeCountDTO">
+        update classic
+        <set>
+            <if test="isAdd">
+                like_count = like_count+1
+            </if>
+            <if test="!isAdd">
+                like_count = like_count-1
+            </if>
+        </set>
+        where id = #{cid} and delete_time is null
+    </update>
 
 </mapper>
 

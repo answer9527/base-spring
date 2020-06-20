@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-public class UserLikeClassicDTO {
-    private Integer uid;
+public class ChangeLikeCountDTO {
     private Integer cid;
+    private Boolean isAdd;
 }

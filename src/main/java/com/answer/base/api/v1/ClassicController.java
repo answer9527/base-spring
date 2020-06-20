@@ -71,12 +71,21 @@ public class ClassicController {
     }
 
 //    设置喜欢
-    @GetMapping("/setLike/{id}")
-    public Msg setLike(HttpServletRequest request,@PathVariable Integer id){
+    @GetMapping("/setLike/{cid}")
+    public Msg setLike(HttpServletRequest request,@PathVariable Integer cid){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
-        Integer count = classicService.setLike(uid,id);
-        return ResultUtil.success();
+        classicService.setLike(uid,cid);
+        return ResultUtil.success("设置成功");
+    }
+
+//    设置取消喜欢
+    @GetMapping("/cancelLike/{cid}")
+    public Msg cancelLike(HttpServletRequest request,@PathVariable Integer cid){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        classicService.cancelLike(uid,cid);
+        return ResultUtil.success("取消成功");
     }
 
 //    查找我喜欢的
@@ -89,4 +98,6 @@ public class ClassicController {
         List<Classic> classicList = classicService.getMyLike(pagingDTO);
         return ResultUtil.success(classicList);
     }
+
+
 }

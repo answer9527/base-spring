@@ -1,5 +1,6 @@
 package com.answer.base.service;
 
+import com.answer.base.dto.ChangeLikeCountDTO;
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Classic;
 
@@ -26,7 +27,13 @@ public interface ClassicService {
     void deleteClassic(Integer id);
 
 //    设置喜欢
-    Integer setLike(Integer uid,Integer cid);
+    void setLike(Integer uid,Integer cid);
+
+//    取消喜欢
+    void cancelLike(Integer uid,Integer cid);
+
+//    设置更新likeCount
+    void setLikeCount(ChangeLikeCountDTO changeLikeCountDTO);
 
 //    获取我的点喜欢的列表
     List<Classic> getMyLike(PagingDTO pagingDTO);

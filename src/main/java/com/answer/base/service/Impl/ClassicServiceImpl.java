@@ -1,13 +1,16 @@
 package com.answer.base.service.Impl;
 
 import com.answer.base.dao.ClassicMapper;
+import com.answer.base.dto.ChangeLikeCountDTO;
 import com.answer.base.dto.PagingDTO;
-import com.answer.base.dto.UserLikeClassicDTO;
+import com.answer.base.dto.UserLikeUnlikeClassicDTO;
 import com.answer.base.entity.Classic;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.ClassicService;
+import com.answer.base.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -73,13 +76,41 @@ public class ClassicServiceImpl implements ClassicService {
     }
 
     @Override
-    public Integer setLike(Integer uid, Integer cid) {
-        UserLikeClassicDTO userLikeClassicDTO =UserLikeClassicDTO.builder().uid(uid).cid(cid).build();
-        return classicMapper.setLike(userLikeClassicDTO);
+    @Transactional(rollbackFor = Exception.class)
+    public void setLike(Integer uid, Integer cid) {
+        UserLikeUnlikeClassicDTO userLikeClassicDTO = UserLikeUnlikeClassicDTO.builder().uid(uid).cid(cid).build();
+        Boolean bool = classicMapper.setLike(userLikeClassicDTO);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+        ChangeLikeCountDTO changeLikeCountDTO = ChangeLikeCountDTO.builder().cid(cid).isAdd(true).build();
+        this.setLikeCount(changeLikeCountDTO);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void cancelLike(Integer uid, Integer cid) {
+        UserLikeUnlikeClassicDTO userUnlikeClassicDTO = UserLikeUnlikeClassicDTO.builder().uid(uid).cid(cid).build();
+        Boolean bool = classicMapper.cancelLike(userUnlikeClassicDTO);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+        ChangeLikeCountDTO changeLikeCountDTO = ChangeLikeCountDTO.builder().cid(cid).isAdd(false).build();
+        this.setLikeCount(changeLikeCountDTO);
+    }
+
+    @Override
+    public void setLikeCount(ChangeLikeCountDTO changeLikeCountDTO) {
+        Boolean bool = classicMapper.updateLikeCount(changeLikeCountDTO);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
     }
 
     @Override
     public List<Classic> getMyLike(PagingDTO pagingDTO) {
         return classicMapper.getMyLike(pagingDTO);
     }
+
 }
+

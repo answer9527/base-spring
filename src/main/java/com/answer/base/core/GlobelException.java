@@ -2,6 +2,7 @@ package com.answer.base.core;
 
 import com.answer.base.core.configuration.ExceptionCodeConfiguration;
 import com.answer.base.exception.http.HttpException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -88,6 +89,18 @@ public class GlobelException {
                 error->errMsg.append(error.getDefaultMessage()).append(",")
         );
         return errMsg.toString();
+    }
+
+//    捕捉token过期的异常
+    @ExceptionHandler(value = TokenExpiredException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public UnifyResponse handlerTokenExpiredException(HttpServletRequest request, TokenExpiredException e){
+        String url = request.getRequestURI();
+        String method = request.getMethod();
+//        String msg = e.getMessage();
+        UnifyResponse unifyResponse = new UnifyResponse(40006,"token已过期",method+" "+url);
+        return unifyResponse;
     }
 
 
