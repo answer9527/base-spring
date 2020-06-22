@@ -14,6 +14,7 @@
     <!-- 通过id查询一个用户 -->
     <resultMap type="Classic" id="ClassicMap">
         <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
 <!--            <result column="title" property="title" jdbcType="VARCHAR"></result>-->
 <!--            <result column="intro" property="intro" jdbcType="VARCHAR"></result>-->
 <!--            <result column="type" property="type" jdbcType="INTEGER"></result>-->
@@ -23,7 +24,7 @@
     </resultMap>
 
     <sql id="base_column_list">
-        id,title,intro,url,author,image,type
+        id,create_time,title,intro,url,author,image,type,like_count
     </sql>
 
 
@@ -76,7 +77,7 @@
 
 <!--    分页查找我喜欢的列表-->
     <select id="getMyLike" parameterType="com.answer.base.dto.PagingDTO" resultMap="ClassicMap">
-       select * from classic a join user_like_classic b on b.uid=#{id} and a.id=b.cid limit #{size} offset ${size*(page-1)}
+       select * from classic a join user_like_classic b on b.uid=#{key} and a.id=b.cid limit #{size} offset ${size*(page-1)}
     </select>
 
 <!--  设置喜欢  -->
@@ -89,6 +90,7 @@
         delete from user_like_classic where uid=#{uid} and cid=#{cid}
     </delete>
 
+<!--    更新classic的喜欢总数-->
     <update id="updateLikeCount" parameterType="com.answer.base.dto.ChangeLikeCountDTO">
         update classic
         <set>
@@ -102,6 +104,10 @@
         where id = #{cid} and delete_time is null
     </update>
 
+<!--    按照类型查询classic列表-->
+    <select id="getListByType" parameterType="com.answer.base.dto.PagingDTO" resultMap="ClassicMap">
+            select <include refid="base_column_list"></include> from classic where type=#{key} and delete_time is null;
+    </select>
 </mapper>
 
 

@@ -94,9 +94,16 @@ public class ClassicController {
     public Msg getMyLiKe(HttpServletRequest request, @RequestBody PagingDTO pagingDTO){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
-        pagingDTO.setId(uid);
+        pagingDTO.setKey(uid);
         List<Classic> classicList = classicService.getMyLike(pagingDTO);
         return ResultUtil.success(classicList);
+    }
+
+//    按类型查找列表
+    @PostMapping("/getByType")
+    public Msg getByType(@RequestBody PagingDTO pagingDTO){
+        List<Classic> classics = classicService.getListByType(pagingDTO);
+        return ResultUtil.success(classics);
     }
 
 

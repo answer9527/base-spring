@@ -19,5 +19,6 @@ public class Classic extends BaseEntity {
     private String url;
     private String author;
     private String image;
+    private Integer like_count;
 
 }

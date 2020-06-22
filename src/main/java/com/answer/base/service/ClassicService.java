@@ -37,4 +37,7 @@ public interface ClassicService {
 
 //    获取我的点喜欢的列表
     List<Classic> getMyLike(PagingDTO pagingDTO);
+
+//    按照类型type查找列表
+    List<Classic> getListByType(PagingDTO pagingDTO);
 }

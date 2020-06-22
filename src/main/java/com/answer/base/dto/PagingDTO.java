@@ -8,6 +8,7 @@ import lombok.Setter;
 public class PagingDTO {
     private Integer page=1;
     private Integer size=10;
-    private Integer id;
-    private String key;
+//    此处的key是用于分页查找的查找条件  可以是id  可以是type等等
+    private Integer key;
+    private String keyword;
 }

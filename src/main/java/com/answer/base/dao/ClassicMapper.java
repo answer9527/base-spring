@@ -44,4 +44,8 @@ public interface ClassicMapper {
 //    取消我喜欢
     Boolean cancelLike(UserLikeUnlikeClassicDTO userUnlikeClassicDTO);
 
+//    按照类型查找列表
+    List<Classic> getListByType(PagingDTO pagingDTO);
+
+
 }

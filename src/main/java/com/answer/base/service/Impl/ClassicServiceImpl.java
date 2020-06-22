@@ -112,5 +112,10 @@ public class ClassicServiceImpl implements ClassicService {
         return classicMapper.getMyLike(pagingDTO);
     }
 
+    @Override
+    public List<Classic> getListByType(PagingDTO pagingDTO) {
+        return classicMapper.getListByType(pagingDTO);
+    }
+
 }
 
