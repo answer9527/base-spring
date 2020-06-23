@@ -108,6 +108,11 @@
     <select id="getListByType" parameterType="com.answer.base.dto.PagingDTO" resultMap="ClassicMap">
             select <include refid="base_column_list"></include> from classic where type=#{key} and delete_time is null;
     </select>
+
+<!--    根据id查找classic的详情-->
+    <select id="getDetailById" parameterType="integer" resultMap="ClassicMap">
+        select * from classic where id=#{id} and delete_time is null;
+    </select>
 </mapper>
 
 

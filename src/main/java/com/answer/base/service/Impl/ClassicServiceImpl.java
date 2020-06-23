@@ -117,5 +117,10 @@ public class ClassicServiceImpl implements ClassicService {
         return classicMapper.getListByType(pagingDTO);
     }
 
+    @Override
+    public Classic getDetailById(Integer id) {
+        return classicMapper.getDetailById(id);
+    }
+
 }
 

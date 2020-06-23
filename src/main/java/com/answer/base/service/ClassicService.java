@@ -40,4 +40,7 @@ public interface ClassicService {
 
 //    按照类型type查找列表
     List<Classic> getListByType(PagingDTO pagingDTO);
+
+//    根据id获取详情
+    Classic getDetailById(Integer id);
 }

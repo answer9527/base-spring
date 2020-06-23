@@ -106,5 +106,13 @@ public class ClassicController {
         return ResultUtil.success(classics);
     }
 
+//    根据id查询详情
+    @GetMapping("/detail/{id}")
+    public Msg getDetailById(@PathVariable Integer id){
+        Classic classic = classicService.getDetailById(id);
+        return ResultUtil.success(classic);
+    }
+
+
 
 }
