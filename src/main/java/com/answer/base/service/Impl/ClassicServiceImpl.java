@@ -87,6 +87,7 @@ public class ClassicServiceImpl implements ClassicService {
         this.setLikeCount(changeLikeCountDTO);
     }
 
+//    Exception 指定具体的异常  可使得只在某异常下回滚
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void cancelLike(Integer uid, Integer cid) {

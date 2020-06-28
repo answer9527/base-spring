@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.answer.base.dao.LetterMapper">
+    <resultMap id="letterMap" type="Letter">
+        <id column="id" property="id"></id>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
+    </resultMap>
+
+    <insert id="insertOne" parameterType="com.answer.base.entity.Letter">
+        insert into letter(uid,title,content,email,plan_time) values(#{uid},#{title},#{content},#{email},#{plan_time}) ON DUPLICATE KEY UPDATE title = values(title)
+    </insert>
+    <select id="getMyLetter" parameterType="INTEGER" resultMap="letterMap">
+        select  * from letter where uid = #{uid} and delete_flag=0
+    </select>
+</mapper>
