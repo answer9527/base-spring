@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface LetterMapper {
     Boolean insertOne(Letter letter);
     Letter getMyLetter(Integer uid);
+    Boolean updateMyLetter(Letter letter);
 }

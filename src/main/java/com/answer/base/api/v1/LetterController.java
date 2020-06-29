@@ -2,6 +2,7 @@ package com.answer.base.api.v1;
 
 import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.entity.Letter;
+import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.LetterService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
@@ -34,6 +35,23 @@ public class LetterController {
         Integer uid = JwtToken.TokenGetUid(token);
         Letter letter = letterService.getMyLetter(uid);
         return ResultUtil.success(letter);
+    }
+
+//
+    @PostMapping("/update")
+    @ScopeLevel(0)
+    public Msg updateMyLetter(HttpServletRequest request,@RequestBody Letter letter){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        letterService.updateLetter(letter);
+        return ResultUtil.success("222");
+//        if(uid == letter.getUid()){
+//
+//
+//        }else{
+//            throw new ParameterException(40004);
+//        }
+
     }
 
 

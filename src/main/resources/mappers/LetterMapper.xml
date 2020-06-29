@@ -12,7 +12,24 @@
     <insert id="insertOne" parameterType="com.answer.base.entity.Letter">
         insert into letter(uid,title,content,email,plan_time) values(#{uid},#{title},#{content},#{email},#{plan_time}) ON DUPLICATE KEY UPDATE title = values(title)
     </insert>
+
     <select id="getMyLetter" parameterType="INTEGER" resultMap="letterMap">
         select  * from letter where uid = #{uid} and delete_flag=0
     </select>
+
+    <update id="updateMyLetter" parameterType="com.answer.base.entity.Letter">
+        update letter
+        <set>
+            <if test="email">
+                email=#{email},
+            </if>
+            <if test="content">
+                content=#{content},
+            </if>
+            <if test="title">
+                title=#{title},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
 </mapper>

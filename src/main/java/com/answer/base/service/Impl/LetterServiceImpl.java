@@ -27,4 +27,13 @@ public class LetterServiceImpl implements LetterService {
         Letter letter = letterOptional.orElseThrow(()->new ParameterException(50004));
         return letter;
     }
+
+    @Override
+    public void updateLetter(Letter letter) {
+        Boolean bool = letterMapper.updateMyLetter(letter);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+    }
+
 }
