@@ -70,6 +70,9 @@ public class ClassicController {
         return ResultUtil.success("删除成功");
     }
 
+
+
+
 //    设置喜欢
     @GetMapping("/setLike/{cid}")
     public Msg setLike(HttpServletRequest request,@PathVariable Integer cid){

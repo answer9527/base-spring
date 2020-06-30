@@ -17,5 +17,5 @@ public class Letter extends BaseEntity {
     private Boolean pending;
     private Date post_time;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
-    private Date plan_time;
+    private Date planTime;
 }
