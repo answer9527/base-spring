@@ -43,14 +43,9 @@ public class LetterController {
     public Msg updateMyLetter(HttpServletRequest request,@RequestBody Letter letter){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
+        letter.setUid(uid);
         letterService.updateLetter(letter);
-        return ResultUtil.success("222");
-//        if(uid == letter.getUid()){
-//
-//
-//        }else{
-//            throw new ParameterException(40004);
-//        }
+        return ResultUtil.success();
 
     }
 

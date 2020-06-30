@@ -11,7 +11,7 @@
     </resultMap>
 
     <insert id="insertOne" parameterType="com.answer.base.entity.Letter">
-        insert into letter(uid,title,content,email,plan_time) values(#{uid},#{title},#{content},#{email},#{plan_time}) ON DUPLICATE KEY UPDATE title = values(title)
+        insert into letter(uid,title,content,email,plan_time) values(#{uid},#{title},#{content},#{email},#{planTime}) ON DUPLICATE KEY UPDATE title = values(title)
     </insert>
 
     <select id="getMyLetter" parameterType="INTEGER" resultMap="letterMap">
@@ -31,6 +31,6 @@
                 title=#{title},
             </if>
         </set>
-        where id=#{id}
+        where id=#{id} and uid =#{uid}
     </update>
 </mapper>
