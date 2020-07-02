@@ -4,6 +4,7 @@ import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Classic;
 import com.answer.base.service.ClassicService;
+import com.answer.base.service.CommentService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ClassicController {
     @Autowired
     private ClassicService classicService;
+
 
 //    获取最新的推荐
     @GetMapping("/latest")
