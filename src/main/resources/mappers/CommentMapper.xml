@@ -14,16 +14,56 @@
         <result column="content" property="content" jdbcType="LONGVARCHAR"></result>
         <result column="user_name" property="userName" jdbcType="VARCHAR"></result>
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"></result>
-        <collection select="getChild" property="child"  column="id" ofType="com.answer.base.entity.Comment"> </collection>
+        <result column="uid_r" property="uid_r" jdbcType="INTEGER"></result>
+        <result column="user_name_r" property="userName_r" jdbcType="VARCHAR"></result>
+        <result column="user_avatar_r" property="userAvatar_r" jdbcType="VARCHAR"></result>
+<!--     collection 传入一个值的情况   -->
+<!--        <collection select="getChild" property="child"  column="id" ofType="com.answer.base.entity.Comment"> </collection>-->
+
+<!--      collection传入多个值  -->
+        <collection property="child" select="getChild" column="{child_pid=id,uid_r=uid_r}" ofType="com.answer.base.entity.Comment"></collection>
     </resultMap>
     <sql id="base_column_list">
         id,create_time,uid,classic_id,pid,content
     </sql>
     <select id="selectCommentByClassicId" parameterType="INTEGER" resultMap="CommentMap">
-        select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,u.user_name,u.avatar_url as user_avatar from comment c JOIN user u ON u.id=c.uid where c.classic_id=#{cid} and pid=0
+        select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,c.uid_r,u.user_name,u.avatar_url as user_avatar from comment c JOIN user u ON u.id=c.uid where c.classic_id=#{cid} and pid=0
     </select>
-    
-    <select id="getChild" parameterType="INTEGER" resultMap="CommentMap">
-        select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,u.user_name,u.avatar_url as user_avatar from comment c JOIN user u ON u.id=c.uid  where pid =#{id}
+<!-- collection 传入一个值的查询标签  -->
+
+<!--    <select id="getChild" parameterType="INTEGER" resultMap="CommentMap">-->
+<!--        select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,u.user_name,u.avatar_url as user_avatar from comment c JOIN user u ON u.id=c.uid  where pid =#{id}-->
+<!--    </select>-->
+
+<!--  collection 传入多个值的查询标签 parameterType一定要用map -->
+
+    <select id="getChild" parameterType="java.util.Map" resultMap="CommentMap">
+         select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,c.uid_r,u.user_name,u.avatar_url as user_avatar,r.user_name as user_name_r,r.avatar_url as user_avatar_r
+         from comment c JOIN user u ON u.id=c.uid JOIN user r ON r.id=c.uid_r
+        where pid =#{child_pid}
     </select>
+
+<!--    新增一条评论-->
+    <insert id="insertComment" parameterType="com.answer.base.entity.Comment">
+        insert into comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            uid,classic_id,content
+            <if test="uid_r!=null">
+                uid_r,
+            </if>
+            <if test="pid!=null">
+                pid,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            #{uid},#{classicId},#{content},
+            <if test="uid_r!=null">
+                #{uid_r},
+            </if>
+            <if test="pid!=null">
+                #{pid},
+            </if>
+        </trim>
+    </insert>
+
 </mapper>

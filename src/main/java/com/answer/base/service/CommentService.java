@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CommentService {
     List<Comment> selectCommentByClassicId(Integer classic_id);
+    void insertComment(Comment comment);
 }

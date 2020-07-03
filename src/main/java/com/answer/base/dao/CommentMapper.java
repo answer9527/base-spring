@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface CommentMapper {
     List<Comment> selectCommentByClassicId(Integer classicId);
+    Boolean insertComment(Comment comment);
 }
