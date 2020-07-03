@@ -1,6 +1,7 @@
 package com.answer.base.service.Impl;
 
 import com.answer.base.dao.CommentMapper;
+import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Comment;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.CommentService;
@@ -14,8 +15,8 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
     @Override
-    public List<Comment> selectCommentByClassicId(Integer classic_id) {
-        return commentMapper.selectCommentByClassicId(classic_id);
+    public List<Comment> selectCommentByClassicId(PagingDTO pagingDTO) {
+        return commentMapper.selectCommentByClassicId(pagingDTO);
     }
 
     @Override
