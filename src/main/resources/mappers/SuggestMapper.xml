@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.base.dao.SuggestMapper">
+    <resultMap id="suggestMap" type="Suggest">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
+        <result column="suggest_info" property="suggestInfo" jdbcType="VARCHAR"></result>
+        <result column="reply_info" property="replyInfo" jdbcType="VARCHAR"></result>
+    </resultMap>
+<!--    新增-->
+    <insert id="insertSuggest" parameterType="com.answer.base.entity.Suggest">
+        insert into suggest(uid,suggest_info) values(#{uid},#{suggestInfo})
+    </insert>
+<!--    回复-->
+    <update id="replySuggest" parameterType="com.answer.base.dto.ReplySuggestDTO">
+        update suggest
+        <set>
+            reply_info=#{replyInfo},update_time=current_timestamp
+        </set>
+        where id=#{id} and delete_time is null
+    </update>
+<!--    获取列表-->
+    <select id="getAll" parameterType="com.answer.base.dto.PagingDTO" resultMap="suggestMap">
+        select * from suggest where delete_time is null order by create_time desc limit #{size} offset ${(page-1)*size}
+    </select>
+</mapper>

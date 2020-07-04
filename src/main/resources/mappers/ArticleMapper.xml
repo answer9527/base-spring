@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，后面会讲 -->
+<mapper namespace="com.answer.base.dao.ArticleMapper">
+    <resultMap id="ArticleMap" type="Article">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
+        <result column="user_name" property="userName" jdbcType="INTEGER"></result>
+        <result column="avatar_url" property="avatarUrl" jdbcType="INTEGER"></result>
+    </resultMap>
+    <select id="getArticleDetail" parameterType="INTEGER" resultMap="ArticleMap">
+        select a.id,a.create_time,a.title,a.intro,a.content,a.uid,u.user_name,u.avatar_url  from article a Join user u ON u.id=a.uid where a.id=#{id} and a.delete_time is  null
+    </select>
+</mapper>
