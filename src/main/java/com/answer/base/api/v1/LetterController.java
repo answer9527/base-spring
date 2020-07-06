@@ -46,7 +46,6 @@ public class LetterController {
         letter.setUid(uid);
         letterService.updateLetter(letter);
         return ResultUtil.success();
-
     }
 
 
