@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.base.dao.HoleMapper">
+    <resultMap id="HoleMap" type="Hole">
+
+    </resultMap>
+    <insert id="insertHole" parameterType="com.answer.base.entity.Hole">
+        insert into
+        <trim prefix="hole(" suffix=")">
+            title,content,uid,type
+        </trim>
+        <trim prefix="values(" suffix=")">
+            #{title},#{content},#{uid},#{type}
+        </trim>
+    </insert>
+
+    <select id="getMyHole" parameterType="com.answer.base.dto.PagingDTO" resultMap="HoleMap">
+        select * from hole where uid=#{key}
+    </select>
+</mapper>
