@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.base.dao.HoleCommentMapper">
+    <resultMap id="HoleCommentMap" type="HoleComment">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"></result>
+        <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR"></result>
+        <collection property="child" column="id" select="getChild" ofType="com.answer.base.entity.HoleComment"></collection>
+    </resultMap>
+    <select id="getHoleCommentByHid" parameterType="INTEGER" resultMap="HoleCommentMap">
+        select c.id,c.content,c.create_time,c.uid,u.user_name,u.avatar_url from hole_comment c join user u ON u.id=c.uid where c.pid=0
+    </select>
+    
+    <select id="getChild" parameterType="INTEGER" resultMap="HoleCommentMap">
+        select c.id,c.content,c.create_time,c.uid,u.user_name,u.avatar_url,r.user_name as userName_r,r.avatar_url as avatarUrl_r from hole_comment c join user u ON u.id=c.uid join user r ON c.uid_r=r.id where c.pid=#{id}
+    </select>
+</mapper>

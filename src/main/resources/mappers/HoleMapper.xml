@@ -22,7 +22,7 @@
     </insert>
 
     <select id="getMyHole" parameterType="com.answer.base.dto.PagingDTO" resultMap="HoleMap">
-        select * from hole where uid=#{key} order by create_time desc
+        select * from hole where uid=#{key} and delete_time is null order by create_time desc
     </select>
 
     <select id="getRandHole" parameterType="com.answer.base.dto.PagingDTO" resultType="com.answer.base.vo.RandHoleVO">
@@ -30,7 +30,7 @@
         when h.type=2 then "匿名用户"
         else u.user_name
         end
-       )userName,u.gender,h.create_time as createTime FROM hole h JOIN `user` u ON u.id=h.uid  WHERE type!=3 AND uid!=#{key} ORDER BY RAND() LIMIT #{size}
+       )userName,u.gender,h.create_time as createTime FROM hole h JOIN `user` u ON u.id=h.uid  WHERE type!=3 and uid!=#{key} and delete_time is null ORDER BY RAND() LIMIT #{size}
     </select>
 
     <select id="getHoleById" parameterType="INTEGER" resultMap="HoleMap">
@@ -38,6 +38,6 @@
         case when h.type=2 then "匿名用户"
         else u.user_name
         end
-        )userName,u.gender,u.avatar_url from hole h join user u ON u.id=h.uid where h.id=#{id}
+        )userName,u.gender,u.avatar_url from hole h join user u ON u.id=h.uid where h.id=#{id} and h.delete_time is null
     </select>
 </mapper>
