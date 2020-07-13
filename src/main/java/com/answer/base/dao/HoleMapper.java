@@ -2,6 +2,8 @@ package com.answer.base.dao;
 
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Hole;
+import com.answer.base.vo.RandHoleVO;
+import com.answer.base.vo.SingleHoleVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +14,6 @@ import java.util.List;
 public interface HoleMapper {
     Boolean insertHole(Hole hole);
     List<Hole> getMyHole(PagingDTO pagingDTO);
+    List<RandHoleVO> getRandHole(PagingDTO pagingDTO);
+    SingleHoleVO getHoleById(Integer id);
 }

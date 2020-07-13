@@ -4,6 +4,8 @@ import com.answer.base.dao.HoleMapper;
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Hole;
 import com.answer.base.service.HoleService;
+import com.answer.base.vo.RandHoleVO;
+import com.answer.base.vo.SingleHoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,15 @@ public class HoleServiceImpl implements HoleService {
     @Override
     public List<Hole> getMyHole(PagingDTO pagingDTO) {
         return holeMapper.getMyHole(pagingDTO);
+    }
+
+    @Override
+    public List<RandHoleVO> getRandHole(PagingDTO pagingDTO) {
+        return holeMapper.getRandHole(pagingDTO);
+    }
+
+    @Override
+    public SingleHoleVO getHoleById(Integer id) {
+        return holeMapper.getHoleById(id);
     }
 }

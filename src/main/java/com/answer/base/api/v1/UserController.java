@@ -61,6 +61,7 @@ public class UserController {
         String token = JwtToken.makeToken(uid);
         Map<String,String> tokenMap = new HashMap<>();
         tokenMap.put("token",token);
+        tokenMap.put("uid",Integer.toString(uid));
         return ResultUtil.success(tokenMap,"登录成功");
     }
 
@@ -83,6 +84,7 @@ public class UserController {
             String token = JwtToken.makeToken(uid);
             Map<String,String> tokenMap = new HashMap<>();
             tokenMap.put("token",token);
+            tokenMap.put("uid",Integer.toString(uid));
             return ResultUtil.success(tokenMap);
         }else{
             throw new TokenException(40005);

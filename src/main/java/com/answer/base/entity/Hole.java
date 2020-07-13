@@ -11,4 +11,6 @@ public class Hole extends BaseEntity {
     private String content;
     private Integer uid;
     private Integer type;
+    private Boolean canComment = true;
+    private Boolean commentVisible = true;
 }
