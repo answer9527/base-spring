@@ -7,11 +7,11 @@
         <id column="id" property="id" jdbcType="INTEGER"></id>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
         <result column="user_name" property="userName" jdbcType="VARCHAR"></result>
-        <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR"></result>
+        <result column="avatar_url" property="userAvatar" jdbcType="VARCHAR"></result>
         <collection property="child" column="id" select="getChild" ofType="com.answer.base.entity.HoleComment"></collection>
     </resultMap>
-    <select id="getHoleCommentByHid" parameterType="INTEGER" resultMap="HoleCommentMap">
-        select c.id,c.content,c.create_time,c.uid,u.user_name,u.avatar_url from hole_comment c join user u ON u.id=c.uid where c.pid=0
+    <select id="getHoleCommentByHid" parameterType="com.answer.base.dto.PagingDTO" resultMap="HoleCommentMap">
+        select c.id,c.content,c.create_time,c.uid,u.user_name,u.avatar_url from hole_comment c join user u ON u.id=c.uid where c.pid=0 and c.hid=#{key} limit #{size} offset ${size*(page-1)}
     </select>
     
     <select id="getChild" parameterType="INTEGER" resultMap="HoleCommentMap">

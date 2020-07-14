@@ -30,7 +30,7 @@
         when h.type=2 then "匿名用户"
         else u.user_name
         end
-       )userName,u.gender,h.create_time as createTime FROM hole h JOIN `user` u ON u.id=h.uid  WHERE type!=3 and uid!=#{key} and delete_time is null ORDER BY RAND() LIMIT #{size}
+       )userName,u.gender,h.create_time as createTime FROM hole h JOIN `user` u ON u.id=h.uid  WHERE type!=3 and uid!=#{key}  ORDER BY RAND() LIMIT #{size}
     </select>
 
     <select id="getHoleById" parameterType="INTEGER" resultMap="HoleMap">
@@ -38,6 +38,6 @@
         case when h.type=2 then "匿名用户"
         else u.user_name
         end
-        )userName,u.gender,u.avatar_url from hole h join user u ON u.id=h.uid where h.id=#{id} and h.delete_time is null
+        )userName,u.gender,u.avatar_url  from hole h join user u ON u.id=h.uid where h.id=#{id} and h.delete_time is null
     </select>
 </mapper>
