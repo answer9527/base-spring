@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface HoleCommentMapper {
     List<HoleComment> getHoleCommentByHid(PagingDTO pagingDTO);
+    Boolean insertHoleComment(HoleComment holeComment);
 }

@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 public class HoleComment {
     private Integer id;
+    private Integer hid;
     private Integer uid;
     private String userName;
     private String userAvatar;

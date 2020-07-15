@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface HoleCommentService {
     List<HoleComment> getHoleCommentByHid(PagingDTO pagingDTO);
+    void insertHoleComment(HoleComment holeComment);
 }

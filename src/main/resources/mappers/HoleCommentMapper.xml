@@ -17,4 +17,26 @@
     <select id="getChild" parameterType="INTEGER" resultMap="HoleCommentMap">
         select c.id,c.content,c.create_time,c.uid,u.user_name,u.avatar_url,r.user_name as userName_r,r.avatar_url as avatarUrl_r from hole_comment c join user u ON u.id=c.uid join user r ON c.uid_r=r.id where c.pid=#{id}
     </select>
+
+    <insert id="insertHoleComment" parameterType="com.answer.base.entity.HoleComment">
+        insert into
+        <trim prefix="hole_comment(" suffix=")" suffixOverrides=",">
+            hid,content,uid,
+            <if test="uid_r!=null">
+                uid_r,
+            </if>
+            <if test="pid!=null">
+                pid
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            #{hid},#{content},#{uid},
+            <if test="uid_r!=null">
+                #{uid_r},
+            </if>
+            <if test="pid!=null">
+                #{pid}
+            </if>
+        </trim>
+    </insert>
 </mapper>
