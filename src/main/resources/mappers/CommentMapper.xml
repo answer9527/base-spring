@@ -26,8 +26,8 @@
     <sql id="base_column_list">
         id,create_time,uid,classic_id,pid,content
     </sql>
-    <select id="selectCommentByClassicId" parameterType="com.answer.base.dto.PagingDTO" resultMap="CommentMap">
-        select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,c.uid_r,u.user_name,u.avatar_url as user_avatar from comment c JOIN user u ON u.id=c.uid where c.classic_id=#{key} and pid=0 limit #{size} offset ${size*(page-1)}
+    <select id="selectCommentByClassicId" parameterType="INTEGER" resultMap="CommentMap">
+        select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,c.uid_r,u.user_name,u.avatar_url as user_avatar from comment c JOIN user u ON u.id=c.uid where c.classic_id=#{key} and pid=0
     </select>
 <!-- collection 传入一个值的查询标签  -->
 

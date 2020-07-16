@@ -5,6 +5,9 @@ import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Comment;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.CommentService;
+import com.answer.base.vo.Pager;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +18,10 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
     @Override
-    public List<Comment> selectCommentByClassicId(PagingDTO pagingDTO) {
-        return commentMapper.selectCommentByClassicId(pagingDTO);
+    public Pager<Comment> selectCommentByClassicId(PagingDTO pagingDTO) {
+        PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
+        PageInfo<Comment> pageInfo = new PageInfo<>(commentMapper.selectCommentByClassicId(pagingDTO.getKey()));
+        return new Pager<>(pageInfo);
     }
 
     @Override

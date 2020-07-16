@@ -10,6 +10,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface CommentMapper {
-    List<Comment> selectCommentByClassicId(PagingDTO pagingDTO);
+    List<Comment> selectCommentByClassicId(Integer cid);
     Boolean insertComment(Comment comment);
 }

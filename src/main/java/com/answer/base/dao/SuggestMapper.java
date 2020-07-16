@@ -13,5 +13,5 @@ import java.util.List;
 public interface SuggestMapper {
     Boolean insertSuggest(Suggest suggest);
     Boolean replySuggest(ReplySuggestDTO replySuggestDTO);
-    List<Suggest> getAll(PagingDTO pagingDTO);
+    List<Suggest> getAll(String keyword);
 }

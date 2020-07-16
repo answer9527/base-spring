@@ -22,11 +22,11 @@
         where id=#{id} and delete_time is null
     </update>
 <!--    获取列表-->
-    <select id="getAll" parameterType="com.answer.base.dto.PagingDTO" resultMap="suggestMap">
+    <select id="getAll" parameterType="STRING" resultMap="suggestMap">
         select * from suggest where delete_time is null
         <if test="keyword !=null">
             and suggest_info like "%"#{keyword}"%"
         </if>
-         order by create_time desc limit #{size} offset ${(page-1)*size}
+         order by create_time desc
     </select>
 </mapper>

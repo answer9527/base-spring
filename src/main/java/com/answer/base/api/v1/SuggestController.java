@@ -8,6 +8,9 @@ import com.answer.base.service.SuggestService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
+import com.answer.base.vo.Pager;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,8 +46,8 @@ public class SuggestController {
 
     @PostMapping("/all")
     public Msg getAllSuggest(@RequestBody PagingDTO pagingDTO){
-        List<Suggest> suggestList = suggestService.getAll(pagingDTO);
-        return ResultUtil.success(suggestList);
+
+        return ResultUtil.success(suggestService.getAll(pagingDTO));
     }
 
 }

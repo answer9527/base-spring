@@ -6,6 +6,7 @@ import com.answer.base.service.CommentService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
+import com.answer.base.vo.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class CommentController {
     private CommentService commentService;
     @PostMapping("/selectByCid")
     public Msg selectCommentByClassicId(@RequestBody PagingDTO pagingDTO){
-        List<Comment> commentList = commentService.selectCommentByClassicId(pagingDTO);
-        return ResultUtil.success(commentList);
+        Pager<Comment> pager = commentService.selectCommentByClassicId(pagingDTO);
+        return ResultUtil.success(pager);
     }
 
 //    新增
