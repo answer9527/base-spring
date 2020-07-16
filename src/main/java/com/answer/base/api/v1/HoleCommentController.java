@@ -6,6 +6,9 @@ import com.answer.base.service.HoleCommentService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
+import com.answer.base.vo.Pager;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,8 +25,10 @@ public class HoleCommentController {
     private HoleCommentService holeCommentService;
     @PostMapping("/selectByHid")
     public Msg getHoleCommentByHid(@RequestBody PagingDTO pagingDTO){
-        List<HoleComment> holeCommentList = holeCommentService.getHoleCommentByHid(pagingDTO);
-        return ResultUtil.success(holeCommentList);
+        PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
+        PageInfo<HoleComment> pageInfo = new PageInfo<>(holeCommentService.getHoleCommentByHid(pagingDTO));
+        Pager pager = new Pager(pageInfo);
+        return ResultUtil.success(pager);
     }
 
     @PostMapping("/insert")
