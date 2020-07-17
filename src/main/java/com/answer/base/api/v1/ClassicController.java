@@ -2,6 +2,7 @@ package com.answer.base.api.v1;
 
 import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Classic;
 import com.answer.base.service.ClassicService;
 import com.answer.base.service.CommentService;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/classic")
@@ -26,7 +29,9 @@ public class ClassicController {
 //    获取最新的推荐
     @GetMapping("/latest")
 //    @ScopeLevel(value = 10)
-    public Msg getRecommendLatest(){
+    public Msg getRecommendLatest(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+
         Classic classic = classicService.getRecommendLatest();
         return ResultUtil.success(classic);
     }
@@ -40,8 +45,17 @@ public class ClassicController {
 
 //    获取推荐的下一个
     @GetMapping("/{id}/next")
-    public Msg getRecommendNext(@PathVariable Integer id){
+    public Msg getRecommendNext(HttpServletRequest request,@PathVariable Integer id){
         Classic classic = classicService.getRecommendNext(id);
+        UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
+        String token = request.getHeader("Authorization");
+        uidAndIdDTO.setId(id);
+        if(token!=null){
+            Integer uid = JwtToken.TokenGetUid(token);
+            uidAndIdDTO.setUid(uid);
+            Boolean like_status = classicService.getLikeStatus(uidAndIdDTO);
+            classic.setLike_status(like_status);
+        }
         return ResultUtil.success(classic);
     }
 

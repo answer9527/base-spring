@@ -3,6 +3,7 @@ package com.answer.base.service.Impl;
 import com.answer.base.dao.ClassicMapper;
 import com.answer.base.dto.ChangeLikeCountDTO;
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.dto.UserLikeUnlikeClassicDTO;
 import com.answer.base.entity.Classic;
 import com.answer.base.exception.http.ParameterException;
@@ -15,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -126,6 +129,11 @@ public class ClassicServiceImpl implements ClassicService {
     @Override
     public Classic getDetailById(Integer id) {
         return classicMapper.getDetailById(id);
+    }
+
+    @Override
+    public Boolean getLikeStatus(UidAndIdDTO uidAndIdDTO) {
+        return classicMapper.getLikeStatus(uidAndIdDTO);
     }
 
 }

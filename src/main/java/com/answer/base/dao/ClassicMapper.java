@@ -3,12 +3,14 @@ package com.answer.base.dao;
 
 import com.answer.base.dto.ChangeLikeCountDTO;
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.dto.UserLikeUnlikeClassicDTO;
 import com.answer.base.entity.Classic;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -19,6 +21,7 @@ public interface ClassicMapper {
     Classic getRecommendPrevious(Integer id);
 //    获取下一个推荐
     Classic getRecommendNext(Integer id);
+
 
 //    插入一条数据  设置为Integer,Long返回是插入的数量  设置Boolean返回是否插入成功    update 和delete方法也是同理
     Integer insertOne(Classic classic);
@@ -49,5 +52,8 @@ public interface ClassicMapper {
 
 //    根据Id获取详情
     Classic getDetailById(Integer id);
+
+//    根据用户的id 和classic 的id 判断是否为喜欢
+    Boolean getLikeStatus(UidAndIdDTO uidAndIdDTO);
 
 }

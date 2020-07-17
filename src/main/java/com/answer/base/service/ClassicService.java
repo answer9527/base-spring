@@ -2,10 +2,12 @@ package com.answer.base.service;
 
 import com.answer.base.dto.ChangeLikeCountDTO;
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Classic;
 import com.answer.base.vo.Pager;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ClassicService {
 //    获取最新推荐
@@ -44,4 +46,7 @@ public interface ClassicService {
 
 //    根据id获取详情
     Classic getDetailById(Integer id);
+
+//    根据用户的id 和classic 的id 判断是否为喜欢
+    Boolean getLikeStatus(UidAndIdDTO uidAndIdDTO);
 }

@@ -113,6 +113,12 @@
     <select id="getDetailById" parameterType="integer" resultMap="ClassicMap">
         select * from classic where id=#{id} and delete_time is null;
     </select>
+
+
+<!--    根据用户id 和classic的id查询是否为用户喜欢-->
+    <select id="getLikeStatus" parameterType="com.answer.base.dto.UidAndIdDTO">
+        select count(*) from user_like_classic where uid=#{uid} and cid=#{id}
+    </select>
 </mapper>
 
 
