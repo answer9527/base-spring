@@ -8,6 +8,7 @@ import com.answer.base.service.CommentService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
+import com.answer.base.vo.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -100,7 +101,7 @@ public class ClassicController {
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
         pagingDTO.setKey(uid);
-        List<Classic> classicList = classicService.getMyLike(pagingDTO);
+        Pager<Classic> classicList = classicService.getMyLike(pagingDTO);
         return ResultUtil.success(classicList);
     }
 

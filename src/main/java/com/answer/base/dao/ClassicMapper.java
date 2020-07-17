@@ -33,7 +33,7 @@ public interface ClassicMapper {
     Boolean deleteOne(Integer id);
 
 //    查找我喜欢的classic
-    List<Classic> getMyLike(PagingDTO pagingDTO);
+    List<Classic> getMyLike(Integer uid);
 
 //    设置我喜欢
     Boolean setLike(UserLikeUnlikeClassicDTO userLikeClassicDTO);

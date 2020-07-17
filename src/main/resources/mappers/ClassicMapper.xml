@@ -76,8 +76,8 @@
     </update>
 
 <!--    分页查找我喜欢的列表-->
-    <select id="getMyLike" parameterType="com.answer.base.dto.PagingDTO" resultMap="ClassicMap">
-       select * from classic a join user_like_classic b on b.uid=#{key} and a.id=b.cid limit #{size} offset ${size*(page-1)}
+    <select id="getMyLike" parameterType="INTEGER" resultMap="ClassicMap">
+       select * from classic a join user_like_classic b on b.uid=#{key} and a.id=b.cid
     </select>
 
 <!--  设置喜欢  -->

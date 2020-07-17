@@ -8,6 +8,9 @@ import com.answer.base.entity.Classic;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.ClassicService;
 import com.answer.base.util.Msg;
+import com.answer.base.vo.Pager;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,8 +112,10 @@ public class ClassicServiceImpl implements ClassicService {
     }
 
     @Override
-    public List<Classic> getMyLike(PagingDTO pagingDTO) {
-        return classicMapper.getMyLike(pagingDTO);
+    public Pager<Classic> getMyLike(PagingDTO pagingDTO) {
+        PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
+        PageInfo<Classic> pageInfo = new PageInfo<>(classicMapper.getMyLike(pagingDTO.getKey()));
+        return new Pager<>(pageInfo);
     }
 
     @Override

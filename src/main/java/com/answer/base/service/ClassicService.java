@@ -3,6 +3,7 @@ package com.answer.base.service;
 import com.answer.base.dto.ChangeLikeCountDTO;
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Classic;
+import com.answer.base.vo.Pager;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface ClassicService {
     void setLikeCount(ChangeLikeCountDTO changeLikeCountDTO);
 
 //    获取我的点喜欢的列表
-    List<Classic> getMyLike(PagingDTO pagingDTO);
+    Pager<Classic> getMyLike(PagingDTO pagingDTO);
 
 //    按照类型type查找列表
     List<Classic> getListByType(PagingDTO pagingDTO);
