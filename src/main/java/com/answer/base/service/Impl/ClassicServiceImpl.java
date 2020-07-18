@@ -53,7 +53,6 @@ public class ClassicServiceImpl implements ClassicService {
         if(count==0){
             throw new ParameterException(50001);
         }
-
     }
 
     @Override
@@ -70,7 +69,6 @@ public class ClassicServiceImpl implements ClassicService {
         if(!bool){
             throw new ParameterException(50003);
         }
-
     }
 
     @Override
