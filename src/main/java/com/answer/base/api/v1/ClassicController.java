@@ -10,6 +10,8 @@ import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
 import com.answer.base.vo.Pager;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,16 +32,22 @@ public class ClassicController {
     @GetMapping("/latest")
 //    @ScopeLevel(value = 10)
     public Msg getRecommendLatest(HttpServletRequest request){
-        String token = request.getHeader("Authorization");
-
         Classic classic = classicService.getRecommendLatest();
+        String token = request.getHeader("Authorization");
+        if(!token.equals("")){
+            classic=this.formatLikeStatus(classic,token);
+        }
         return ResultUtil.success(classic);
     }
 
 //    获取推荐的上一个
     @GetMapping("/{id}/previous")
-    public Msg getRecommendPrevious(@PathVariable Integer id){
+    public Msg getRecommendPrevious(HttpServletRequest request,@PathVariable Integer id){
         Classic classic = classicService.getRecommendPrevious(id);
+        String token = request.getHeader("Authorization");
+        if(!token.equals("")){
+            classic=this.formatLikeStatus(classic,token);
+        }
         return ResultUtil.success(classic);
     }
 
@@ -47,14 +55,9 @@ public class ClassicController {
     @GetMapping("/{id}/next")
     public Msg getRecommendNext(HttpServletRequest request,@PathVariable Integer id){
         Classic classic = classicService.getRecommendNext(id);
-        UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
         String token = request.getHeader("Authorization");
-        uidAndIdDTO.setId(id);
-        if(token!=null){
-            Integer uid = JwtToken.TokenGetUid(token);
-            uidAndIdDTO.setUid(uid);
-            Boolean like_status = classicService.getLikeStatus(uidAndIdDTO);
-            classic.setLike_status(like_status);
+        if(!token.equals("")){
+            classic=this.formatLikeStatus(classic,token);
         }
         return ResultUtil.success(classic);
     }
@@ -122,17 +125,30 @@ public class ClassicController {
 //    按类型查找列表
     @PostMapping("/getByType")
     public Msg getByType(@RequestBody PagingDTO pagingDTO){
-        List<Classic> classics = classicService.getListByType(pagingDTO);
-        return ResultUtil.success(classics);
+        Pager<Classic> classicList = classicService.getListByType(pagingDTO);
+        return ResultUtil.success(classicList);
     }
 
 //    根据id查询详情
     @GetMapping("/detail/{id}")
-    public Msg getDetailById(@PathVariable Integer id){
+    public Msg getDetailById(HttpServletRequest request,@PathVariable Integer id){
         Classic classic = classicService.getDetailById(id);
+        String token = request.getHeader("Authorization");
+        if(!token.equals("")){
+            classic=this.formatLikeStatus(classic,token);
+        }
         return ResultUtil.success(classic);
     }
 
-
+//    设置返回是否喜欢某classic
+    public Classic formatLikeStatus(Classic classic,String token){
+        UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
+        uidAndIdDTO.setId(classic.getId());
+        Integer uid = JwtToken.TokenGetUid(token);
+        uidAndIdDTO.setUid(uid);
+        Boolean like_status = classicService.getLikeStatus(uidAndIdDTO);
+        classic.setLike_status(like_status);
+        return classic;
+    }
 
 }

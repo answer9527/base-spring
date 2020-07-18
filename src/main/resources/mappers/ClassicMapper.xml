@@ -106,7 +106,7 @@
 
 <!--    按照类型查询classic列表-->
     <select id="getListByType" parameterType="com.answer.base.dto.PagingDTO" resultMap="ClassicMap">
-            select <include refid="base_column_list"></include> from classic where type=#{key} and delete_time is null;
+            select <include refid="base_column_list"></include> from classic where type=#{key} and delete_time is null
     </select>
 
 <!--    根据id查找classic的详情-->
@@ -116,7 +116,7 @@
 
 
 <!--    根据用户id 和classic的id查询是否为用户喜欢-->
-    <select id="getLikeStatus" parameterType="com.answer.base.dto.UidAndIdDTO">
+    <select id="getLikeStatus" parameterType="com.answer.base.dto.UidAndIdDTO" resultType="java.lang.Boolean">
         select count(*) from user_like_classic where uid=#{uid} and cid=#{id}
     </select>
 </mapper>

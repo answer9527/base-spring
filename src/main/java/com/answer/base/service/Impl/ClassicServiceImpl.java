@@ -122,8 +122,10 @@ public class ClassicServiceImpl implements ClassicService {
     }
 
     @Override
-    public List<Classic> getListByType(PagingDTO pagingDTO) {
-        return classicMapper.getListByType(pagingDTO);
+    public Pager<Classic> getListByType(PagingDTO pagingDTO) {
+        PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
+        PageInfo<Classic> pageInfo = new PageInfo<>(classicMapper.getListByType(pagingDTO.getKey()));
+        return new Pager<>(pageInfo);
     }
 
     @Override

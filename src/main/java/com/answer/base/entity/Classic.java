@@ -21,4 +21,5 @@ public class Classic extends BaseEntity {
     private String image;
     private Integer like_count;
     private Boolean like_status=false;
+
 }

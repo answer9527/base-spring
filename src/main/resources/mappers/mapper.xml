@@ -35,17 +35,17 @@
     </select>
 
 <!--    根据openid查找用户id-->
-    <select id="selectUidByOpenid" parameterType="String" resultType="Integer">
+    <select id="selectUidByOpenid" parameterType="String" resultType="java.lang.Integer">
         select id from user where openid =#{openid} limit 1;
     </select>
 
 <!--    根据account查询用户-->
-    <select id="selectUidByAccount" parameterType="String" resultType="Integer">
+    <select id="selectUidByAccount" parameterType="String" resultType="java.lang.Integer">
         select id from user where account=#{account} limit 1;
     </select>
 
 <!--    根据account 和password查询uid-->
-    <select id="selectUidByAccPwd" parameterType="com.answer.base.dto.PwdTokenDTO" resultType="Integer">
+    <select id="selectUidByAccPwd" parameterType="com.answer.base.dto.PwdTokenDTO" resultType="java.lang.Integer">
         select id from user where account=#{account} and password=#{password} limit 1;
     </select>
 
