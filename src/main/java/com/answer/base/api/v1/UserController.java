@@ -71,7 +71,10 @@ public class UserController {
         Optional<Integer> uidOptional = Optional.ofNullable(userService.selectUidByAccPwd(pwdTokenDTO));
         Integer uid = uidOptional.orElseThrow(()->new TokenException(20002));
         String token = JwtToken.makeToken(uid);
-        return ResultUtil.success(token,"登陆成功");
+        Map<String,String> tokenMap = new HashMap<>();
+        tokenMap.put("token",token);
+        tokenMap.put("uid",Integer.toString(uid));
+        return ResultUtil.success(tokenMap,"登陆成功");
     }
 
 //    已注册的用户使用微信code直接登录
@@ -85,7 +88,7 @@ public class UserController {
             Map<String,String> tokenMap = new HashMap<>();
             tokenMap.put("token",token);
             tokenMap.put("uid",Integer.toString(uid));
-            return ResultUtil.success(tokenMap);
+            return ResultUtil.success(tokenMap,"登陆成功");
         }else{
             throw new TokenException(40005);
         }
