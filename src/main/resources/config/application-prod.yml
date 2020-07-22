@@ -1,0 +1,28 @@
+server:
+  port: 8068
+wx:
+  appid: wx50c794bc3a1857fe
+  appsecret: e735720006791179fe186a160c194553
+  code2session: https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type=authorization_code
+
+token:
+  security:
+    jwt-key: 418052
+    token-expired-in: 8640
+    default-scope: 8
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://111.230.133.25:3306/base?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: base
+    password: ZwJTwai6ciJCeXYm
+mybatis:
+  type-aliases-package: com.answer.base.entity
+  mapper-locations: classpath:mappers/*.xml
+
+pagehelper:
+  helper-dialect: mysql
+
+upload:
+  path: /www/server/tomcat

@@ -23,3 +23,6 @@ mybatis:
 
 pagehelper:
   helper-dialect: mysql
+
+upload:
+  path: src/main/resources/static

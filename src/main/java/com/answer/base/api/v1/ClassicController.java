@@ -33,6 +33,7 @@ public class ClassicController {
 //    @ScopeLevel(value = 10)
     public Msg getRecommendLatest(HttpServletRequest request){
         Classic classic = classicService.getRecommendLatest();
+        String str = classic.getImage();
         String token = request.getHeader("Authorization");
         if(!token.equals("")){
             classic=this.formatLikeStatus(classic,token);

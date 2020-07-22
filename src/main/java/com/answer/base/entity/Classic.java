@@ -2,12 +2,15 @@ package com.answer.base.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 @Setter
 @Getter
 public class Classic extends BaseEntity {
+
     private Integer id;
     private Date recommend_time;
     private Boolean is_recommend=false;
@@ -22,4 +25,8 @@ public class Classic extends BaseEntity {
     private Integer like_count;
     private Boolean like_status=false;
 
+    public String getImage() {
+        String base_file = "https://mina.huzhihua.cn";
+        return base_file+image;
+    }
 }

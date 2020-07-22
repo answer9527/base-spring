@@ -3,6 +3,7 @@ package com.answer.base.api.v1;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,15 +17,17 @@ import java.util.UUID;
 @RequestMapping("/v1/upload")
 @CrossOrigin(origins ="*")
 public class UploadController {
+    @Value("${upload.path}")
+    private String base_path;
     public final static String UPLOAD_PATH_PREFIX = "/uploadFile/";
     @RequestMapping("/file")
-    public Msg uploadFile(@RequestParam MultipartFile file, HttpServletRequest request){
+    public Msg uploadFile(@RequestParam MultipartFile file){
         if(file.isEmpty()){
             throw new ParameterException(60001);
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
         String format = sdf.format(new Date());
-        String realPath = "/www/server/tomcat" + UPLOAD_PATH_PREFIX;
+        String realPath = base_path + UPLOAD_PATH_PREFIX;
         String fileName = file.getOriginalFilename();
 //        创建上传文件的文件夹
         File myFile = new File(realPath+format);
