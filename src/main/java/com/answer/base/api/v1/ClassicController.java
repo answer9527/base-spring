@@ -57,7 +57,7 @@ public class ClassicController {
     public Msg getRecommendNext(HttpServletRequest request,@PathVariable Integer id){
         Classic classic = classicService.getRecommendNext(id);
         String token = request.getHeader("Authorization");
-        if(token!=null){
+        if(!token.equals("")){
             classic=this.formatLikeStatus(classic,token);
         }
         return ResultUtil.success(classic);

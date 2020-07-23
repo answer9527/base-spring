@@ -8,7 +8,7 @@ wx:
 token:
   security:
     jwt-key: 418052
-    token-expired-in: 1
+    token-expired-in: 5
     default-scope: 8
 
 spring:
