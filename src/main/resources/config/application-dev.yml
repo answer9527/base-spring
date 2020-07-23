@@ -8,7 +8,7 @@ wx:
 token:
   security:
     jwt-key: 418052
-    token-expired-in: 8640
+    token-expired-in: 1
     default-scope: 8
 
 spring:
@@ -26,3 +26,4 @@ pagehelper:
 
 upload:
   path: src/main/resources/static
+

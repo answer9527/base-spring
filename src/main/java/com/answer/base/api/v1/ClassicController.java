@@ -13,6 +13,7 @@ import com.answer.base.vo.Pager;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +34,6 @@ public class ClassicController {
 //    @ScopeLevel(value = 10)
     public Msg getRecommendLatest(HttpServletRequest request){
         Classic classic = classicService.getRecommendLatest();
-        String str = classic.getImage();
         String token = request.getHeader("Authorization");
         if(!token.equals("")){
             classic=this.formatLikeStatus(classic,token);
@@ -57,7 +57,7 @@ public class ClassicController {
     public Msg getRecommendNext(HttpServletRequest request,@PathVariable Integer id){
         Classic classic = classicService.getRecommendNext(id);
         String token = request.getHeader("Authorization");
-        if(!token.equals("")){
+        if(token!=null){
             classic=this.formatLikeStatus(classic,token);
         }
         return ResultUtil.success(classic);

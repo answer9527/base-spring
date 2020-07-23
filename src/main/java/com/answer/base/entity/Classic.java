@@ -2,9 +2,6 @@ package com.answer.base.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-
 import java.util.Date;
 
 @Setter
@@ -26,7 +23,7 @@ public class Classic extends BaseEntity {
     private Boolean like_status=false;
 
     public String getImage() {
-        String base_file = "https://mina.huzhihua.cn";
-        return base_file+image;
+        String domain = this._domain();
+        return domain+image;
     }
 }

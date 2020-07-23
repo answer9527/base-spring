@@ -25,12 +25,22 @@
         select * from hole where uid=#{key} and delete_time is null order by create_time desc
     </select>
 
+<!--    效率太低-->
+<!--    <select id="getRandHole" parameterType="com.answer.base.dto.PagingDTO" resultType="com.answer.base.vo.RandHoleVO">-->
+<!--    SELECT h.id,h.title,h.content,h.uid,h.type,(case-->
+<!--        when h.type=2 then "匿名用户"-->
+<!--        else u.user_name-->
+<!--        end-->
+<!--       )userName,u.gender,h.create_time as createTime FROM hole h JOIN `user` u ON u.id=h.uid  WHERE type!=3 and uid!=#{key}  ORDER BY RAND() LIMIT #{size}-->
+<!--    </select>-->
+
     <select id="getRandHole" parameterType="com.answer.base.dto.PagingDTO" resultType="com.answer.base.vo.RandHoleVO">
     SELECT h.id,h.title,h.content,h.uid,h.type,(case
         when h.type=2 then "匿名用户"
         else u.user_name
         end
-       )userName,u.gender,h.create_time as createTime FROM hole h JOIN `user` u ON u.id=h.uid  WHERE type!=3 and uid!=#{key}  ORDER BY RAND() LIMIT #{size}
+       )userName,u.gender,h.create_time as createTime FROM hole h JOIN `user` u ON u.id=h.uid  WHERE type!=3 and uid!=#{key} and h.id>=(RAND()*(SELECT MAX(id) from hole))  LIMIT #{size}
+
     </select>
 
     <select id="getHoleById" parameterType="INTEGER" resultMap="HoleMap">
