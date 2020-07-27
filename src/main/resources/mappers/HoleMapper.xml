@@ -39,7 +39,7 @@
         when h.type=2 then "匿名用户"
         else u.user_name
         end
-       )userName,u.gender,h.create_time as createTime FROM hole h JOIN `user` u ON u.id=h.uid  WHERE type!=3 and uid!=#{key} and h.id>=(RAND()*(SELECT MAX(id) from hole))  LIMIT #{size}
+       )userName,u.gender,h.create_time as createTime FROM hole h JOIN `user` u ON u.id=h.uid  WHERE type!=3 and uid!=#{key} and h.id>=(RAND()*(SELECT MAX(id) from hole)) and h.delete_time is null LIMIT #{size}
 
     </select>
 
@@ -50,4 +50,12 @@
         end
         )userName,u.gender,u.avatar_url  from hole h join user u ON u.id=h.uid where h.id=#{id} and h.delete_time is null
     </select>
+
+    <update id="delMyHole" parameterType="com.answer.base.dto.UidAndIdDTO">
+        update hole
+            <set>
+                delete_time = current_timestamp
+            </set>
+            where uid=#{uid} and id = #{id}
+    </update>
 </mapper>

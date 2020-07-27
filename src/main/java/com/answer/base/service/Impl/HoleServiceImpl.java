@@ -2,7 +2,9 @@ package com.answer.base.service.Impl;
 
 import com.answer.base.dao.HoleMapper;
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Hole;
+import com.answer.base.exception.http.AuthException;
 import com.answer.base.service.HoleService;
 import com.answer.base.vo.RandHoleVO;
 import com.answer.base.vo.SingleHoleVO;
@@ -33,5 +35,13 @@ public class HoleServiceImpl implements HoleService {
     @Override
     public SingleHoleVO getHoleById(Integer id) {
         return holeMapper.getHoleById(id);
+    }
+
+    @Override
+    public void delHole(UidAndIdDTO uidAndIdDTO) {
+        Boolean bool = holeMapper.delMyHole(uidAndIdDTO);
+        if(!bool){
+            throw new AuthException(40004);
+        }
     }
 }

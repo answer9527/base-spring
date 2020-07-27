@@ -1,6 +1,7 @@
 package com.answer.base.dao;
 
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Hole;
 import com.answer.base.vo.RandHoleVO;
 import com.answer.base.vo.SingleHoleVO;
@@ -16,4 +17,5 @@ public interface HoleMapper {
     List<Hole> getMyHole(PagingDTO pagingDTO);
     List<RandHoleVO> getRandHole(PagingDTO pagingDTO);
     SingleHoleVO getHoleById(Integer id);
+    Boolean delMyHole(UidAndIdDTO uidAndIdDTO);
 }

@@ -2,6 +2,7 @@ package com.answer.base.api.v1;
 
 import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Hole;
 import com.answer.base.service.HoleService;
 import com.answer.base.util.JwtToken;
@@ -50,6 +51,7 @@ public class HoleController {
         return ResultUtil.success(holeVOS);
     }
 
+//    获取树洞的详情
     @GetMapping("/getById/{id}")
     @ScopeLevel(0)
     public Msg getHoleById(@PathVariable Integer id){
@@ -58,4 +60,15 @@ public class HoleController {
     }
 
 
+//    删除我的树洞功能
+    @PostMapping("/del/{id}")
+    public Msg delHole(HttpServletRequest request,@PathVariable Integer id){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
+        uidAndIdDTO.setUid(uid);
+        uidAndIdDTO.setId(id);
+        holeService.delHole(uidAndIdDTO);
+        return ResultUtil.success();
+    }
 }
