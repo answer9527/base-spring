@@ -29,6 +29,7 @@ public class HoleCommentController {
         return ResultUtil.success(pager);
     }
 
+//    评论树洞
     @PostMapping("/insert")
     public Msg insertHoleComment(HttpServletRequest request,@RequestBody HoleComment holeComment){
         String token = request.getHeader("Authorization");

@@ -14,6 +14,6 @@ import java.util.List;
 public interface HoleCommentMapper {
 //    List<HoleComment> getHoleCommentByHid(PagingDTO pagingDTO);
     Page<HoleComment> getHoleCommentByHid(Integer hid);
-    Boolean insertHoleComment(HoleComment holeComment);
+    Integer insertHoleComment(HoleComment holeComment);
     Boolean delHoleComment(UidAndIdDTO uidAndIdDTO);
 }

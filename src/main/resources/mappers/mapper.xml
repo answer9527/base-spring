@@ -83,7 +83,7 @@
 
 
 <!--    添加一条用户记录并且设置返回创建的用户的id-->
-    <insert id="registerUser" parameterType="com.answer.base.dto.UserRegisterDTO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="registerUser" parameterType="com.answer.base.dto.UserRegisterDTO" useGeneratedKeys="true" keyProperty="id" >
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             create_time,user_name,

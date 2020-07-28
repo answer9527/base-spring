@@ -16,7 +16,7 @@ public interface UserMapper {
 
 
 
-//    注册用户
+//    注册用户 并返回新注册的用户的id
     int registerUser(UserRegisterDTO userRegisterDTO);
 
 //    根据openid 查询用户

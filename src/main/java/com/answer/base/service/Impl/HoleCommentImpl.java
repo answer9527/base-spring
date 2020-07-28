@@ -1,9 +1,11 @@
 package com.answer.base.service.Impl;
 
 import com.answer.base.dao.HoleCommentMapper;
+import com.answer.base.dao.MsgMapper;
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.HoleComment;
+import com.answer.base.entity.Msg;
 import com.answer.base.exception.http.AuthException;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.HoleCommentService;
@@ -18,6 +20,8 @@ import java.util.List;
 public class HoleCommentImpl implements HoleCommentService {
     @Autowired
     private HoleCommentMapper holeCommentMapper;
+    @Autowired
+    private MsgMapper msgMapper;
     @Override
     public Page<HoleComment> getHoleCommentByHid(PagingDTO pagingDTO) {
         Integer hid = pagingDTO.getKey();
@@ -29,10 +33,22 @@ public class HoleCommentImpl implements HoleCommentService {
 
     @Override
     public void insertHoleComment(HoleComment holeComment) {
-        Boolean bool = holeCommentMapper.insertHoleComment(holeComment);
-        if(!bool){
-            throw new ParameterException(50003);
-        }
+        holeCommentMapper.insertHoleComment(holeComment);
+        Integer h_com_id =holeComment.getId();
+
+        Msg msg = new Msg();
+        msg.setType(2);
+        msg.setCommentId(h_com_id);
+        msgMapper.insertMsg(msg);
+//        if(holeComment.getPid()==null){
+//
+//        }else{
+//
+//        }
+
+//        if(!bool){
+//            throw new ParameterException(50003);
+//        }
     }
 
     @Override
