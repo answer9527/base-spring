@@ -61,7 +61,7 @@ public class HoleController {
 
 
 //    删除我的树洞功能
-    @PostMapping("/del/{id}")
+    @GetMapping("/del/{id}")
     public Msg delHole(HttpServletRequest request,@PathVariable Integer id){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);

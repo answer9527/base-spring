@@ -2,7 +2,9 @@ package com.answer.base.service.Impl;
 
 import com.answer.base.dao.HoleCommentMapper;
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.HoleComment;
+import com.answer.base.exception.http.AuthException;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.HoleCommentService;
 import com.github.pagehelper.Page;
@@ -30,6 +32,14 @@ public class HoleCommentImpl implements HoleCommentService {
         Boolean bool = holeCommentMapper.insertHoleComment(holeComment);
         if(!bool){
             throw new ParameterException(50003);
+        }
+    }
+
+    @Override
+    public void delHoleComment(UidAndIdDTO uidAndIdDTO) {
+        Boolean bool = holeCommentMapper.delHoleComment(uidAndIdDTO);
+        if(!bool){
+            throw new AuthException(40004);
         }
     }
 }

@@ -39,13 +39,14 @@ public class HoleCommentController {
     }
 
 //    删除树洞评论
-    @PostMapping("/del/{id}")
+    @GetMapping("/del/{id}")
     public Msg delHoleComment(HttpServletRequest request, @PathVariable Integer id){
         String token = request.getHeader("Authorization");
         Integer uid =JwtToken.TokenGetUid(token);
         UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
         uidAndIdDTO.setId(id);
         uidAndIdDTO.setUid(uid);
-        return ResultUtil.success();
+        holeCommentService.delHoleComment(uidAndIdDTO);
+        return ResultUtil.success("删除成功");
     }
 }

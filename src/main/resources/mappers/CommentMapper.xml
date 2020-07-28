@@ -27,7 +27,7 @@
         id,create_time,uid,classic_id,pid,content
     </sql>
     <select id="selectCommentByClassicId" parameterType="INTEGER" resultMap="CommentMap">
-        select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,c.uid_r,u.user_name,u.avatar_url as user_avatar from comment c JOIN user u ON u.id=c.uid where c.classic_id=#{key} and pid=0
+        select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,c.uid_r,u.user_name,u.avatar_url as user_avatar from comment c JOIN user u ON u.id=c.uid where c.classic_id=#{key} and c.pid=0 and c.delete_time is null
     </select>
 <!-- collection 传入一个值的查询标签  -->
 
@@ -40,7 +40,7 @@
     <select id="getChild" parameterType="java.util.Map" resultMap="CommentMap">
          select c.id,c.create_time,c.uid,c.classic_id,c.pid,c.content,c.uid_r,u.user_name,u.avatar_url as user_avatar,r.user_name as user_name_r,r.avatar_url as user_avatar_r
          from comment c JOIN user u ON u.id=c.uid JOIN user r ON r.id=c.uid_r
-        where pid =#{child_pid}
+        where c.pid =#{child_pid} and c.delete_time is null
     </select>
 
 <!--    新增一条评论-->
@@ -65,5 +65,14 @@
             </if>
         </trim>
     </insert>
+
+<!--    删除我的评论-->
+    <update id="delComment" parameterType="com.answer.base.dto.UidAndIdDTO">
+        update comment
+        <set>
+            delete_time=current_timestamp
+        </set>
+        where id=#{id} and uid=#{uid}
+    </update>
 
 </mapper>

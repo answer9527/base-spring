@@ -2,7 +2,9 @@ package com.answer.base.service.Impl;
 
 import com.answer.base.dao.CommentMapper;
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Comment;
+import com.answer.base.exception.http.AuthException;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.CommentService;
 import com.answer.base.vo.Pager;
@@ -29,6 +31,14 @@ public class CommentServiceImpl implements CommentService {
         Boolean bool = commentMapper.insertComment(comment);
         if(!bool){
             throw new ParameterException(50001);
+        }
+    }
+
+    @Override
+    public void delComment(UidAndIdDTO uidAndIdDTO) {
+        Boolean bool = commentMapper.delComment(uidAndIdDTO);
+        if(!bool){
+            throw new AuthException(40004);
         }
     }
 }
