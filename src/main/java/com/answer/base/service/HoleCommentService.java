@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface HoleCommentService {
     List<HoleComment> getHoleCommentByHid(PagingDTO pagingDTO);
-    void insertHoleComment(HoleComment holeComment);
+    HoleComment insertHoleComment(HoleComment holeComment);
     void delHoleComment(UidAndIdDTO uidAndIdDTO);
 }

@@ -9,10 +9,10 @@
     <!-- parameterType:声明输入参数的类型 -->
     <!-- resultType:声明输出结果的类型，应该填写pojo的全路径 -->
     <!-- #{}：输入参数的占位符，相当于jdbc的？ -->
-    <resultMap id="MsgMap" type="Msg">
+    <resultMap id="MsgMap" type="CommentMsg">
         <id column="id" property="id" jdbcType="INTEGER"></id>
     </resultMap>
-    <insert id="insertMsg" parameterType="com.answer.base.entity.Msg">
+    <insert id="insertMsg" parameterType="com.answer.base.entity.CommentMsg">
         insert into msg
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="type !=null">
@@ -20,6 +20,12 @@
             </if>
             <if test="commentId!=null">
                 comment_id,
+            </if>
+            <if test="isRoot!=null">
+                is_root,
+            </if>
+            <if test="uid!=null">
+                uid,
             </if>
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
@@ -29,7 +35,17 @@
             <if test="commentId !=null">
                 #{commentId},
             </if>
+            <if test="isRoot !=null">
+                #{isRoot},
+            </if>
+            <if test="uid!=null">
+                #{uid},
+            </if>
         </trim>
 
     </insert>
+
+    <select id="getMyCommentMsgList" parameterType="INTEGER" resultType="com.answer.base.vo.CommentMsgVO">
+        select m.id,m.comment_id as commentId,h_com.hid,m.is_root as isRoot,m.is_read as isRead,m.type,h.id as holeOrClassicId,u.user_name as userName,h.title,h_com.content from msg m join hole_comment h_com on h_com.id=m.comment_id  join hole h on h.id=h_com.hid join user u on u.id=h_com.uid where m.uid=#{uid} and m.delete_time is null
+    </select>
 </mapper>

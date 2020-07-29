@@ -5,9 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Msg extends BaseEntity {
+public class CommentMsg extends BaseEntity {
     private Integer id;
     private Integer type;
     private Integer commentId;
     private Boolean isRead;
+    private Boolean isRoot;
+    private Integer uid;
 }
