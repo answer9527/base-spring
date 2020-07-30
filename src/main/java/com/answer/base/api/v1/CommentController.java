@@ -39,10 +39,13 @@ public class CommentController {
         CommentMsg commentMsg = new CommentMsg();
         commentMsg.setType(1);
         commentMsg.setCommentId(_comment.getId());
-        commentMsg.setUid(_comment.getUid_r());
-//        所有的classic评论都不会对作者发出消息所以 is_root为false
+
+//        所有的classic评论都不会对作者发出消息所以 is_root为false,  且comment的uid_r为0或者null 的时候说明是视听根评论不需要发送
         commentMsg.setIsRoot(false);
-        msgService.insertMsg(commentMsg);
+        if(_comment.getUid_r()!=null){
+            commentMsg.setUid(_comment.getUid_r());
+            msgService.insertMsg(commentMsg);
+        }
         return ResultUtil.success("评论成功！");
     }
 

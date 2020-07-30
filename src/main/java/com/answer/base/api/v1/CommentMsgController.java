@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class CommentMsgController {
     @Autowired
     private MsgService msgService;
     @PostMapping("/hole/mylist")
-    public Msg getMyHoleCommentMsg(HttpServletRequest request, PagingDTO pagingDTO){
+    public Msg getMyHoleCommentMsg(HttpServletRequest request,@RequestBody PagingDTO pagingDTO){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
         pagingDTO.setKey(uid);
@@ -32,7 +33,7 @@ public class CommentMsgController {
     }
 
     @PostMapping("/classic/mylist")
-    public Msg getMyClassicCommentMsg(HttpServletRequest request, PagingDTO pagingDTO){
+    public Msg getMyClassicCommentMsg(HttpServletRequest request,@RequestBody PagingDTO pagingDTO){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
         pagingDTO.setKey(uid);
