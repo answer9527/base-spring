@@ -44,7 +44,7 @@
     </select>
 
 <!--    新增一条评论-->
-    <insert id="insertComment" parameterType="com.answer.base.entity.Comment">
+    <insert id="insertComment" parameterType="com.answer.base.entity.Comment" useGeneratedKeys="true" keyProperty="id">
         insert into comment
         <trim prefix="(" suffix=")" suffixOverrides=",">
             uid,classic_id,content,

@@ -9,5 +9,8 @@ import java.util.List;
 
 public interface MsgService {
     void insertMsg(CommentMsg commentMsg);
+//    获取树洞评论制造的消息
     Pager<CommentMsgVO> getMyCommentMsgList(PagingDTO pagingDTO);
+//    获取classic评论制造的消息
+    Pager<CommentMsgVO> getMyClassicMsgList(PagingDTO pagingDTO);
 }

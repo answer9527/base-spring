@@ -27,11 +27,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void insertComment(Comment comment) {
-        Boolean bool = commentMapper.insertComment(comment);
-        if(!bool){
-            throw new ParameterException(50001);
-        }
+    public Comment insertComment(Comment comment) {
+        commentMapper.insertComment(comment);
+        return comment;
     }
 
     @Override

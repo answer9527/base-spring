@@ -27,20 +27,6 @@ public class HoleCommentImpl implements HoleCommentService {
     public HoleComment insertHoleComment(HoleComment holeComment) {
         holeCommentMapper.insertHoleComment(holeComment);
         return holeComment;
-//        Integer h_com_id =holeComment.getId();
-//        SingleHoleVO hole =holeMapper.getHoleById(holeComment.getHid());
-//        Msg msg = new Msg();
-//        msg.setType(2);
-//        msg.setCommentId(h_com_id);
-//        msg.setUid(hole.getUid());
-//
-//        msgMapper.insertMsg(msg);
-//        if(holeComment.getPid()!=null){
-//
-//            msg.setIsRoot(false);
-//            msg.setUid(holeComment.getUid_r());
-//            msgMapper.insertMsg(msg);
-//        }
     }
 
     @Override

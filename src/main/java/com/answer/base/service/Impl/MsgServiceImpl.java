@@ -29,8 +29,14 @@ public class MsgServiceImpl implements MsgService {
     @Override
     public Pager<CommentMsgVO> getMyCommentMsgList(PagingDTO pagingDTO) {
         PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
-        PageInfo<CommentMsgVO> pageInfo = new PageInfo<CommentMsgVO>(msgMapper.getMyCommentMsgList(pagingDTO.getKey()));
-        Pager pager = new Pager(pageInfo);
-        return pager;
+        PageInfo<CommentMsgVO> pageInfo = new PageInfo<>(msgMapper.getMyCommentMsgList(pagingDTO.getKey()));
+        return new Pager(pageInfo);
+    }
+
+    @Override
+    public Pager<CommentMsgVO> getMyClassicMsgList(PagingDTO pagingDTO) {
+        PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
+        PageInfo<CommentMsgVO> pageInfo = new PageInfo<>(msgMapper.getMyClassicMsgList(pagingDTO.getKey()));
+        return new Pager(pageInfo);
     }
 }

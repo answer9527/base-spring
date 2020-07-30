@@ -22,12 +22,21 @@ import javax.servlet.http.HttpServletRequest;
 public class CommentMsgController {
     @Autowired
     private MsgService msgService;
-    @PostMapping("/mylist")
-    public Msg getMyCommentMsg(HttpServletRequest request, PagingDTO pagingDTO){
+    @PostMapping("/hole/mylist")
+    public Msg getMyHoleCommentMsg(HttpServletRequest request, PagingDTO pagingDTO){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
         pagingDTO.setKey(uid);
         Pager pager = msgService.getMyCommentMsgList(pagingDTO);
+        return ResultUtil.success(pager);
+    }
+
+    @PostMapping("/classic/mylist")
+    public Msg getMyClassicCommentMsg(HttpServletRequest request, PagingDTO pagingDTO){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        pagingDTO.setKey(uid);
+        Pager pager = msgService.getMyClassicMsgList(pagingDTO);
         return ResultUtil.success(pager);
     }
 }

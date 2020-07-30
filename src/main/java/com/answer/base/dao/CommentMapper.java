@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface CommentMapper {
     List<Comment> selectCommentByClassicId(Integer cid);
-    Boolean insertComment(Comment comment);
+    Integer insertComment(Comment comment);
     Boolean delComment(UidAndIdDTO uidAndIdDTO);
 }

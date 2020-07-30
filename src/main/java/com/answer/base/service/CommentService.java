@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface CommentService {
     Pager<Comment> selectCommentByClassicId(PagingDTO pagingDTO);
-    void insertComment(Comment comment);
+    Comment insertComment(Comment comment);
     void delComment(UidAndIdDTO uidAndIdDTO);
 }

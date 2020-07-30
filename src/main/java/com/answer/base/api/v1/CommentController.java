@@ -3,7 +3,9 @@ package com.answer.base.api.v1;
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Comment;
+import com.answer.base.entity.CommentMsg;
 import com.answer.base.service.CommentService;
+import com.answer.base.service.MsgService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
@@ -19,6 +21,8 @@ import java.util.List;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private MsgService msgService;
     @PostMapping("/selectByCid")
     public Msg selectCommentByClassicId(@RequestBody PagingDTO pagingDTO){
         Pager<Comment> pager = commentService.selectCommentByClassicId(pagingDTO);
@@ -31,7 +35,14 @@ public class CommentController {
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
         comment.setUid(uid);
-        commentService.insertComment(comment);
+        Comment _comment = commentService.insertComment(comment);
+        CommentMsg commentMsg = new CommentMsg();
+        commentMsg.setType(1);
+        commentMsg.setCommentId(_comment.getId());
+        commentMsg.setUid(_comment.getUid_r());
+//        所有的classic评论都不会对作者发出消息所以 is_root为false
+        commentMsg.setIsRoot(false);
+        msgService.insertMsg(commentMsg);
         return ResultUtil.success("评论成功！");
     }
 
