@@ -7,16 +7,16 @@ import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
 import com.answer.base.vo.CommentMsgVO;
 import com.answer.base.vo.Pager;
+import com.answer.base.vo.UnreadCountVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequestMapping("/v1/comment/msg")
 @RestController
@@ -40,4 +40,24 @@ public class CommentMsgController {
         Pager pager = msgService.getMyClassicMsgList(pagingDTO);
         return ResultUtil.success(pager);
     }
+
+//    获取我的未读的消息总量
+    @GetMapping("/unread/count")
+    public Msg getUnreadMsgCount(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        Integer count = msgService.getMyUnReadMsgCount(uid);
+        Map countMap = new HashMap();
+        countMap.put("unread",count);
+        return ResultUtil.success(countMap);
+    }
+//  获取我的各未读消息的数量
+    @GetMapping("/unread/allType")
+    public Msg getAllTypeUnreadMsgCount(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        UnreadCountVO unreadCountVO = msgService.getUnReadTypeCount(uid);
+        return ResultUtil.success(unreadCountVO);
+    }
+
 }

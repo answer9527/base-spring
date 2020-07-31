@@ -7,6 +7,7 @@ import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.MsgService;
 import com.answer.base.vo.CommentMsgVO;
 import com.answer.base.vo.Pager;
+import com.answer.base.vo.UnreadCountVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,15 @@ public class MsgServiceImpl implements MsgService {
         PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
         PageInfo<CommentMsgVO> pageInfo = new PageInfo<>(msgMapper.getMyClassicMsgList(pagingDTO.getKey()));
         return new Pager(pageInfo);
+    }
+
+    @Override
+    public Integer getMyUnReadMsgCount(Integer uid) {
+        return msgMapper.getMyUnReadMsgCount(uid);
+    }
+
+    @Override
+    public UnreadCountVO getUnReadTypeCount(Integer uid) {
+        return msgMapper.getUnReadTypeCount(uid);
     }
 }
