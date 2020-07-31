@@ -14,6 +14,7 @@ public class CommentMsgVO {
     private String content;
     private String title;
     private String userName;
+    private String avatarUrl;
     private Integer type;
     private Boolean isRoot;
     private Boolean isRead;
