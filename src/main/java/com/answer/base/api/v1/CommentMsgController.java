@@ -74,8 +74,16 @@ public class CommentMsgController {
         return ResultUtil.success();
     }
 
-
-
-
+//    根据消息id删除我的某条消息
+    @GetMapping("/del")
+    public Msg deleteMsgById(HttpServletRequest request,@RequestParam Integer id){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
+        uidAndIdDTO.setUid(uid);
+        uidAndIdDTO.setId(id);
+        msgService.deleteMyMsgById(uidAndIdDTO);
+        return ResultUtil.success("删除成功");
+    }
 
 }

@@ -54,7 +54,7 @@
     </select>
 
     <select id="getMyUnReadMsgCount" parameterType="INTEGER" resultType="INTEGER">
-        select count(*) from msg where is_read = false and uid=#{uid}
+        select count(*) from msg where is_read = false and uid=#{uid} and delete_time is null
     </select>
 
     <select id="getUnReadTypeCount" parameterType="INTEGER" resultType="com.answer.base.vo.UnreadCountVO">
@@ -65,5 +65,11 @@
         update msg
         <set>is_read = true </set>
         where uid = #{uid} and id=#{id} and delete_time is null
+    </update>
+
+    <update id="deleteMyMsgById" parameterType="com.answer.base.dto.UidAndIdDTO">
+        update msg
+        <set>delete_time = current_timestamp </set>
+        where uid=#{uid} and id=#{id} and delete_time is null
     </update>
 </mapper>

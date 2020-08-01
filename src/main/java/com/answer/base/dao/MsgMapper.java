@@ -23,6 +23,8 @@ public interface MsgMapper {
 
     UnreadCountVO getUnReadTypeCount(Integer uid);
     Boolean setMsgRead(UidAndIdDTO uidAndIdDTO);
+// 删除我的消息
+    Boolean deleteMyMsgById(UidAndIdDTO uidAndIdDTO);
 
 
 }

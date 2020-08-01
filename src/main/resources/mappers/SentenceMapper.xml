@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，后面会讲 -->
+<mapper namespace="com.answer.base.dao.SentenceMapper">
+    <resultMap id="sentenceMap" type="Sentence">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+    </resultMap>
+
+<!--    <select id="getRandSentence" resultMap="sentenceMap">-->
+<!--        select * from sentence as s1  where s1.id>=((select MAX(id) from sentence)-(select MIN(id) from sentence))*RAND()+(select MIN(id) from sentence) and s1.delete_time is null ORDER BY id limit 1-->
+<!--    </select>-->
+
+    <select id="getRandSentence" resultMap="sentenceMap">
+        select * from sentence where delete_time is null order by rand() limit 1
+    </select>
+</mapper>

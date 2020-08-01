@@ -59,4 +59,12 @@ public class MsgServiceImpl implements MsgService {
             throw new ParameterException(50003);
         }
     }
+
+    @Override
+    public void deleteMyMsgById(UidAndIdDTO uidAndIdDTO) {
+        Boolean bool = msgMapper.deleteMyMsgById(uidAndIdDTO);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+    }
 }

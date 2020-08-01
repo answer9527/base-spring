@@ -22,4 +22,6 @@ public interface MsgService {
     UnreadCountVO getUnReadTypeCount(Integer uid);
 //    设置消息已读
     void setMsgRead(UidAndIdDTO uidAndIdDTO);
+
+    void deleteMyMsgById(UidAndIdDTO uidAndIdDTO);
 }
