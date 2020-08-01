@@ -1,6 +1,7 @@
 package com.answer.base.dao;
 
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.CommentMsg;
 import com.answer.base.vo.CommentMsgVO;
 import com.answer.base.vo.UnreadCountVO;
@@ -21,4 +22,7 @@ public interface MsgMapper {
     Integer getMyUnReadMsgCount(Integer uid);
 
     UnreadCountVO getUnReadTypeCount(Integer uid);
+    Boolean setMsgRead(UidAndIdDTO uidAndIdDTO);
+
+
 }

@@ -11,6 +11,8 @@ public class CommentMsgVO {
     private Date createTime;
     private Integer id;
     private Integer commentId;
+    private Integer commentUid;
+    private Integer commentPid;
     private String content;
     private String title;
     private String userName;

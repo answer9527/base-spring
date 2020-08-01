@@ -2,6 +2,7 @@ package com.answer.base.service.Impl;
 
 import com.answer.base.dao.MsgMapper;
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.CommentMsg;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.MsgService;
@@ -49,5 +50,13 @@ public class MsgServiceImpl implements MsgService {
     @Override
     public UnreadCountVO getUnReadTypeCount(Integer uid) {
         return msgMapper.getUnReadTypeCount(uid);
+    }
+
+    @Override
+    public void setMsgRead(UidAndIdDTO uidAndIdDTO) {
+        Boolean bool = msgMapper.setMsgRead(uidAndIdDTO);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.answer.base.api.v1;
 
 import com.answer.base.dto.PagingDTO;
+import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.service.MsgService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
@@ -11,6 +12,7 @@ import com.answer.base.vo.UnreadCountVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +44,7 @@ public class CommentMsgController {
     }
 
 //    获取我的未读的消息总量
-    @GetMapping("/unread/count")
+    @GetMapping("/unread/total")
     public Msg getUnreadMsgCount(HttpServletRequest request){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
@@ -52,12 +54,28 @@ public class CommentMsgController {
         return ResultUtil.success(countMap);
     }
 //  获取我的各未读消息的数量
-    @GetMapping("/unread/allType")
+    @GetMapping("/unread/count")
     public Msg getAllTypeUnreadMsgCount(HttpServletRequest request){
         String token = request.getHeader("Authorization");
         Integer uid = JwtToken.TokenGetUid(token);
         UnreadCountVO unreadCountVO = msgService.getUnReadTypeCount(uid);
         return ResultUtil.success(unreadCountVO);
     }
+
+//    设置消息已读
+    @GetMapping("/setRead")
+    public Msg setMsgRead(HttpServletRequest request,@RequestParam Integer id){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
+        uidAndIdDTO.setId(id);
+        uidAndIdDTO.setUid(uid);
+        msgService.setMsgRead(uidAndIdDTO);
+        return ResultUtil.success();
+    }
+
+
+
+
 
 }

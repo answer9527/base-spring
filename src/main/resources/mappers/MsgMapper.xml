@@ -46,11 +46,11 @@
     </insert>
 
     <select id="getMyCommentMsgList" parameterType="INTEGER" resultType="com.answer.base.vo.CommentMsgVO">
-        select m.create_time as createTime, m.id,m.comment_id as commentId,m.is_root as isRoot,m.is_read as isRead,m.type,h.id as holeOrClassicId,u.user_name as userName,u.avatar_url as avatarUrl,h.title,h_com.content from msg m join hole_comment h_com on h_com.id=m.comment_id  join hole h on h.id=h_com.hid join user u on u.id=h_com.uid where m.uid=#{uid} and m.delete_time is null
+        select m.create_time as createTime, m.id,m.comment_id as commentId,h_com.uid as commentUid,m.is_root as isRoot,m.is_read as isRead,m.type,h.id as holeOrClassicId,u.user_name as userName,u.avatar_url as avatarUrl,h.title,h_com.content from msg m join hole_comment h_com on h_com.id=m.comment_id  join hole h on h.id=h_com.hid join user u on u.id=h_com.uid where m.uid=#{uid} and m.delete_time is null order by m.create_time desc
     </select>
 
     <select id="getMyClassicMsgList" parameterType="INTEGER" resultType="com.answer.base.vo.CommentMsgVO">
-        select m.create_time as createTime,m.id,m.comment_id as commentId,m.is_root as isRoot,m.is_read as isRead,m.type,c.id as holeOrClassicId,u.user_name as userName,u.avatar_url as avatarUrl,c.title,com.content from msg m join comment com on com.id=m.comment_id  join classic c on c.id=com.classic_id join user u on u.id=com.uid where m.uid=#{uid} and m.delete_time is null
+        select m.create_time as createTime,m.id,m.comment_id as commentId,com.uid as commentUid,com.pid as commentPid,m.is_root as isRoot,m.is_read as isRead,m.type,c.id as holeOrClassicId,u.user_name as userName,u.avatar_url as avatarUrl,c.title,com.content from msg m join comment com on com.id=m.comment_id  join classic c on c.id=com.classic_id join user u on u.id=com.uid where m.uid=#{uid} and m.delete_time is null order by m.create_time desc
     </select>
 
     <select id="getMyUnReadMsgCount" parameterType="INTEGER" resultType="INTEGER">
@@ -60,4 +60,10 @@
     <select id="getUnReadTypeCount" parameterType="INTEGER" resultType="com.answer.base.vo.UnreadCountVO">
         select count(type=0 or null) as sys,count(type=1 or null ) as classic ,count(type=2 or null ) as hole from msg where delete_time is null  and uid=#{uid} and is_read=false
     </select>
+
+    <update id="setMsgRead" parameterType="com.answer.base.dto.UidAndIdDTO">
+        update msg
+        <set>is_read = true </set>
+        where uid = #{uid} and id=#{id} and delete_time is null
+    </update>
 </mapper>

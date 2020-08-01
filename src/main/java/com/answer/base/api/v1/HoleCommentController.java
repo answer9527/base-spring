@@ -48,11 +48,17 @@ public class HoleCommentController {
         HoleComment  _holeComment = holeCommentService.insertHoleComment(holeComment);
         Integer h_com_id = _holeComment.getId();
         SingleHoleVO hole = holeService.getHoleById(_holeComment.getHid());
+
         CommentMsg commentMsg = new CommentMsg();
         commentMsg.setType(2);
         commentMsg.setCommentId(h_com_id);
-        commentMsg.setUid(hole.getUid());
-        msgService.insertMsg(commentMsg);
+
+//        给树洞作者的消息
+        if(hole.getUid()!=uid){
+            commentMsg.setUid(hole.getUid());
+            msgService.insertMsg(commentMsg);
+        }
+//         给被回复评论的人的消息
         if(_holeComment.getPid()!=null){
             commentMsg.setIsRoot(false);
             commentMsg.setUid(_holeComment.getUid_r());
