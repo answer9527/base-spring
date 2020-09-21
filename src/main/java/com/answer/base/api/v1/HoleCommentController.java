@@ -54,13 +54,14 @@ public class HoleCommentController {
         commentMsg.setCommentId(h_com_id);
 
 //        给树洞作者的消息
-        if(hole.getUid()!=uid){
+        if(hole.getUid()!=uid&&hole.getUid()!=_holeComment.getUid_r()){
             commentMsg.setUid(hole.getUid());
             msgService.insertMsg(commentMsg);
         }
 //         给被回复评论的人的消息
         if(_holeComment.getPid()!=null){
             commentMsg.setIsRoot(false);
+//            commentMsg.setRoot_c(_holeComment.getPid());
             commentMsg.setUid(_holeComment.getUid_r());
             msgService.insertMsg(commentMsg);
         }

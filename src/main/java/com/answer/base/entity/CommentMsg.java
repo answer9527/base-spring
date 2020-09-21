@@ -12,4 +12,5 @@ public class CommentMsg extends BaseEntity {
     private Boolean isRead;
     private Boolean isRoot;
     private Integer uid;
+    private Integer commentPid;
 }

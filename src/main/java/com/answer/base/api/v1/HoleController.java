@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -38,7 +40,11 @@ public class HoleController {
         Integer uid = JwtToken.TokenGetUid(token);
         pagingDTO.setKey(uid);
         List<Hole> holes = holeService.getMyHole(pagingDTO);
-        return ResultUtil.success(holes);
+        Map holeMap = new HashMap();
+//        过审的特殊处理
+        holeMap.put("holes",holes);
+        holeMap.put("createScope",false);
+        return ResultUtil.success(holeMap);
     }
 
 //    随机获取别人的n个树洞

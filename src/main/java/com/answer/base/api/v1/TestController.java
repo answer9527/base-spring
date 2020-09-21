@@ -5,6 +5,9 @@ import com.answer.base.dto.UserDTO;
 import com.answer.base.entity.User;
 import com.answer.base.exception.http.NotFoundException;
 import com.answer.base.service.TestService;
+import com.answer.base.util.Msg;
+import com.answer.base.util.ResultUtil;
+import com.sun.org.apache.bcel.internal.generic.RET;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @Validated
@@ -45,9 +50,18 @@ public class TestController {
     public void fail(@PathVariable @Max(1)  Long id){
         System.out.println(222);
     }
+
+
     @GetMapping("/fail2")
     public void fail2(@RequestParam(defaultValue = "1") @Max(10) Integer id,@RequestParam @Min(1) Integer age){
 
+    }
+
+    @GetMapping("/scope")
+    public Msg getScope(){
+        Map map = new HashMap();
+        map.put("scope",true);
+        return ResultUtil.success(map);
     }
 
 }
