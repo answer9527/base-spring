@@ -13,6 +13,6 @@ public class BaseEntity {
 
 //    定义一个基类获取返回文件所在的域名的方法
     protected String _domain(){
-        return "https://mina.huzhihua.cn";
+        return "https://story.chenlake.com";
     }
 }

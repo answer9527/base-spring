@@ -1,15 +1,17 @@
 package com.answer.base.dto.validators;
 
 import com.answer.base.dto.UserDTO;
+import com.answer.base.dto.UserRegisterDTO;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class PasswordValidator implements ConstraintValidator<PasswordEqual, UserDTO> {
+public class PasswordValidator implements ConstraintValidator<PasswordEqual, UserRegisterDTO> {
     @Override
-    public boolean isValid(UserDTO userDTO, ConstraintValidatorContext constraintValidatorContext) {
-        String password = userDTO.getPassword();
-        String password2 = userDTO.getPassword2();
+    public boolean isValid(UserRegisterDTO userRegisterDTO, ConstraintValidatorContext constraintValidatorContext) {
+        String password = userRegisterDTO.getPassword();
+        String password2 = userRegisterDTO.getPassword2();
         return password.equals(password2);
     }
+
 }
