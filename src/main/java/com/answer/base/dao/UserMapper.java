@@ -1,8 +1,10 @@
 package com.answer.base.dao;
 
 import com.answer.base.dto.PwdTokenDTO;
+import com.answer.base.dto.UpdateUserDTO;
 import com.answer.base.dto.UserRegisterDTO;
 import com.answer.base.entity.User;
+import com.answer.base.vo.UserInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -28,4 +30,10 @@ public interface UserMapper {
 
 //    根据账号密码查找用户的id
     Integer selectUidByAccPwd(PwdTokenDTO pwdTokenDTO);
+
+//    根据账号密码查找用户
+    UserInfoVO selectUserByAccPwd(PwdTokenDTO pwdTokenDTO);
+
+//    修改个人资料
+    Boolean updateUserSelfInfo(UpdateUserDTO updateUserDTO);
 }

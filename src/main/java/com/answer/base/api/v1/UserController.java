@@ -1,19 +1,22 @@
 package com.answer.base.api.v1;
 
 import com.answer.base.dto.PwdTokenDTO;
+import com.answer.base.dto.UpdateUserDTO;
 import com.answer.base.dto.UserRegisterDTO;
 import com.answer.base.dto.WxTokenDTO;
 import com.answer.base.entity.User;
-import com.answer.base.exception.http.ParameterException;
 import com.answer.base.exception.http.TokenException;
 import com.answer.base.service.UserService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
+import com.answer.base.vo.LoginResultVO;
+import com.answer.base.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -68,13 +71,11 @@ public class UserController {
 //    用户的账号密码登录
     @PostMapping("/pwdToken")
     public Msg getTokenByPwd(@RequestBody @Validated PwdTokenDTO pwdTokenDTO){
-        Optional<Integer> uidOptional = Optional.ofNullable(userService.selectUidByAccPwd(pwdTokenDTO));
-        Integer uid = uidOptional.orElseThrow(()->new TokenException(20002));
-        String token = JwtToken.makeToken(uid);
-        Map<String,String> tokenMap = new HashMap<>();
-        tokenMap.put("token",token);
-        tokenMap.put("uid",Integer.toString(uid));
-        return ResultUtil.success(tokenMap,"登陆成功");
+        Optional<UserInfoVO> userOptional = Optional.ofNullable(userService.selectUserByAccPwd(pwdTokenDTO));
+        UserInfoVO userInfoVO = userOptional.orElseThrow(()->new TokenException(20002));
+        String token = JwtToken.makeToken(userInfoVO.getId());
+        LoginResultVO loginResultVO = LoginResultVO.builder().token(token).uid(userInfoVO.getId()).userInfo(userInfoVO).build();
+        return ResultUtil.success(loginResultVO,"登陆成功");
     }
 
 //    已注册的用户使用微信code直接登录
@@ -92,6 +93,15 @@ public class UserController {
         }else{
             throw new TokenException(40005);
         }
+    }
+
+    @PostMapping("/update/self")
+    public Msg updateMyInfo(HttpServletRequest request, @RequestBody UpdateUserDTO updateUserDTO){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        updateUserDTO.setId(uid);
+        userService.updateUserSelfInfo(updateUserDTO);
+        return ResultUtil.success("修改成功");
     }
 
 

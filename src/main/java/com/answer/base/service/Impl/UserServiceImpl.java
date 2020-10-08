@@ -2,10 +2,12 @@ package com.answer.base.service.Impl;
 
 import com.answer.base.dao.UserMapper;
 import com.answer.base.dto.PwdTokenDTO;
+import com.answer.base.dto.UpdateUserDTO;
 import com.answer.base.dto.UserRegisterDTO;
 import com.answer.base.entity.User;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.UserService;
+import com.answer.base.vo.UserInfoVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,4 +81,19 @@ public class UserServiceImpl implements UserService {
     public Integer selectUidByAccPwd(PwdTokenDTO pwdTokenDTO) {
         return userMapper.selectUidByAccPwd(pwdTokenDTO);
     }
+
+    @Override
+    public UserInfoVO selectUserByAccPwd(PwdTokenDTO pwdTokenDTO) {
+        return userMapper.selectUserByAccPwd(pwdTokenDTO);
+    }
+
+    @Override
+    public void updateUserSelfInfo(UpdateUserDTO updateUserDTO) {
+        Boolean bool = userMapper.updateUserSelfInfo(updateUserDTO);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+    }
+
+
 }
