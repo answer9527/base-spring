@@ -1,5 +1,6 @@
 package com.answer.base.vo;
 
+import com.answer.base.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,7 @@ import java.util.Date;
 
 @Setter
 @Getter
-public class CommentMsgVO {
+public class CommentMsgVO extends BaseEntity {
     private Date createTime;
     private Integer id;
     private Integer commentId;
@@ -21,4 +22,13 @@ public class CommentMsgVO {
     private Boolean isRoot;
     private Boolean isRead;
     private Integer holeOrClassicId;
+
+    public String getAvatarUrl() {
+        Boolean bool = avatarUrl.matches("http(.*)");
+        if(bool){
+            return avatarUrl;
+        }else{
+            return _domain()+avatarUrl;
+        }
+    }
 }

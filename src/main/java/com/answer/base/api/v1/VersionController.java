@@ -6,9 +6,8 @@ import com.answer.base.service.VersionService;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +21,18 @@ public class VersionController {
         List<Version> versionList = versionService.getVersionList();
         return ResultUtil.success(versionList);
     }
+
+    @PostMapping("/insert")
+    public Msg insertVersion(@RequestBody @Validated Version version){
+        versionService.insertVersion(version);
+        return  ResultUtil.success("新增成功");
+    }
+
+    @PostMapping("/latest")
+    public Msg getLatestVersion(){
+        return ResultUtil.success("获取成功");
+    }
+
+
 }
 

@@ -25,6 +25,8 @@ import java.util.Map;
 public class CommentMsgController {
     @Autowired
     private MsgService msgService;
+
+//    获取树洞相关的消息
     @PostMapping("/hole/mylist")
     public Msg getMyHoleCommentMsg(HttpServletRequest request,@RequestBody PagingDTO pagingDTO){
         String token = request.getHeader("Authorization");
@@ -34,6 +36,7 @@ public class CommentMsgController {
         return ResultUtil.success(pager);
     }
 
+//    获取classic相关的消息
     @PostMapping("/classic/mylist")
     public Msg getMyClassicCommentMsg(HttpServletRequest request,@RequestBody PagingDTO pagingDTO){
         String token = request.getHeader("Authorization");

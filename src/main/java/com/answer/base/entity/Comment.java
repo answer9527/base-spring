@@ -19,4 +19,14 @@ public class Comment extends BaseEntity {
     private String userAvatar_r;
     private String content;
     private List<Comment> child;
+
+    public String getUserAvatar() {
+        Boolean bool = userAvatar.matches("http(.*)");
+        if(bool){
+            return userAvatar;
+        }else{
+            return _domain()+userAvatar;
+        }
+    }
+
 }

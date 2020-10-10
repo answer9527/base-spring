@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface VersionMapper {
     List<Version> getVersionList();
+    Boolean insertVersion(Version version);
 }

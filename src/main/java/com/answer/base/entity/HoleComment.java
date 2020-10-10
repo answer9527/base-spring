@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class HoleComment {
+public class HoleComment extends BaseEntity {
     private Integer id;
     private Integer hid;
     private Integer uid;
@@ -21,4 +21,14 @@ public class HoleComment {
     private String content;
     private Date createTime;
     private List<HoleComment> child;
+
+    public String getUserAvatar() {
+        Boolean bool = userAvatar.matches("http(.*)");
+        if(bool){
+            return userAvatar;
+        }else{
+            return _domain()+userAvatar;
+        }
+    }
+
 }

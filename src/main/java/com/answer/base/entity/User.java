@@ -14,4 +14,13 @@ public class User extends BaseEntity {
     private String openId;
     private String avatarUrl;
     private Integer gender;
+
+    public String getAvatarUrl() {
+        Boolean bool = avatarUrl.matches("http(.*)");
+        if(bool){
+            return avatarUrl;
+        }else{
+            return _domain()+avatarUrl;
+        }
+    }
 }

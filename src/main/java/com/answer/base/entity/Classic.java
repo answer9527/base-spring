@@ -23,7 +23,11 @@ public class Classic extends BaseEntity {
     private Boolean like_status=false;
 
     public String getImage() {
-        String domain = this._domain();
-        return domain+image;
+        Boolean bool = image.matches("http(.*)");
+        if(bool){
+            return image;
+        }else{
+            return _domain()+image;
+        }
     }
 }

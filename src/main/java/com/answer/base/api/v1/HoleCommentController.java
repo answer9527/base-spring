@@ -48,7 +48,6 @@ public class HoleCommentController {
         HoleComment  _holeComment = holeCommentService.insertHoleComment(holeComment);
         Integer h_com_id = _holeComment.getId();
         SingleHoleVO hole = holeService.getHoleById(_holeComment.getHid());
-
         CommentMsg commentMsg = new CommentMsg();
         commentMsg.setType(2);
         commentMsg.setCommentId(h_com_id);

@@ -21,7 +21,7 @@
         </trim>
     </insert>
 
-    <select id="getMyHole" parameterType="com.answer.base.dto.PagingDTO" resultMap="HoleMap">
+    <select id="getMyHole" parameterType="com.answer.base.dto.PagingDTO" resultType="com.answer.base.entity.Hole">
         select * from hole where uid=#{key} and delete_time is null order by create_time desc
     </select>
 
