@@ -31,4 +31,8 @@
             </if>
         </trim>
     </insert>
+
+    <select id="getLatestVersion" resultType="com.answer.base.entity.Version">
+        select * from version where delete_time is null order by id desc limit 1
+    </select>
 </mapper>

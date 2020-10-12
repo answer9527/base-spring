@@ -11,4 +11,5 @@ import java.util.List;
 public interface VersionMapper {
     List<Version> getVersionList();
     Boolean insertVersion(Version version);
+    Version getLatestVersion();
 }

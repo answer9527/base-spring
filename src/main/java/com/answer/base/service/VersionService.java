@@ -7,4 +7,5 @@ import java.util.List;
 public interface VersionService {
     List<Version> getVersionList();
     void insertVersion(Version version);
+    Version getLatestVersion();
 }

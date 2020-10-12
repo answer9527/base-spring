@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VersionServiceImpl implements VersionService {
@@ -24,5 +25,12 @@ public class VersionServiceImpl implements VersionService {
         if(!bool){
             throw  new ParameterException(50001);
         }
+    }
+
+    @Override
+    public Version getLatestVersion() {
+        Optional<Version> versionOptional = Optional.ofNullable(versionMapper.getLatestVersion());
+        Version version = versionOptional.orElseThrow(()->new ParameterException(50004));
+        return version;
     }
 }

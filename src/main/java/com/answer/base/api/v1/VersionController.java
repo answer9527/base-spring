@@ -30,7 +30,8 @@ public class VersionController {
 
     @PostMapping("/latest")
     public Msg getLatestVersion(){
-        return ResultUtil.success("获取成功");
+        Version version = versionService.getLatestVersion();
+        return ResultUtil.success(version);
     }
 
 
