@@ -145,4 +145,8 @@
             </set>
     </update>
 
+    <select id="selectUserList" parameterType="com.answer.base.dto.PagingDTO" resultType="com.answer.base.vo.UserInfoVO">
+        select <include refid="login_result"></include> from user where delete_time is null
+    </select>
+
 </mapper>

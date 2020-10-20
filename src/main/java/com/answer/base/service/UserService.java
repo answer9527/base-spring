@@ -1,10 +1,14 @@
 package com.answer.base.service;
 
+import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.PwdTokenDTO;
 import com.answer.base.dto.UpdateUserDTO;
 import com.answer.base.dto.UserRegisterDTO;
 import com.answer.base.entity.User;
+import com.answer.base.vo.Pager;
 import com.answer.base.vo.UserInfoVO;
+
+import java.util.List;
 
 public interface UserService {
 //  注册用户
@@ -25,6 +29,11 @@ public interface UserService {
 //    根据uid查找user
     UserInfoVO selectUserByAccPwd(PwdTokenDTO pwdTokenDTO);
 
+//    修改个人资料
     void updateUserSelfInfo(UpdateUserDTO updateUserDTO);
+
+//    获取用户列表
+    Pager<UserInfoVO> selectUserList(PagingDTO pagingDTO);
+
 
 }

@@ -1,9 +1,6 @@
 package com.answer.base.api.v1;
 
-import com.answer.base.dto.PwdTokenDTO;
-import com.answer.base.dto.UpdateUserDTO;
-import com.answer.base.dto.UserRegisterDTO;
-import com.answer.base.dto.WxTokenDTO;
+import com.answer.base.dto.*;
 import com.answer.base.entity.User;
 import com.answer.base.exception.http.TokenException;
 import com.answer.base.service.UserService;
@@ -11,7 +8,9 @@ import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
 import com.answer.base.vo.LoginResultVO;
+import com.answer.base.vo.Pager;
 import com.answer.base.vo.UserInfoVO;
+import com.sun.org.apache.bcel.internal.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -95,6 +94,7 @@ public class UserController {
         }
     }
 
+//    更新个人用户信息
     @PostMapping("/update/self")
     public Msg updateMyInfo(HttpServletRequest request, @RequestBody UpdateUserDTO updateUserDTO){
         String token = request.getHeader("Authorization");
@@ -104,6 +104,15 @@ public class UserController {
         return ResultUtil.success("修改成功");
     }
 
+//    分页获取用户列表
+    @PostMapping("/list")
+    public Msg getUserList(HttpServletRequest request, @RequestBody PagingDTO pagingDTO){
+//        String token = request.getHeader("Authorization");
+//        Integer uid = JwtToken.TokenGetUid(token);
+        Pager<UserInfoVO> pager = userService.selectUserList(pagingDTO);
+
+        return ResultUtil.success(pager);
+    }
 
 
 

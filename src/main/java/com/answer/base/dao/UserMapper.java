@@ -1,5 +1,6 @@
 package com.answer.base.dao;
 
+import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.PwdTokenDTO;
 import com.answer.base.dto.UpdateUserDTO;
 import com.answer.base.dto.UserRegisterDTO;
@@ -7,6 +8,8 @@ import com.answer.base.entity.User;
 import com.answer.base.vo.UserInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Mapper
 @Repository
@@ -36,4 +39,7 @@ public interface UserMapper {
 
 //    修改个人资料
     Boolean updateUserSelfInfo(UpdateUserDTO updateUserDTO);
+
+//    分页获取用户列表
+    List<UserInfoVO> selectUserList(PagingDTO pagingDTO);
 }

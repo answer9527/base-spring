@@ -1,15 +1,19 @@
 package com.answer.base.service.Impl;
 
 import com.answer.base.dao.UserMapper;
+import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.PwdTokenDTO;
 import com.answer.base.dto.UpdateUserDTO;
 import com.answer.base.dto.UserRegisterDTO;
 import com.answer.base.entity.User;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.UserService;
+import com.answer.base.vo.Pager;
 import com.answer.base.vo.UserInfoVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -93,6 +98,14 @@ public class UserServiceImpl implements UserService {
         if(!bool){
             throw new ParameterException(50003);
         }
+    }
+
+    @Override
+    public Pager<UserInfoVO> selectUserList(PagingDTO pagingDTO) {
+        PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
+        PageInfo<UserInfoVO> pageInfo = new PageInfo<>(userMapper.selectUserList(pagingDTO));
+        Pager<UserInfoVO> pager = new Pager<>(pageInfo);
+        return pager;
     }
 
 
