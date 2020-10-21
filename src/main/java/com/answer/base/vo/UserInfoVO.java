@@ -5,9 +5,14 @@ import com.answer.base.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 public class UserInfoVO extends BaseEntity {
+    private Date createTime;
+    private Date updateTime;
+    private Date deleteTime;
     private Integer id;
     private String userName;
     private String avatarUrl;

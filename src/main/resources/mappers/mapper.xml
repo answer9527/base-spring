@@ -24,7 +24,7 @@
         id,user_name,age,create_time
     </sql>
     <sql id="login_result">
-        id,user_name as userName,avatar_url as avatarUrl,gender,account
+        id,user_name as userName,avatar_url as avatarUrl,gender,account,create_time as createTime,update_time as updateTime
     </sql>
 <!--根据id查找用户-->
     <select id="selectUser" parameterType="INTEGER" resultMap="UserMap">
@@ -147,6 +147,9 @@
 
     <select id="selectUserList" parameterType="com.answer.base.dto.PagingDTO" resultType="com.answer.base.vo.UserInfoVO">
         select <include refid="login_result"></include> from user where delete_time is null
+        <if test="keyword!=null">
+            and user_name like "%"#{keyword}"%"
+        </if>
     </select>
 
 </mapper>
