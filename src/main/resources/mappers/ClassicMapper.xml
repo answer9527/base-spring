@@ -12,9 +12,12 @@
 <!--    ${}：字符串拼接-->
 
     <!-- 通过id查询一个用户 -->
+<!--    此处的type  Classic 是指 entity中的Classic-->
     <resultMap type="Classic" id="ClassicMap">
         <id column="id" property="id" jdbcType="INTEGER"></id>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"></result>
+        <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP"></result>
 <!--            <result column="title" property="title" jdbcType="VARCHAR"></result>-->
 <!--            <result column="intro" property="intro" jdbcType="VARCHAR"></result>-->
 <!--            <result column="type" property="type" jdbcType="INTEGER"></result>-->
@@ -24,7 +27,7 @@
     </resultMap>
 
     <sql id="base_column_list">
-        id,create_time,title,intro,url,author,image,type,like_count
+        id,create_time,update_time,delete_time,title,intro,url,author,image,type,like_count,is_recommend
     </sql>
 
 
@@ -106,7 +109,7 @@
 
 <!--    按照类型查询classic列表-->
     <select id="getListByType" parameterType="com.answer.base.dto.PagingDTO" resultMap="ClassicMap">
-            select <include refid="base_column_list"></include> from classic where type=#{key} and delete_time is null
+            select <include refid="base_column_list"></include> from classic where delete_time is null <if test="key!=null">and  type=#{key} </if><if test="keyword!=null">and title like "%"#{keyword}"%"</if>
     </select>
 
 <!--    根据id查找classic的详情-->
