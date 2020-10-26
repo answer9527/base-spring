@@ -28,7 +28,7 @@ public class TestController {
     @GetMapping("/get")
     public Msg getUser(@RequestParam int id){
 //        User user= testService.searchUser(id);
-        return ResultUtil.success("测试成功");
+        return ResultUtil.success("测试成功-0 ");
     }
 
     @PostMapping("/insert")
