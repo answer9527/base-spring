@@ -65,7 +65,9 @@ public class ClassicController {
 
 //    新增一条数据
     @PostMapping("/add")
-    public Msg add(@RequestBody Classic classic){
+    public Msg add(HttpServletRequest request,@RequestBody Classic classic){
+        String token = request.getHeader("Authorization");
+        JwtToken.TokenGetUid(token);
         classicService.insertClassic(classic);
         return ResultUtil.success("新增成功");
     }
