@@ -28,15 +28,15 @@ public class TestController {
     @GetMapping("/get")
     public Msg getUser(@RequestParam int id){
 //        User user= testService.searchUser(id);
-        return ResultUtil.success("测试成功");
+        return ResultUtil.success("测试成功-0 ");
     }
 
     @GetMapping("/calendar")
     public Msg getCalendar(){
         int [] counts = new int[31];
-        for (int i = 0; i < counts.length
-                ; i++) {
-            counts[i] = (int) (Math.random()*10);
+
+        for (int i = 0; i < counts.length; i++) {
+            counts[i] = (int) (Math.random()*2);
         }
         Map map = new HashMap();
         map.put("counts",counts);

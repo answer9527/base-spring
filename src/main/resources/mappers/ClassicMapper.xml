@@ -48,7 +48,17 @@
 
 <!--    添加一个内容-->
     <insert id="insertOne" parameterType="com.answer.base.entity.Classic">
-        insert into classic(create_time,title,sub_title,intro,content,url,image,author,is_recommend) values(CURRENT_TIMESTAMP,#{title},#{sub_title},#{intro},#{content},#{url},#{image},#{author},#{is_recommend})
+        insert into classic<trim prefix="(" suffix=")" suffixOverrides=",">
+            create_time,title,`type`,sub_title,intro,content,url,image,author,is_recommend,
+            <if test="is_recommend">
+                recommend_time,
+            </if>
+        </trim><trim prefix="values(" suffix=")" suffixOverrides=",">
+            CURRENT_TIMESTAMP,#{title},#{type},#{sub_title},#{intro},#{content},#{url},#{image},#{author},#{is_recommend},
+            <if test="is_recommend">
+                CURRENT_TIMESTAMP,
+            </if>
+        </trim>
     </insert>
 
 <!--    设置为推荐-->
