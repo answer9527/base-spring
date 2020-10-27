@@ -34,7 +34,8 @@ public class TestController {
     @GetMapping("/calendar")
     public Msg getCalendar(){
         int [] counts = new int[31];
-        for (int i = 0; i < counts.length; i++) {
+        for (int i = 0; i < counts.length
+                ; i++) {
             counts[i] = (int) (Math.random()*10);
         }
         Map map = new HashMap();
