@@ -136,5 +136,13 @@ public class ClassicServiceImpl implements ClassicService {
         return classicMapper.getLikeStatus(uidAndIdDTO);
     }
 
+    @Override
+    public void updateClassic(Classic classic) {
+        Boolean bool = classicMapper.updateClassic(classic);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+    }
+
 }
 

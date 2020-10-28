@@ -74,21 +74,27 @@ public class ClassicController {
 
 //    设置推荐
     @GetMapping("/setRecommend")
-    public Msg setRecommendOne(@RequestParam Integer id){
+    public Msg setRecommendOne(HttpServletRequest request,@RequestParam Integer id){
+        String token = request.getHeader("Authorization");
+        JwtToken.TokenGetUid(token);
         classicService.RecommendClassic(id);
         return ResultUtil.success("设置推荐成功");
     }
 
 //    下架推荐
     @GetMapping("/removeRecommend")
-    public Msg removeRecommend(@RequestParam Integer id){
+    public Msg removeRecommend(HttpServletRequest request,@RequestParam Integer id){
+        String token = request.getHeader("Authorization");
+        JwtToken.TokenGetUid(token);
         classicService.removeRecommend(id);
         return ResultUtil.success("取消推荐成功");
     }
 
 //    删除一条
     @GetMapping("/delete")
-    public Msg deleteOne(@RequestParam Integer id){
+    public Msg deleteOne(HttpServletRequest request,@RequestParam Integer id){
+        String token = request.getHeader("Authorization");
+        JwtToken.TokenGetUid(token);
         classicService.deleteClassic(id);
         return ResultUtil.success("删除成功");
     }
@@ -143,6 +149,14 @@ public class ClassicController {
         return ResultUtil.success(classic);
     }
 
+//  修改更新classic内容
+    @PostMapping("/update")
+    public Msg updateClassicById(HttpServletRequest request,@RequestBody Classic classic){
+        String token = request.getHeader("Authorization");
+        JwtToken.TokenGetUid(token);
+        classicService.updateClassic(classic);
+        return  ResultUtil.success("更新成功!");
+    }
 //    设置返回是否喜欢某classic
     public Classic formatLikeStatus(Classic classic,String token){
         UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();

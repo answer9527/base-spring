@@ -49,4 +49,7 @@ public interface ClassicService {
 
 //    根据用户的id 和classic 的id 判断是否为喜欢
     Boolean getLikeStatus(UidAndIdDTO uidAndIdDTO);
+
+//   更新classic
+    void updateClassic(Classic classic);
 }

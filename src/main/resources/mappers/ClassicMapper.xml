@@ -132,6 +132,46 @@
     <select id="getLikeStatus" parameterType="com.answer.base.dto.UidAndIdDTO" resultType="java.lang.Boolean">
         select count(*) from user_like_classic where uid=#{uid} and cid=#{id}
     </select>
+
+<!--    更新classic的信息-->
+    <update id="updateClassic" parameterType="com.answer.base.entity.Classic">
+        update classic
+        <set>
+            <trim suffixOverrides=",">
+                <if test="is_recommend and recommend_time==null">
+                    recommend_time = CURRENT_TIMESTAMP,
+                </if>
+                <if test="is_recommend!=null">
+                    is_recommend = #{is_recommend},
+                </if>
+                <if test="title!=null">
+                    title = #{title},
+                </if>
+                <if test="intro!=null">
+                    intro = #{intro},
+                </if>
+                <if test="content!=null">
+                    content = #{content},
+                </if>
+                <if test="type!=null">
+                    `type` = #{type},
+                </if>
+                <if test="type!=null">
+                    `type` = #{type},
+                </if>
+                <if test="url!=null">
+                    url = #{url},
+                </if>
+                <if test="author!=null">
+                    author = #{author},
+                </if>
+                <if test="image!=null">
+                    image = #{image},
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and delete_time is null
+    </update>
 </mapper>
 
 
