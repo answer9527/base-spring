@@ -13,5 +13,8 @@ import java.util.List;
 public interface CommentMapper {
     List<Comment> selectCommentByClassicId(Integer cid);
     Integer insertComment(Comment comment);
+//    删除我的评论
     Boolean delComment(UidAndIdDTO uidAndIdDTO);
+//    管理员删除评论
+    Boolean powerDelComment(Integer id);
 }

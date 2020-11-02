@@ -62,5 +62,14 @@ public class CommentController {
         return ResultUtil.success("删除成功！");
     }
 
+//    管理员删除评论
+    @GetMapping("/power/del/{id}")
+    public Msg PowerDelComment(HttpServletRequest request,@PathVariable Integer id){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        commentService.powerDelComment(id);
+        return ResultUtil.success("删除成功！");
+    }
+
 
 }

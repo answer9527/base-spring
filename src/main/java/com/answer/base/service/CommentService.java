@@ -11,4 +11,5 @@ public interface CommentService {
     Pager<Comment> selectCommentByClassicId(PagingDTO pagingDTO);
     Comment insertComment(Comment comment);
     void delComment(UidAndIdDTO uidAndIdDTO);
+    void powerDelComment(Integer id);
 }

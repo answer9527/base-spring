@@ -39,4 +39,12 @@ public class CommentServiceImpl implements CommentService {
             throw new AuthException(40004);
         }
     }
+
+    @Override
+    public void powerDelComment(Integer id) {
+        Boolean bool = commentMapper.powerDelComment(id);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+    }
 }

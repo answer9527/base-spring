@@ -74,5 +74,12 @@
         </set>
         where id=#{id} and uid=#{uid}
     </update>
+    <update id="powerDelComment" parameterType="INTEGER">
+        update comment
+        <set>
+            delete_time=current_timestamp
+        </set>
+        where id=#{id}
+    </update>
 
 </mapper>
