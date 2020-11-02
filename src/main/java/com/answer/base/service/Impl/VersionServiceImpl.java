@@ -28,6 +28,14 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
+    public void updateVersion(Version version) {
+        Boolean bool = versionMapper.updateVersion(version);
+        if(!bool){
+            throw  new ParameterException(50001);
+        }
+    }
+
+    @Override
     public Version getLatestVersion() {
         Optional<Version> versionOptional = Optional.ofNullable(versionMapper.getLatestVersion());
         Version version = versionOptional.orElseThrow(()->new ParameterException(50004));

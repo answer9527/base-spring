@@ -16,15 +16,15 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/upload")
-//@CrossOrigin(origins ="*")
+@CrossOrigin(origins ="*")
 public class UploadController {
     @Value("${upload.path}")
     private String base_path;
     public final static String UPLOAD_PATH_PREFIX = "/uploadFile/";
     @RequestMapping("/file")
     public Msg uploadFile(HttpServletRequest request,@RequestParam MultipartFile file){
-        String token = request.getHeader("Authorization");
-        JwtToken.TokenGetUid(token);
+//        String token = request.getHeader("Authorization");
+//        JwtToken.TokenGetUid(token);
         if(file.isEmpty()){
             throw new ParameterException(60001);
         }

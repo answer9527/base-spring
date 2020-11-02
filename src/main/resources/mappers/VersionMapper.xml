@@ -35,4 +35,19 @@
     <select id="getLatestVersion" resultType="com.answer.base.entity.Version">
         select * from version where delete_time is null order by id desc limit 1
     </select>
+
+    <update id="updateVersion" parameterType="com.answer.base.entity.Version">
+        update version
+        <set>
+            <trim suffixOverrides=",">
+                <if test="intro!=null">
+                    intro=#{intro},
+                </if>
+                <if test="wgt!=null">
+                    wgt = #{wgt}
+                </if>
+            </trim>
+        </set>
+        where id = #{id} and delete_time is null
+    </update>
 </mapper>
