@@ -8,6 +8,7 @@ import com.answer.base.service.HoleService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
+import com.answer.base.vo.Pager;
 import com.answer.base.vo.RandHoleVO;
 import com.answer.base.vo.SingleHoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,12 @@ public class HoleController {
         uidAndIdDTO.setId(id);
         holeService.delHole(uidAndIdDTO);
         return ResultUtil.success();
+    }
+
+//    分页获取树洞列表
+    @PostMapping("/list")
+    public Msg getHoleList(@RequestBody  PagingDTO pagingDTO){
+        Pager<SingleHoleVO> holeList = holeService.getHoleList(pagingDTO);
+        return ResultUtil.success(holeList);
     }
 }

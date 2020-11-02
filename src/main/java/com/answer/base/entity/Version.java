@@ -12,6 +12,7 @@ public class Version extends BaseEntity {
     private String intro;
     @NotNull
     private String release;
+    @NotNull
     private String wgt;
 
     public String getWgt() {

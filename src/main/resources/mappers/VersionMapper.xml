@@ -11,9 +11,11 @@
         select * from version where delete_time is null
     </select>
     <insert id="insertVersion" parameterType="com.answer.base.entity.Version">
-        insert into version
+        insert into `version`
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            release,
+            <if test="release!=null">
+                `release`,
+            </if>
             <if test="intro!=null">
                 intro,
             </if>
@@ -22,7 +24,9 @@
             </if>
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
-            #{release},
+            <if test="release!=null">
+                #{release},
+            </if>
             <if test="intro!=null">
                 #{intro},
             </if>

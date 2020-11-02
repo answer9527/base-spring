@@ -6,8 +6,11 @@ import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Hole;
 import com.answer.base.exception.http.AuthException;
 import com.answer.base.service.HoleService;
+import com.answer.base.vo.Pager;
 import com.answer.base.vo.RandHoleVO;
 import com.answer.base.vo.SingleHoleVO;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,4 +47,13 @@ public class HoleServiceImpl implements HoleService {
             throw new AuthException(40004);
         }
     }
+
+    @Override
+    public Pager<SingleHoleVO> getHoleList(PagingDTO pagingDTO) {
+        PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
+        PageInfo<SingleHoleVO> pageInfo = new PageInfo<>(holeMapper.getHoleList());
+        return new Pager<>(pageInfo);
+    }
+
+
 }

@@ -18,4 +18,5 @@ public interface HoleMapper {
     List<RandHoleVO> getRandHole(PagingDTO pagingDTO);
     SingleHoleVO getHoleById(Integer id);
     Boolean delMyHole(UidAndIdDTO uidAndIdDTO);
+    List<SingleHoleVO> getHoleList();
 }

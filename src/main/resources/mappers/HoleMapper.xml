@@ -10,7 +10,6 @@
         <result column="can_comment" property="canComment" jdbcType="INTEGER"></result>
         <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR"></result>
     </resultMap>
-
     <insert id="insertHole" parameterType="com.answer.base.entity.Hole">
         insert into
         <trim prefix="hole(" suffix=")">
@@ -58,4 +57,12 @@
             </set>
             where uid=#{uid} and id = #{id}
     </update>
+
+    <select id="getHoleList" resultMap="HoleMap">
+        select h.id,h.title,h.content,h.uid,h.type,h.create_time,h.comment_visible,h.can_comment,(
+        case when h.type=2 then "匿名用户"
+        else u.user_name
+        end
+        )userName,u.gender,u.avatar_url  from hole h join user u ON u.id=h.uid where h.delete_time is null
+    </select>
 </mapper>
