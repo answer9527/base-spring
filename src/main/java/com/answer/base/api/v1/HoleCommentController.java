@@ -78,4 +78,11 @@ public class HoleCommentController {
         holeCommentService.delHoleComment(uidAndIdDTO);
         return ResultUtil.success("删除成功");
     }
+    @GetMapping("/power/del/{id}")
+    public Msg powerDelHoleComment(HttpServletRequest request,@PathVariable Integer id){
+        String token = request.getHeader("Authorization");
+        Integer uid =JwtToken.TokenGetUid(token);
+        holeCommentService.powerDelHoleComment(id);
+        return ResultUtil.success("删除成功！");
+    }
 }

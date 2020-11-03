@@ -5,6 +5,7 @@ import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Hole;
 import com.answer.base.exception.http.AuthException;
+import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.HoleService;
 import com.answer.base.vo.Pager;
 import com.answer.base.vo.RandHoleVO;
@@ -53,6 +54,14 @@ public class HoleServiceImpl implements HoleService {
         PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
         PageInfo<SingleHoleVO> pageInfo = new PageInfo<>(holeMapper.getHoleList());
         return new Pager<>(pageInfo);
+    }
+
+    @Override
+    public void powerDelHole(Integer id) {
+        Boolean bool = holeMapper.powerDelHole(id);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
     }
 
 

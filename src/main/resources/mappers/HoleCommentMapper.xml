@@ -48,4 +48,11 @@
         </set>
         where id=#{id} and uid=#{uid}
     </update>
+    <update id="powerDelHoleComment">
+        update hole_comment
+        <set>
+            delete_time = current_timestamp
+        </set>
+        where id=#{id}
+    </update>
 </mapper>

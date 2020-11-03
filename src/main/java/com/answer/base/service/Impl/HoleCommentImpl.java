@@ -5,6 +5,7 @@ import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.HoleComment;
 import com.answer.base.exception.http.AuthException;
+import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.HoleCommentService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,14 @@ public class HoleCommentImpl implements HoleCommentService {
         Boolean bool = holeCommentMapper.delHoleComment(uidAndIdDTO);
         if(!bool){
             throw new AuthException(40004);
+        }
+    }
+
+    @Override
+    public void powerDelHoleComment(Integer id) {
+        Boolean bool = holeCommentMapper.powerDelHoleComment(id);
+        if(!bool){
+            throw new ParameterException(50003);
         }
     }
 }

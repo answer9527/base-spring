@@ -10,4 +10,5 @@ public interface HoleCommentService {
     List<HoleComment> getHoleCommentByHid(PagingDTO pagingDTO);
     HoleComment insertHoleComment(HoleComment holeComment);
     void delHoleComment(UidAndIdDTO uidAndIdDTO);
+    void powerDelHoleComment(Integer id);
 }

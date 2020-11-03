@@ -65,4 +65,12 @@
         end
         )userName,u.gender,u.avatar_url  from hole h join user u ON u.id=h.uid where h.delete_time is null
     </select>
+
+    <update id="powerDelHole">
+        update hole
+        <set>
+            delete_time = current_timestamp
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

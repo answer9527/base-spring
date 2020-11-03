@@ -85,4 +85,13 @@ public class HoleController {
         Pager<SingleHoleVO> holeList = holeService.getHoleList(pagingDTO);
         return ResultUtil.success(holeList);
     }
+
+//   管理员删除某个树洞
+    @GetMapping("/power/del/{id}")
+    public Msg powerDelHole(HttpServletRequest request,@PathVariable Integer id){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        holeService.powerDelHole(id);
+        return ResultUtil.success("删除成功！");
+    }
 }

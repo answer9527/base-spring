@@ -16,5 +16,6 @@ public interface HoleService {
     SingleHoleVO getHoleById(Integer id);
     void delHole(UidAndIdDTO uidAndIdDTO);
     Pager<SingleHoleVO> getHoleList(PagingDTO pagingDTO);
+    void powerDelHole(Integer id);
 
 }

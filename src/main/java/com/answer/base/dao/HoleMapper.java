@@ -19,4 +19,5 @@ public interface HoleMapper {
     SingleHoleVO getHoleById(Integer id);
     Boolean delMyHole(UidAndIdDTO uidAndIdDTO);
     List<SingleHoleVO> getHoleList();
+    Boolean powerDelHole(Integer id);
 }

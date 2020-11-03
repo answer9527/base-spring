@@ -16,4 +16,5 @@ public interface HoleCommentMapper {
     Page<HoleComment> getHoleCommentByHid(Integer hid);
     Integer insertHoleComment(HoleComment holeComment);
     Boolean delHoleComment(UidAndIdDTO uidAndIdDTO);
+    Boolean powerDelHoleComment(Integer id);
 }
