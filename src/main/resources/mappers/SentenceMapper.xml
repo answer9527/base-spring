@@ -7,6 +7,7 @@
 <mapper namespace="com.answer.base.dao.SentenceMapper">
     <resultMap id="sentenceMap" type="Sentence">
         <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
     </resultMap>
 
 <!--    <select id="getRandSentence" resultMap="sentenceMap">-->
@@ -16,4 +17,33 @@
     <select id="getRandSentence" resultMap="sentenceMap">
         select * from sentence where delete_time is null order by rand() limit 1
     </select>
+    <select id="getSentenceList" resultMap="sentenceMap">
+        select * from sentence where delete_time is null
+            <if test="keyword!=null"> and `txt` like "%"#{keyword}"%" </if>
+        order by create_time
+    </select>
+    <insert id="insertSentence">
+        insert into sentence
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                create_time,
+                txt,
+                <if test="image">
+                    image,
+                </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            current_timestamp,
+            #{txt},
+            <if test="image">
+                #{image},
+            </if>
+        </trim>
+    </insert>
+    <update id="delSentence">
+        update sentence
+        <set>
+            delete_time = current_timestamp
+        </set>
+        where id = #{id} and delete_time is null
+    </update>
 </mapper>
