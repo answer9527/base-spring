@@ -38,15 +38,14 @@ public class SuggestController {
     }
 
     @PostMapping("/reply")
-    @ScopeLevel(4)
-    public Msg replySuggest(HttpServletRequest request, @RequestBody @Validated ReplySuggestDTO replySuggestDTO){
+    @ScopeLevel(9)
+    public Msg replySuggest(@RequestBody @Validated ReplySuggestDTO replySuggestDTO){
         suggestService.replySuggest(replySuggestDTO);
         return ResultUtil.success("回复成功！");
     }
 
     @PostMapping("/all")
     public Msg getAllSuggest(@RequestBody PagingDTO pagingDTO){
-
         return ResultUtil.success(suggestService.getAll(pagingDTO));
     }
 

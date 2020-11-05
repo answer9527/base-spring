@@ -1,5 +1,6 @@
 package com.answer.base.api.v1;
 
+import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.Comment;
@@ -64,9 +65,8 @@ public class CommentController {
 
 //    管理员删除评论
     @GetMapping("/power/del/{id}")
-    public Msg PowerDelComment(HttpServletRequest request,@PathVariable Integer id){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg PowerDelComment(@PathVariable Integer id){
         commentService.powerDelComment(id);
         return ResultUtil.success("删除成功！");
     }

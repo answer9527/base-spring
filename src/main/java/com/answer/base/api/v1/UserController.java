@@ -77,6 +77,16 @@ public class UserController {
         return ResultUtil.success(loginResultVO,"登陆成功");
     }
 
+//    管理员登录
+    @PostMapping("/pwdToken/admin")
+    public Msg getAdminTokenByPwd(@RequestBody @Validated PwdTokenDTO pwdTokenDTO){
+        Optional<UserInfoVO> userOptional = Optional.ofNullable(userService.selectUserByAccPwd(pwdTokenDTO));
+        UserInfoVO userInfoVO = userOptional.orElseThrow(()->new TokenException(20002));
+        String token = JwtToken.makeToken(userInfoVO.getId(),userInfoVO.getScope());
+        LoginResultVO loginResultVO = LoginResultVO.builder().token(token).uid(userInfoVO.getId()).userInfo(userInfoVO).build();
+        return ResultUtil.success(loginResultVO,"登陆成功");
+    }
+
 //    已注册的用户使用微信code直接登录
     @GetMapping("/codeLogin")
     public Msg getTokenByCode(@RequestParam String code){

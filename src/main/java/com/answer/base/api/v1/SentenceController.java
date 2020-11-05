@@ -1,5 +1,6 @@
 package com.answer.base.api.v1;
 
+import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Sentence;
 import com.answer.base.service.SentenceService;
@@ -24,25 +25,22 @@ public class SentenceController {
     }
 
     @PostMapping("/list")
-    public Msg getSentence(HttpServletRequest request,@RequestBody PagingDTO pagingDTO){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg getSentence(@RequestBody PagingDTO pagingDTO){
         Pager<Sentence> sentenceList = sentenceService.getSentenceList(pagingDTO);
         return ResultUtil.success(sentenceList);
     }
 
     @PostMapping("/insert")
-    public Msg insertSentence(HttpServletRequest request,@RequestBody Sentence sentence){
-        String token  = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg insertSentence(@RequestBody Sentence sentence){
         sentenceService.insertSentence(sentence);
         return  ResultUtil.success("新增成功");
     }
 
     @GetMapping("/del/{id}")
-    public Msg delSentence(HttpServletRequest request,@PathVariable Integer id){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg delSentence(@PathVariable Integer id){
         sentenceService.delSentence(id);
         return ResultUtil.success("删除成功！");
     }

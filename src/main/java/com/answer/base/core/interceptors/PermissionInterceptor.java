@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.Optional;
 
+// 拦截器这边可以做  scope权限  上次在线时间 日志 等问题
 public class PermissionInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -35,10 +36,6 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 //        return super.preHandle(request, response, handler);
     }
 
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        super.postHandle(request, response, handler, modelAndView);
-    }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
@@ -63,8 +60,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
         Integer scope = map.get("scope").asInt();
         Integer level = scopeLevel.value();
         if(scope<level){
-            throw new ParameterException(40004);
-
+            throw new ParameterException(40010);
         }
         return true;
     }

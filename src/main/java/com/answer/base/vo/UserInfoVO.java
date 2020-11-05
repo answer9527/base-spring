@@ -18,6 +18,7 @@ public class UserInfoVO extends BaseEntity {
     private String avatarUrl;
     private Integer gender;
     private String account;
+    private Integer scope;
 
     public String getAvatarUrl() {
         Boolean bool = avatarUrl.matches("http(.*)");

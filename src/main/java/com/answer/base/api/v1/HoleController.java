@@ -60,7 +60,6 @@ public class HoleController {
 
 //    获取树洞的详情
     @GetMapping("/getById/{id}")
-    @ScopeLevel(0)
     public Msg getHoleById(@PathVariable Integer id){
         SingleHoleVO singleHoleVO = holeService.getHoleById(id);
         return ResultUtil.success(singleHoleVO);
@@ -81,6 +80,7 @@ public class HoleController {
 
 //    分页获取树洞列表
     @PostMapping("/list")
+    @ScopeLevel(9)
     public Msg getHoleList(@RequestBody  PagingDTO pagingDTO){
         Pager<SingleHoleVO> holeList = holeService.getHoleList(pagingDTO);
         return ResultUtil.success(holeList);
@@ -88,9 +88,8 @@ public class HoleController {
 
 //   管理员删除某个树洞
     @GetMapping("/power/del/{id}")
-    public Msg powerDelHole(HttpServletRequest request,@PathVariable Integer id){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg powerDelHole(@PathVariable Integer id){
         holeService.powerDelHole(id);
         return ResultUtil.success("删除成功！");
     }

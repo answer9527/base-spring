@@ -74,27 +74,24 @@ public class ClassicController {
 
 //    设置推荐
     @GetMapping("/setRecommend")
-    public Msg setRecommendOne(HttpServletRequest request,@RequestParam Integer id){
-        String token = request.getHeader("Authorization");
-        JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg setRecommendOne(@RequestParam Integer id){
         classicService.RecommendClassic(id);
         return ResultUtil.success("设置推荐成功");
     }
 
 //    下架推荐
     @GetMapping("/removeRecommend")
-    public Msg removeRecommend(HttpServletRequest request,@RequestParam Integer id){
-        String token = request.getHeader("Authorization");
-        JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg removeRecommend(@RequestParam Integer id){
         classicService.removeRecommend(id);
         return ResultUtil.success("取消推荐成功");
     }
 
 //    删除一条
     @GetMapping("/delete")
-    public Msg deleteOne(HttpServletRequest request,@RequestParam Integer id){
-        String token = request.getHeader("Authorization");
-        JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg deleteOne(@RequestParam Integer id){
         classicService.deleteClassic(id);
         return ResultUtil.success("删除成功");
     }

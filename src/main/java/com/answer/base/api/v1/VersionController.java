@@ -1,6 +1,7 @@
 package com.answer.base.api.v1;
 
 
+import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.entity.Version;
 import com.answer.base.service.VersionService;
 import com.answer.base.util.JwtToken;
@@ -25,17 +26,14 @@ public class VersionController {
     }
 
     @PostMapping("/insert")
-    public Msg insertVersion(HttpServletRequest request, @RequestBody @Validated Version version){
-        String token  = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg insertVersion(@RequestBody @Validated Version version){
         versionService.insertVersion(version);
         return  ResultUtil.success("新增成功");
     }
 
     @PostMapping("/update")
-    public Msg updateVersion(HttpServletRequest request,@RequestBody @Validated Version version){
-        String token  = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+    public Msg updateVersion(@RequestBody @Validated Version version){
         versionService.updateVersion(version);
         return ResultUtil.success("更新成功！");
     }

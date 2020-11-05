@@ -14,6 +14,7 @@ public class User extends BaseEntity {
     private String openId;
     private String avatarUrl;
     private Integer gender;
+    private Integer scope;
 
     public String getAvatarUrl() {
         Boolean bool = avatarUrl.matches("http(.*)");

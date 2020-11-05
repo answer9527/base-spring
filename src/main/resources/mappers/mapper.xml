@@ -24,7 +24,7 @@
         id,user_name,age,create_time
     </sql>
     <sql id="login_result">
-        id,user_name as userName,avatar_url as avatarUrl,gender,account,create_time as createTime,update_time as updateTime
+        id,user_name as userName,avatar_url as avatarUrl,gender,account,create_time as createTime,update_time as updateTime,scope
     </sql>
 <!--根据id查找用户-->
     <select id="selectUser" parameterType="INTEGER" resultMap="UserMap">

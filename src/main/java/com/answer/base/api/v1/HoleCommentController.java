@@ -1,5 +1,6 @@
 package com.answer.base.api.v1;
 
+import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.UidAndIdDTO;
 import com.answer.base.entity.CommentMsg;
@@ -79,9 +80,8 @@ public class HoleCommentController {
         return ResultUtil.success("删除成功");
     }
     @GetMapping("/power/del/{id}")
-    public Msg powerDelHoleComment(HttpServletRequest request,@PathVariable Integer id){
-        String token = request.getHeader("Authorization");
-        Integer uid =JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg powerDelHoleComment(@PathVariable Integer id){
         holeCommentService.powerDelHoleComment(id);
         return ResultUtil.success("删除成功！");
     }
