@@ -34,4 +34,27 @@
         </set>
         where id=#{id} and uid =#{uid}
     </update>
+
+<!--    根据 keyword的不同获取已经过时间(future) 和未过期的信件 (past) -->
+    <select id="getLetterList" resultType="com.answer.base.vo.LetterVO">
+        select
+        l.id,
+        l.create_time as createTime,
+        l.email,
+        l.title,
+        l.content,
+        l.plan_time as planTime,
+        l.post_time as postTime,
+        u.user_name as userName,
+        u.avatar_url as avatarUrl
+        from letter l join user u on u.id = l.uid
+        where l.delete_time is null
+        <if test='keyword=="future"'>
+            and l.plan_time >= current_timestamp
+        </if>
+        <if test='keyword=="past"'>
+            and l.plan_time &lt;= current_timestamp
+        </if>
+
+    </select>
 </mapper>

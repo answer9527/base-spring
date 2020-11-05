@@ -21,12 +21,20 @@
         </set>
         where id=#{id} and delete_time is null
     </update>
+
+    <update id="delSuggest">
+        update suggest
+        <set>
+            delete_time = current_timestamp
+        </set>
+        where id=#{id} and delete_time is null
+    </update>
 <!--    获取列表-->
-    <select id="getAll" parameterType="STRING" resultMap="suggestMap">
-        select * from suggest where delete_time is null
+    <select id="getAll" parameterType="STRING" resultType="com.answer.base.vo.SuggestVO">
+        select s.id,s.create_time as createTime,u.user_name as userName,u.avatar_url as avatarUrl,s.suggest_info as suggestInfo,s.reply_info as replyInfo from suggest s join user u on u.id = s.uid where s.delete_time is null
         <if test="keyword !=null">
-            and suggest_info like "%"#{keyword}"%"
+            and s.suggest_info like "%"#{keyword}"%"
         </if>
-         order by create_time desc
+         order by s.create_time desc
     </select>
 </mapper>

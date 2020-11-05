@@ -1,9 +1,13 @@
 package com.answer.base.service;
 
+import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Letter;
+import com.answer.base.vo.LetterVO;
+import com.answer.base.vo.Pager;
 
 public interface LetterService {
     void insertOne(Letter letter);
     Letter getMyLetter(Integer uid);
     void updateLetter(Letter letter);
+    Pager<LetterVO> getLetterList(PagingDTO pagingDTO);
 }

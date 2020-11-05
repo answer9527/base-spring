@@ -1,12 +1,15 @@
 package com.answer.base.api.v1;
 
 import com.answer.base.core.interceptors.ScopeLevel;
+import com.answer.base.dto.PagingDTO;
 import com.answer.base.entity.Letter;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.service.LetterService;
 import com.answer.base.util.JwtToken;
 import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
+import com.answer.base.vo.LetterVO;
+import com.answer.base.vo.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +49,13 @@ public class LetterController {
         letter.setUid(uid);
         letterService.updateLetter(letter);
         return ResultUtil.success();
+    }
+
+    @PostMapping("/list")
+    @ScopeLevel(9)
+    public Msg getLetterList(@RequestBody PagingDTO pagingDTO){
+        Pager<LetterVO> letterList = letterService.getLetterList(pagingDTO);
+        return  ResultUtil.success(letterList);
     }
 
 
