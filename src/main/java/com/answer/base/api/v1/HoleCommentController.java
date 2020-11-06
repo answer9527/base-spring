@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -53,8 +54,10 @@ public class HoleCommentController {
         commentMsg.setType(2);
         commentMsg.setCommentId(h_com_id);
 
+        System.out.println();
 //        给树洞作者的消息
-        if(hole.getUid()!=uid&&hole.getUid()!=_holeComment.getUid_r()){
+
+        if(!Objects.equals(hole.getUid(), uid)&& !Objects.equals(hole.getUid(), _holeComment.getUid_r())){
             commentMsg.setUid(hole.getUid());
             msgService.insertMsg(commentMsg);
         }
