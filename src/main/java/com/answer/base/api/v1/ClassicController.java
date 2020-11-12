@@ -165,11 +165,14 @@ public class ClassicController {
         return classic;
     }
 
-//    获取推荐列表
+//    获取推荐中的列表
     @GetMapping("/recommend/list")
     @ScopeLevel(9)
     public Msg getRecommendList(){
         List<Classic> classicList = classicService.getRecommendList();
         return ResultUtil.success(classicList);
     }
+
+
+
 }

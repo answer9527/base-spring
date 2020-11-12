@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.base.dao.ClassicTypeMapper">
+    <resultMap id="ClassicTypeMap" type="ClassicType">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"></result>
+        <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP"></result>
+    </resultMap>
+    <select id="getClassicTypeAll" resultMap="ClassicTypeMap">
+        select * from classic_type where delete_time is null
+    </select>
+    <select id="getClassicTypeSortTotal" resultType="com.answer.base.vo.SortTotalVO">
+        select t.name,count(*) as `value` from classic c join classic_type t on t.id = c.type where c.delete_time is null group by c.type
+    </select>
+</mapper>
