@@ -59,4 +59,7 @@ public interface ClassicMapper {
 //    更新classic信息
     Boolean updateClassic(Classic classic);
 
+//    获取推荐的classic
+    List<Classic> getRecommendList();
+
 }

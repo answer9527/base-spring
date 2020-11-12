@@ -52,4 +52,7 @@ public interface ClassicService {
 
 //   更新classic
     void updateClassic(Classic classic);
+
+//    获取 推荐的列表
+    List<Classic> getRecommendList();
 }

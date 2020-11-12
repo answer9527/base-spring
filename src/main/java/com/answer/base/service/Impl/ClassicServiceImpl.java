@@ -144,5 +144,10 @@ public class ClassicServiceImpl implements ClassicService {
         }
     }
 
+    @Override
+    public List<Classic> getRecommendList() {
+        return classicMapper.getRecommendList();
+    }
+
 }
 

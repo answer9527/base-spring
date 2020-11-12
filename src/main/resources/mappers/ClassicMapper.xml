@@ -90,7 +90,7 @@
 
 <!--    分页查找我喜欢的列表-->
     <select id="getMyLike" parameterType="INTEGER" resultMap="ClassicMap">
-       select * from classic a join user_like_classic b on b.uid=#{key} and a.id=b.cid
+       select * from classic a join user_like_classic b on b.uid=#{key} and a.id=b.cid where a.delete_time is null
     </select>
 
 <!--  设置喜欢  -->
@@ -172,6 +172,9 @@
         </set>
         where id = #{id} and delete_time is null
     </update>
+    <select id="getRecommendList" resultMap="ClassicMap">
+        select id,title,intro,author,image,`type` from classic where is_recommend = 1 and delete_time is null
+    </select>
 </mapper>
 
 
