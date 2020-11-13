@@ -13,7 +13,7 @@
 
             <include refid="selectModel">
                     <property name="tab" value="user"/>
-                    <property name="name" value="'用户注册量'"/>
+                    <property name="name" value="'用户量'"/>
                     <property name="unit" value="'个'"/>
                     <property name="icon" value="'el-icon-user-solid'"/>
             </include>
