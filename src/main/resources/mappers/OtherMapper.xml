@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.base.dao.OtherMapper">
+
+    <sql id="selectModel">
+            select count(*) as value,(select count(*) from ${tab} n where to_days(n.create_time)=to_days(now()) and n.delete_time is null) as value2,${name} as name,${unit} as unit,${icon}  as icon from ${tab}  where delete_time is null
+    </sql>
+
+
+    <select id="getDashboardSortTotal" resultType="com.answer.base.vo.SortTotalVO">
+
+            <include refid="selectModel">
+                    <property name="tab" value="user"/>
+                    <property name="name" value="'用户注册量'"/>
+                    <property name="unit" value="'个'"/>
+                    <property name="icon" value="'el-icon-user-solid'"/>
+            </include>
+            union
+            <include refid="selectModel">
+                    <property name="tab" value="letter"/>
+                    <property name="name" value="'信件量'"/>
+                    <property name="unit" value="'封'"/>
+                    <property name="icon" value="'el-icon-s-promotion'"/>
+            </include>
+            union
+            <include refid="selectModel">
+                    <property name="tab" value="hole"/>
+                    <property name="name" value="'树洞数'"/>
+                    <property name="unit" value="'个'"/>
+                    <property name="icon" value="'el-icon-s-opportunity'"/>
+            </include>
+            union
+            <include refid="selectModel">
+                    <property name="tab" value="classic"/>
+                    <property name="name" value="'媒体数'"/>
+                    <property name="unit" value="'个'"/>
+                    <property name="icon" value="'el-icon-s-platform'"/>
+            </include>
+            union
+            <include refid="selectModel">
+                    <property name="tab" value="user_like_classic"/>
+                    <property name="name" value="'收藏数'"/>
+                    <property name="unit" value="'个'"/>
+                    <property name="icon" value="'el-icon-success'"/>
+            </include>
+    </select>
+</mapper>
