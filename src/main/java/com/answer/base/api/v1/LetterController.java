@@ -10,13 +10,19 @@ import com.answer.base.util.Msg;
 import com.answer.base.util.ResultUtil;
 import com.answer.base.vo.LetterVO;
 import com.answer.base.vo.Pager;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @RestController
 @RequestMapping("/v1/letter")
+@Validated
 public class LetterController {
     @Autowired
     private LetterService letterService;
@@ -56,6 +62,12 @@ public class LetterController {
     public Msg getLetterList(@RequestBody PagingDTO pagingDTO){
         Pager<LetterVO> letterList = letterService.getLetterList(pagingDTO);
         return  ResultUtil.success(letterList);
+    }
+
+//    获取按月份获取数量
+    @GetMapping("/month/planCount")
+    public Msg getLetterMonthPlan(@RequestParam @Min(0) Integer y,@RequestParam @Max(value = 12,message = "月份最大不超过12") @Min(value = 0,message = "月份不小于0")  Integer m ){
+        return ResultUtil.success("xxx");
     }
 
 

@@ -10,6 +10,40 @@
         <result column="plan_time" property="planTime" jdbcType="TIMESTAMP"></result>
     </resultMap>
 
+    <sql id="monthBase">
+        UNION ALL SELECT 1 as label,0 as `value`
+        UNION ALL SELECT 2 as label,0 as `value`
+        UNION ALL SELECT 3 as label,0 as `value`
+        UNION ALL SELECT 4 as label,0 as `value`
+        UNION ALL SELECT 5 as label,0 as `value`
+        UNION ALL SELECT 6 as label,0 as `value`
+        UNION ALL SELECT 7 as label,0 as `value`
+        UNION ALL SELECT 8 as label,0 as `value`
+        UNION ALL SELECT 9 as label,0 as `value`
+        UNION ALL SELECT 10 as label,0 as `value`
+        UNION ALL SELECT 11 as label,0 as `value`
+        UNION ALL SELECT 12 as label,0 as `value`
+        UNION ALL SELECT 13 as label,0 as `value`
+        UNION ALL SELECT 14 as label,0 as `value`
+        UNION ALL SELECT 15 as label,0 as `value`
+        UNION ALL SELECT 16 as label,0 as `value`
+        UNION ALL SELECT 17 as label,0 as `value`
+        UNION ALL SELECT 18 as label,0 as `value`
+        UNION ALL SELECT 19 as label,0 as `value`
+        UNION ALL SELECT 20 as label,0 as `value`
+        UNION ALL SELECT 21 as label,0 as `value`
+        UNION ALL SELECT 22 as label,0 as `value`
+        UNION ALL SELECT 23 as label,0 as `value`
+        UNION ALL SELECT 24 as label,0 as `value`
+        UNION ALL SELECT 25 as label,0 as `value`
+        UNION ALL SELECT 26 as label,0 as `value`
+        UNION ALL SELECT 27 as label,0 as `value`
+        UNION ALL SELECT 28 as label,0 as `value`
+        UNION ALL SELECT 29 as label,0 as `value`
+        UNION ALL SELECT 30 as label,0 as `value`
+        UNION ALL SELECT 31 as label,0 as `value`
+    </sql>
+
     <insert id="insertOne" parameterType="com.answer.base.entity.Letter">
         insert into letter(uid,title,content,email,plan_time) values(#{uid},#{title},#{content},#{email},#{planTime}) ON DUPLICATE KEY
          UPDATE title = values(title),content=values(content),email=values(email),plan_time=values(plan_time)

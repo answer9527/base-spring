@@ -24,11 +24,16 @@ public class Classic extends BaseEntity {
     private Double sort;
 
     public String getImage() {
-        Boolean bool = image.matches("http(.*)");
-        if(bool){
-            return image;
+        if(image!=null){
+            Boolean bool = image.matches("http(.*)");
+            if(bool){
+                return image;
+            }else{
+                return _domain()+image;
+            }
         }else{
-            return _domain()+image;
+            return null;
         }
+
     }
 }

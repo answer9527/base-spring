@@ -33,17 +33,17 @@
 
     <!--根据获取最新的一个-->
     <select id="getRecommendLatest"  resultMap="ClassicMap">
-        select <include refid="base_column_list"></include> from classic where is_recommend=true and delete_time is NULL ORDER by recommend_time desc limit 1;
+        select <include refid="base_column_list"></include> from classic where is_recommend=true and delete_time is NULL ORDER by sort,recommend_time desc limit 1;
     </select>
 
 <!--    获取上一期推荐-->
     <select id="getRecommendPrevious" parameterType="INTEGER" resultMap="ClassicMap">
-        select a.id,a.create_time,a.title,a.intro,a.url,a.author,a.image,a.type,a.like_count from classic a  join (select * from classic  where id=#{id}) b on b.recommend_time> a.recommend_time where a.is_recommend=true and a.delete_time is NULL ORDER by a.recommend_time desc limit 1;
+        select a.id,a.create_time,a.title,a.intro,a.url,a.author,a.image,a.type,a.like_count from classic a  join (select * from classic  where id=#{id}) b on a.sort> b.sort where a.is_recommend=true and a.delete_time is NULL ORDER by a.sort,a.recommend_time desc limit 1;
     </select>
 
 <!--获取下一期推荐-->
     <select id="getRecommendNext" parameterType="INTEGER" resultMap="ClassicMap">
-        select a.id,a.create_time,a.title,a.intro,a.url,a.author,a.image,a.type,a.like_count from classic a  join (select * from classic  where id=#{id}) b on a.recommend_time> b.recommend_time where a.is_recommend=true and a.delete_time is NULL  ORDER by a.recommend_time  limit 1;
+        select a.id,a.create_time,a.title,a.intro,a.url,a.author,a.image,a.type,a.like_count from classic a  join (select * from classic  where id=#{id}) b on a.sort &lt; b.sort where a.is_recommend=true and a.delete_time is NULL  ORDER by a.sort desc ,a.recommend_time desc  limit 1;
     </select>
 
 <!--    添加一个内容-->
@@ -174,7 +174,7 @@
                     author = #{author},
                 </if>
                 <if test="image!=null">
-                    image = #{image},
+--                     image = #{image},
                 </if>
                 <if test="sort!=null">
                     sort=#{sort}
