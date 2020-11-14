@@ -10,7 +10,7 @@ public class Classic extends BaseEntity {
 
     private Integer id;
     private Date recommend_time;
-    private Boolean is_recommend=false;
+    private Boolean is_recommend;
     private String title;
     private String intro;
     private String sub_title;
@@ -21,6 +21,7 @@ public class Classic extends BaseEntity {
     private String image;
     private Integer like_count;
     private Boolean like_status=false;
+    private Double sort;
 
     public String getImage() {
         Boolean bool = image.matches("http(.*)");
