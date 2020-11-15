@@ -11,37 +11,37 @@
     </resultMap>
 
     <sql id="monthBase">
-        UNION ALL SELECT 1 as label,0 as `value`
-        UNION ALL SELECT 2 as label,0 as `value`
-        UNION ALL SELECT 3 as label,0 as `value`
-        UNION ALL SELECT 4 as label,0 as `value`
-        UNION ALL SELECT 5 as label,0 as `value`
-        UNION ALL SELECT 6 as label,0 as `value`
-        UNION ALL SELECT 7 as label,0 as `value`
-        UNION ALL SELECT 8 as label,0 as `value`
-        UNION ALL SELECT 9 as label,0 as `value`
-        UNION ALL SELECT 10 as label,0 as `value`
-        UNION ALL SELECT 11 as label,0 as `value`
-        UNION ALL SELECT 12 as label,0 as `value`
-        UNION ALL SELECT 13 as label,0 as `value`
-        UNION ALL SELECT 14 as label,0 as `value`
-        UNION ALL SELECT 15 as label,0 as `value`
-        UNION ALL SELECT 16 as label,0 as `value`
-        UNION ALL SELECT 17 as label,0 as `value`
-        UNION ALL SELECT 18 as label,0 as `value`
-        UNION ALL SELECT 19 as label,0 as `value`
-        UNION ALL SELECT 20 as label,0 as `value`
-        UNION ALL SELECT 21 as label,0 as `value`
-        UNION ALL SELECT 22 as label,0 as `value`
-        UNION ALL SELECT 23 as label,0 as `value`
-        UNION ALL SELECT 24 as label,0 as `value`
-        UNION ALL SELECT 25 as label,0 as `value`
-        UNION ALL SELECT 26 as label,0 as `value`
-        UNION ALL SELECT 27 as label,0 as `value`
-        UNION ALL SELECT 28 as label,0 as `value`
-        UNION ALL SELECT 29 as label,0 as `value`
-        UNION ALL SELECT 30 as label,0 as `value`
-        UNION ALL SELECT 31 as label,0 as `value`
+        SELECT 1 as label
+        UNION  SELECT 2 as label
+        UNION  SELECT 3 as label
+        UNION  SELECT 4 as label
+        UNION  SELECT 5 as label
+        UNION  SELECT 6 as label
+        UNION  SELECT 7 as label
+        UNION  SELECT 8 as label
+        UNION  SELECT 9 as label
+        UNION  SELECT 10 as label
+        UNION  SELECT 11 as label
+        UNION  SELECT 12 as label
+        UNION  SELECT 13 as label
+        UNION  SELECT 14 as label
+        UNION  SELECT 15 as label
+        UNION  SELECT 16 as label
+        UNION  SELECT 17 as label
+        UNION  SELECT 18 as label
+        UNION  SELECT 19 as label
+        UNION  SELECT 20 as label
+        UNION  SELECT 21 as label
+        UNION  SELECT 22 as label
+        UNION  SELECT 23 as label
+        UNION  SELECT 24 as label
+        UNION  SELECT 25 as label
+        UNION  SELECT 26 as label
+        UNION  SELECT 27 as label
+        UNION  SELECT 28 as label
+        UNION  SELECT 29 as label
+        UNION  SELECT 30 as label
+        UNION  SELECT 31 as label
     </sql>
 
     <insert id="insertOne" parameterType="com.answer.base.entity.Letter">
@@ -77,6 +77,9 @@
         l.email,
         l.title,
         l.content,
+        l.type,
+        l.image,
+        l.pending,
         l.plan_time as planTime,
         l.post_time as postTime,
         u.user_name as userName,
@@ -90,5 +93,27 @@
             and l.plan_time &lt;= current_timestamp
         </if>
 
+    </select>
+
+    <select id="getLetterMonthPlan" resultType="com.answer.base.vo.MonthCountVO">
+        select a.label,IFNULL(b.value,0) as value from(<include refid="monthBase"></include>) a LEFT JOIN  (select CONVERT(DATE_FORMAT(plan_time,'%d'),SIGNED) as label, COUNT(*) as `value` FROM letter WHERE DATE_FORMAT(plan_time,'%Y%m')=DATE_FORMAT(concat(#{y},"-",#{m},"-01"),'%Y%m') GROUP BY TO_DAYS(plan_time)) b on a.label = b.label
+    </select>
+
+    <select id="getLetterListByTime" resultType="com.answer.base.vo.LetterVO">
+        select
+        l.id,
+        l.create_time as createTime,
+        l.email,
+        l.title,
+        l.content,
+        l.type,
+        l.image,
+        l.pending,
+        l.plan_time as planTime,
+        l.post_time as postTime,
+        u.user_name as userName,
+        u.avatar_url as avatarUrl
+        from letter l join user u on u.id = l.uid
+        where l.delete_time is null and to_days(concat(#{y},"-",#{m},"-",#{d})) = to_days(l.plan_time)
     </select>
 </mapper>

@@ -18,6 +18,8 @@ public class LetterVO extends BaseEntity {
     private String content;
     private String email;
     private Boolean pending;
+    private Integer type;
+    private String image;
     private Date postTime;
     private Date planTime;
     public String getAvatarUrl() {
