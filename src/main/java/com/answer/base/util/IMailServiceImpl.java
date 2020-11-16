@@ -8,6 +8,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -17,6 +19,8 @@ import java.io.File;
 public class IMailServiceImpl implements IMailService {
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private TemplateEngine templateEngine;
     @Value("${spring.mail.from}")
     private String from;
     @Override
@@ -46,7 +50,13 @@ public class IMailServiceImpl implements IMailService {
             helper.setFrom(from);
             helper.setTo(to);
             helper.setSubject(stringBuilder.toString());
-            helper.setText(content,true);
+//            使用 thymeleaf 生成 模板
+            Context context = new Context();
+            context.setVariable("title",subject);
+            context.setVariable("content",content);
+            String emailContent = templateEngine.process("emailTemplate",context);
+//            发送邮件
+            helper.setText(emailContent,true);
             mailSender.send(message);
 
         }catch (Exception e){
@@ -65,7 +75,12 @@ public class IMailServiceImpl implements IMailService {
             helper.setFrom(from);
             helper.setTo(to);
             helper.setSubject(stringBuilder.toString());
-            helper.setText(content,true);
+            // 使用 thymeleaf 生成 模板
+            Context context = new Context();
+            context.setVariable("title",subject);
+            context.setVariable("content",content);
+            String emailContent = templateEngine.process("emailTemplate",context);
+            helper.setText(emailContent,true);
             FileSystemResource file = new FileSystemResource(new File(filePath));
             String fileName = filePath.substring(filePath.lastIndexOf(File.separator));
             helper.addAttachment(fileName, file);
