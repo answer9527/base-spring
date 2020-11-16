@@ -116,4 +116,15 @@
         from letter l join user u on u.id = l.uid
         where l.delete_time is null and to_days(concat(#{y},"-",#{m},"-",#{d})) = to_days(l.plan_time)
     </select>
+
+    <select id="getPlanLetterById" resultType="com.answer.base.vo.LetterVO">
+        select id,title,content,type,email,image from letter where pending = false and id =#{id} and delete_time is null and plan_time &lt; current_timestamp
+    </select>
+    <update id="setLetterOverById">
+        update letter
+        <set>
+            pending = true,post_time = current_timestamp
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

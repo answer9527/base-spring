@@ -63,4 +63,19 @@ public class LetterServiceImpl implements LetterService {
         return new Pager<>(letterVOPageInfo);
     }
 
+    @Override
+    public LetterVO getPlanLetterById(Integer id) {
+        Optional<LetterVO> letterVOOptional = Optional.ofNullable(letterMapper.getPlanLetterById(id));
+        LetterVO letterVO = letterVOOptional.orElseThrow(()->new ParameterException(50005));
+        return letterVO;
+    }
+
+    @Override
+    public void setLetterOverById(Integer id) {
+        Boolean bool = letterMapper.setLetterOverById(id);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+    }
+
 }

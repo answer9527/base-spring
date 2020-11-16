@@ -84,14 +84,21 @@ public class LetterController {
         return ResultUtil.success(letterVOPager);
     }
 
-    @PostMapping("/send")
+    @GetMapping("/send")
     @ScopeLevel(9)
     public Msg sendLetter(@RequestParam Integer id){
-
+       LetterVO sending_letter = letterService.getPlanLetterById(id);
+       if(sending_letter.getType()==1){
+           iMailService.sendHtmlMail(sending_letter.getEmail(),sending_letter.getTitle(),sending_letter.getContent());
+       }else{
+            iMailService.sendFileMail(sending_letter.getEmail(),sending_letter.getTitle(),sending_letter.getContent(),sending_letter.getImage());
+       }
+       letterService.setLetterOverById(id);
+       return ResultUtil.success("邮寄成功！");
 //        iMailService.sendSimpleMail("568427129@qq.com","测试","6666");
 //        iMailService.sendHtmlMail("568427129@qq.com","测试","<img class=\"normal\" width=\"430px\" data-loadfunc=\"0\" src=\"https://pics4.baidu.com/feed/71cf3bc79f3df8dc13ff1b7405b0e58c451028ba.jpeg?token=5ef85bc821931c09a1fe58d0cb33a4c2\" data-loaded=\"0\">");
 //        iMailService.sendFileMail("568427129@qq.com","测试","<h1>给自己的信</h1>","pom.xml");
-        return ResultUtil.success("xxx");
+
     }
 
 }

@@ -174,7 +174,7 @@
                     author = #{author},
                 </if>
                 <if test="image!=null">
---                     image = #{image},
+                    image = #{image},
                 </if>
                 <if test="sort!=null">
                     sort=#{sort}
