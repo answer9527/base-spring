@@ -17,4 +17,5 @@ public interface LetterService {
     Pager<LetterVO> getLetterListByTime(Integer y,Integer m,Integer d,PagingDTO pagingDTO);
     LetterVO getPlanLetterById(Integer id);
     void setLetterOverById(Integer id);
+    LetterVO getPublicLetterById(Integer id);
 }

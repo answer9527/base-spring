@@ -75,10 +75,9 @@
         l.id,
         l.create_time as createTime,
         l.email,
-        l.title,
-        l.content,
         l.type,
         l.image,
+        (case when l.type=1 then "********" else l.content end) content,
         l.pending,
         l.plan_time as planTime,
         l.post_time as postTime,
@@ -104,10 +103,7 @@
         l.id,
         l.create_time as createTime,
         l.email,
-        l.title,
-        l.content,
         l.type,
-        l.image,
         l.pending,
         l.plan_time as planTime,
         l.post_time as postTime,
@@ -127,4 +123,20 @@
         </set>
         where id = #{id}
     </update>
+    <select id="getPublicLetterById" resultType="com.answer.base.vo.LetterVO">
+        select
+        l.id,
+        l.create_time as createTime,
+        l.email,
+        l.type,
+        l.image,
+        l.title,
+        l.content,
+        l.pending,
+        l.plan_time as planTime,
+        l.post_time as postTime,
+        u.user_name as userName,
+        from letter l join user u on u.id = l.uid
+        where l.type != 1 and l.id = #{id}
+    </select>
 </mapper>

@@ -1,5 +1,6 @@
 server:
   port: 8068
+  projectName: 【陈湖旧事】
 wx:
   appid: wx50c794bc3a1857fe
   appsecret: e735720006791179fe186a160c194553

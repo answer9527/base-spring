@@ -14,6 +14,7 @@ import com.answer.base.vo.MonthCountVO;
 import com.answer.base.vo.Pager;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,9 @@ public class LetterController {
     private LetterService letterService;
     @Autowired
     private IMailService iMailService;
+
+    @Value("${server.projectName}")
+    private String projectName;
     @PostMapping("/insert")
     @ScopeLevel(0)
     public Msg insertOne(HttpServletRequest request, @RequestBody Letter letter){
@@ -88,10 +92,13 @@ public class LetterController {
     @ScopeLevel(9)
     public Msg sendLetter(@RequestParam Integer id){
        LetterVO sending_letter = letterService.getPlanLetterById(id);
+       StringBuilder stringBuilder = new StringBuilder();
+       stringBuilder.append(projectName).append(sending_letter.getTitle());
        if(sending_letter.getType()==1){
-           iMailService.sendHtmlMail(sending_letter.getEmail(),sending_letter.getTitle(),sending_letter.getContent());
+
+           iMailService.sendHtmlMail(sending_letter.getEmail(),stringBuilder.toString(),sending_letter.getContent());
        }else{
-            iMailService.sendFileMail(sending_letter.getEmail(),sending_letter.getTitle(),sending_letter.getContent(),sending_letter.getImage());
+            iMailService.sendFileMail(sending_letter.getEmail(),stringBuilder.toString(),sending_letter.getContent(),sending_letter.getImage());
        }
        letterService.setLetterOverById(id);
        return ResultUtil.success("邮寄成功！");
@@ -100,5 +107,10 @@ public class LetterController {
 //        iMailService.sendFileMail("568427129@qq.com","测试","<h1>给自己的信</h1>","pom.xml");
 
     }
-
+    @GetMapping("/byId/{id}")
+    @ScopeLevel(9)
+    public Msg PublicGetLetterById(@PathVariable Integer id){
+        LetterVO letterVO = letterService.getPublicLetterById(id);
+        return ResultUtil.success(letterVO);
+    }
 }

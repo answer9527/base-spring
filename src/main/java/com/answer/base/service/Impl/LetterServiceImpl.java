@@ -78,4 +78,11 @@ public class LetterServiceImpl implements LetterService {
         }
     }
 
+    @Override
+    public LetterVO getPublicLetterById(Integer id) {
+        Optional<LetterVO> letterVOOptional = Optional.ofNullable(letterMapper.getPublicLetterById(id));
+        LetterVO letterVO = letterVOOptional.orElseThrow(()->new ParameterException(50006));
+        return letterVO;
+    }
+
 }

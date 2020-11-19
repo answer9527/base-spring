@@ -26,12 +26,10 @@ public class IMailServiceImpl implements IMailService {
     @Override
     public void sendSimpleMail(String to, String subject, String content) {
         try {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("[陈湖旧事]").append(subject);
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setFrom(from);
             mailMessage.setTo(to);
-            mailMessage.setSubject(stringBuilder.toString());
+            mailMessage.setSubject(subject);
             mailMessage.setText(content);
             mailSender.send(mailMessage);
         }catch (Exception e){
@@ -44,12 +42,10 @@ public class IMailServiceImpl implements IMailService {
     public void sendHtmlMail(String to, String subject, String content) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("[陈湖旧事]").append(subject);
             MimeMessageHelper helper = new MimeMessageHelper(message,true);
             helper.setFrom(from);
             helper.setTo(to);
-            helper.setSubject(stringBuilder.toString());
+            helper.setSubject(subject);
 //            使用 thymeleaf 生成 模板
             Context context = new Context();
             context.setVariable("title",subject);
@@ -69,12 +65,10 @@ public class IMailServiceImpl implements IMailService {
     public void sendFileMail(String to, String subject, String content, String filePath) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("[陈湖旧事]").append(subject);
             MimeMessageHelper helper = new MimeMessageHelper(message,true);
             helper.setFrom(from);
             helper.setTo(to);
-            helper.setSubject(stringBuilder.toString());
+            helper.setSubject(subject);
             // 使用 thymeleaf 生成 模板
             Context context = new Context();
             context.setVariable("title",subject);
@@ -86,8 +80,8 @@ public class IMailServiceImpl implements IMailService {
             helper.addAttachment(fileName, file);
             mailSender.send(message);
         }catch (Exception e){
-//            throw new MailException(70001);
-            System.out.println(e);
+            throw new MailException(70001);
+//            System.out.println(e);
         }
     }
 }
