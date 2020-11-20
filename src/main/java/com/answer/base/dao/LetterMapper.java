@@ -17,6 +17,8 @@ public interface LetterMapper {
 
     Letter getMyLetter(Integer uid);
 
+    List<Letter> getMyLetterList(Integer uid);
+
     Boolean updateMyLetter(Letter letter);
 
     List<LetterVO> getLetterList(PagingDTO pagingDTO);

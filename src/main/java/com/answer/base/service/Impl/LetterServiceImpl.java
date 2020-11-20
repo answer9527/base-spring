@@ -36,6 +36,14 @@ public class LetterServiceImpl implements LetterService {
     }
 
     @Override
+    public Pager<Letter> getMyLetterList(PagingDTO pagingDTO) {
+        PageHelper.startPage(pagingDTO.getPage(),pagingDTO.getSize());
+        PageInfo<Letter> letterPageInfo = new PageInfo<>(letterMapper.getMyLetterList(pagingDTO.getKey()));
+        return new Pager<>(letterPageInfo);
+    }
+
+
+    @Override
     public void updateLetter(Letter letter) {
         Boolean bool = letterMapper.updateMyLetter(letter);
         if(!bool){

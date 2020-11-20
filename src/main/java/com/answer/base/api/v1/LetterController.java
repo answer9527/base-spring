@@ -53,6 +53,16 @@ public class LetterController {
         Letter letter = letterService.getMyLetter(uid);
         return ResultUtil.success(letter);
     }
+//    获取我的信件列表
+    @PostMapping("/myletter/list")
+    @ScopeLevel(0)
+    public Msg getMyLetterList(HttpServletRequest request,PagingDTO pagingDTO){
+        String token = request.getHeader("Authorization");
+        Integer uid = JwtToken.TokenGetUid(token);
+        pagingDTO.setKey(uid);
+        Pager<Letter> letterPager = letterService.getMyLetterList(pagingDTO);
+        return ResultUtil.success(letterPager);
+    }
 
 //
     @PostMapping("/update")

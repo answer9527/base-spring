@@ -11,6 +11,7 @@ import java.util.List;
 public interface LetterService {
     void insertOne(Letter letter);
     Letter getMyLetter(Integer uid);
+    Pager<Letter> getMyLetterList(PagingDTO pagingDTO);
     void updateLetter(Letter letter);
     Pager<LetterVO> getLetterList(PagingDTO pagingDTO);
     List<MonthCountVO> getLetterMonthPlan(Integer y,Integer m);
