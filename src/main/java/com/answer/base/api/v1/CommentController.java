@@ -33,8 +33,7 @@ public class CommentController {
 //    新增
     @PostMapping("/insert")
     public Msg insertComment(HttpServletRequest request, @RequestBody Comment comment){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         comment.setUid(uid);
         Comment _comment = commentService.insertComment(comment);
         CommentMsg commentMsg = new CommentMsg();
@@ -54,8 +53,7 @@ public class CommentController {
 //  删除classic中我的评论
     @GetMapping("/del/{id}")
     public Msg delComment(HttpServletRequest request,@PathVariable Integer id){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
         uidAndIdDTO.setUid(uid);
         uidAndIdDTO.setId(id);

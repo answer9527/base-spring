@@ -111,8 +111,7 @@ public class ClassicController {
 //    设置取消喜欢
     @GetMapping("/cancelLike/{cid}")
     public Msg cancelLike(HttpServletRequest request,@PathVariable Integer cid){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         classicService.cancelLike(uid,cid);
         return ResultUtil.success("取消成功");
     }
@@ -121,8 +120,7 @@ public class ClassicController {
     @PostMapping("/getMyLike")
     @ScopeLevel(4)
     public Msg getMyLiKe(HttpServletRequest request, @RequestBody PagingDTO pagingDTO){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         pagingDTO.setKey(uid);
         Pager<Classic> classicList = classicService.getMyLike(pagingDTO);
         return ResultUtil.success(classicList);
@@ -148,9 +146,8 @@ public class ClassicController {
 
 //  修改更新classic内容
     @PostMapping("/update")
-    public Msg updateClassicById(HttpServletRequest request,@RequestBody Classic classic){
-        String token = request.getHeader("Authorization");
-        JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg updateClassicById(@RequestBody Classic classic){
         classicService.updateClassic(classic);
         return  ResultUtil.success("更新成功!");
     }

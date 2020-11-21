@@ -27,8 +27,7 @@ public class HoleController {
     private HoleService holeService;
     @PostMapping("/insert")
     public Msg insertHole(HttpServletRequest request,@RequestBody Hole hole){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         hole.setUid(uid);
         holeService.insertHole(hole);
         return ResultUtil.success("添加成功");
@@ -37,8 +36,7 @@ public class HoleController {
 //    获取我自己的树洞
     @PostMapping("/myhole")
     public Msg getMyHole(HttpServletRequest request, @RequestBody PagingDTO pagingDTO){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         pagingDTO.setKey(uid);
         List<Hole> holes = holeService.getMyHole(pagingDTO);
         Map holeMap = new HashMap();
@@ -51,8 +49,7 @@ public class HoleController {
 //    随机获取别人的n个树洞
     @PostMapping("/rand")
     public Msg getRandHole(HttpServletRequest request,@RequestBody PagingDTO pagingDTO){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         pagingDTO.setKey(uid);
         List<RandHoleVO> holeVOS = holeService.getRandHole(pagingDTO);
         return ResultUtil.success(holeVOS);
@@ -69,8 +66,7 @@ public class HoleController {
 //    删除我的树洞功能
     @GetMapping("/del/{id}")
     public Msg delHole(HttpServletRequest request,@PathVariable Integer id){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
         uidAndIdDTO.setUid(uid);
         uidAndIdDTO.setId(id);

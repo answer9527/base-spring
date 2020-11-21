@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Configuration
@@ -93,6 +94,12 @@ public class JwtToken {
         Optional<Map<String, Claim>> optionalMap = JwtToken.getClaim(token);
         Map<String,Claim> map = optionalMap.orElseThrow(()->new TokenException(40003));
         Integer uid = map.get("uid").asInt();
+        return uid;
+    }
+//    根据 HttpServletRequest 获取Uid
+    public static Integer RequestGetUid(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        Integer uid = TokenGetUid(token);
         return uid;
     }
 }

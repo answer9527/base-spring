@@ -38,8 +38,7 @@ public class LetterController {
     @PostMapping("/insert")
     @ScopeLevel(0)
     public Msg insertOne(HttpServletRequest request, @RequestBody Letter letter){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         letter.setUid(uid);
         letterService.insertOne(letter);
         return ResultUtil.success("success");
@@ -48,8 +47,7 @@ public class LetterController {
     @GetMapping("/myletter")
     @ScopeLevel(0)
     public Msg getMyLetter(HttpServletRequest request){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         Letter letter = letterService.getMyLetter(uid);
         return ResultUtil.success(letter);
     }
@@ -57,22 +55,26 @@ public class LetterController {
     @PostMapping("/myletter/list")
     @ScopeLevel(0)
     public Msg getMyLetterList(HttpServletRequest request,PagingDTO pagingDTO){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         pagingDTO.setKey(uid);
         Pager<Letter> letterPager = letterService.getMyLetterList(pagingDTO);
         return ResultUtil.success(letterPager);
     }
-
+//    获取我的某封信件详情
+    @GetMapping("/myletter/detail/{id}")
+    public Msg getMyLetterDetaiById(HttpServletRequest request,@PathVariable Integer id){
+        Integer uid = JwtToken.RequestGetUid(request);
+        Letter letter = letterService.getMyLetterDetail(uid,id);
+        return ResultUtil.success(letter);
+    }
 //
     @PostMapping("/update")
     @ScopeLevel(0)
     public Msg updateMyLetter(HttpServletRequest request,@RequestBody Letter letter){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         letter.setUid(uid);
         letterService.updateLetter(letter);
-        return ResultUtil.success();
+        return ResultUtil.success("成功！");
     }
 
     @PostMapping("/list")

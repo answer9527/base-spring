@@ -44,8 +44,7 @@ public class HoleCommentController {
 //    评论树洞
     @PostMapping("/insert")
     public Msg insertHoleComment(HttpServletRequest request,@RequestBody HoleComment holeComment){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         holeComment.setUid(uid);
         HoleComment  _holeComment = holeCommentService.insertHoleComment(holeComment);
         Integer h_com_id = _holeComment.getId();
@@ -74,8 +73,7 @@ public class HoleCommentController {
 //    删除树洞评论
     @GetMapping("/del/{id}")
     public Msg delHoleComment(HttpServletRequest request, @PathVariable Integer id){
-        String token = request.getHeader("Authorization");
-        Integer uid =JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
         uidAndIdDTO.setId(id);
         uidAndIdDTO.setUid(uid);

@@ -29,8 +29,7 @@ public class CommentMsgController {
 //    获取树洞相关的消息
     @PostMapping("/hole/mylist")
     public Msg getMyHoleCommentMsg(HttpServletRequest request,@RequestBody PagingDTO pagingDTO){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         pagingDTO.setKey(uid);
         Pager pager = msgService.getMyCommentMsgList(pagingDTO);
         return ResultUtil.success(pager);
@@ -39,8 +38,7 @@ public class CommentMsgController {
 //    获取classic相关的消息
     @PostMapping("/classic/mylist")
     public Msg getMyClassicCommentMsg(HttpServletRequest request,@RequestBody PagingDTO pagingDTO){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         pagingDTO.setKey(uid);
         Pager pager = msgService.getMyClassicMsgList(pagingDTO);
         return ResultUtil.success(pager);
@@ -49,8 +47,7 @@ public class CommentMsgController {
 //    获取我的未读的消息总量
     @GetMapping("/unread/total")
     public Msg getUnreadMsgCount(HttpServletRequest request){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         Integer count = msgService.getMyUnReadMsgCount(uid);
         Map countMap = new HashMap();
         countMap.put("unread",count);
@@ -59,8 +56,7 @@ public class CommentMsgController {
 //  获取我的各未读消息的数量
     @GetMapping("/unread/count")
     public Msg getAllTypeUnreadMsgCount(HttpServletRequest request){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         UnreadCountVO unreadCountVO = msgService.getUnReadTypeCount(uid);
         return ResultUtil.success(unreadCountVO);
     }
@@ -68,8 +64,7 @@ public class CommentMsgController {
 //    设置消息已读
     @GetMapping("/setRead")
     public Msg setMsgRead(HttpServletRequest request,@RequestParam Integer id){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
         uidAndIdDTO.setId(id);
         uidAndIdDTO.setUid(uid);
@@ -80,8 +75,7 @@ public class CommentMsgController {
 //    根据消息id删除我的某条消息
     @GetMapping("/del")
     public Msg deleteMsgById(HttpServletRequest request,@RequestParam Integer id){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         UidAndIdDTO uidAndIdDTO = new UidAndIdDTO();
         uidAndIdDTO.setUid(uid);
         uidAndIdDTO.setId(id);

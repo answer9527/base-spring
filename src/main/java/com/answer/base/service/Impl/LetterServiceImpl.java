@@ -42,6 +42,12 @@ public class LetterServiceImpl implements LetterService {
         return new Pager<>(letterPageInfo);
     }
 
+    @Override
+    public Letter getMyLetterDetail(Integer uid, Integer id) {
+        Letter letter = letterMapper.getMyLetterDetail(uid, id);
+        return letter;
+    }
+
 
     @Override
     public void updateLetter(Letter letter) {

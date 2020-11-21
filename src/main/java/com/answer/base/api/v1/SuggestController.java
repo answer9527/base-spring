@@ -27,8 +27,7 @@ public class SuggestController {
     @PostMapping("/insert")
     @ScopeLevel(0)
     public Msg insertSuggest(HttpServletRequest request, @RequestBody Suggest suggest){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         suggest.setUid(uid);
         suggestService.insertSuggest(suggest);
         return ResultUtil.success("反馈成功！");

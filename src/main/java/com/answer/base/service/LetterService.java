@@ -5,6 +5,7 @@ import com.answer.base.entity.Letter;
 import com.answer.base.vo.LetterVO;
 import com.answer.base.vo.MonthCountVO;
 import com.answer.base.vo.Pager;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public interface LetterService {
     void insertOne(Letter letter);
     Letter getMyLetter(Integer uid);
     Pager<Letter> getMyLetterList(PagingDTO pagingDTO);
+    Letter getMyLetterDetail(Integer uid,Integer id);
     void updateLetter(Letter letter);
     Pager<LetterVO> getLetterList(PagingDTO pagingDTO);
     List<MonthCountVO> getLetterMonthPlan(Integer y,Integer m);

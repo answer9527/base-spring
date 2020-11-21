@@ -1,5 +1,6 @@
 package com.answer.base.api.v1;
 
+import com.answer.base.core.interceptors.ScopeLevel;
 import com.answer.base.dto.*;
 import com.answer.base.entity.User;
 import com.answer.base.exception.http.TokenException;
@@ -107,8 +108,7 @@ public class UserController {
 //    更新个人用户信息
     @PostMapping("/update/self")
     public Msg updateMyInfo(HttpServletRequest request, @RequestBody UpdateUserDTO updateUserDTO){
-        String token = request.getHeader("Authorization");
-        Integer uid = JwtToken.TokenGetUid(token);
+        Integer uid = JwtToken.RequestGetUid(request);
         updateUserDTO.setId(uid);
         userService.updateUserSelfInfo(updateUserDTO);
         return ResultUtil.success("修改成功");
@@ -116,11 +116,9 @@ public class UserController {
 
 //    分页获取用户列表
     @PostMapping("/list")
-    public Msg getUserList(HttpServletRequest request, @RequestBody PagingDTO pagingDTO){
-//        String token = request.getHeader("Authorization");
-//        Integer uid = JwtToken.TokenGetUid(token);
+    @ScopeLevel(9)
+    public Msg getUserList( @RequestBody PagingDTO pagingDTO){
         Pager<UserInfoVO> pager = userService.selectUserList(pagingDTO);
-
         return ResultUtil.success(pager);
     }
 
