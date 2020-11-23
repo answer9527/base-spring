@@ -37,4 +37,7 @@ public interface LetterMapper {
 
 //    根据id 获取可查看的信件 即  用户选择手抄版  和音频版
     LetterVO getPublicLetterById(@Param("id") Integer id);
+
+//    删除我的某封信件
+    Boolean delMyLetter(@Param("uid") Integer uid,@Param("id") Integer id);
 }

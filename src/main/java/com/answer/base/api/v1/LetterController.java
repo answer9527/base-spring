@@ -41,7 +41,7 @@ public class LetterController {
         Integer uid = JwtToken.RequestGetUid(request);
         letter.setUid(uid);
         letterService.insertOne(letter);
-        return ResultUtil.success("success");
+        return ResultUtil.success("创建成功！");
     }
 
     @GetMapping("/myletter")
@@ -119,10 +119,19 @@ public class LetterController {
 //        iMailService.sendFileMail("568427129@qq.com","测试","<h1>给自己的信</h1>","pom.xml");
 
     }
+//    管理员获取信件详情
     @GetMapping("/byId/{id}")
     @ScopeLevel(9)
     public Msg PublicGetLetterById(@PathVariable Integer id){
         LetterVO letterVO = letterService.getPublicLetterById(id);
         return ResultUtil.success(letterVO);
     }
+//    删除自己的信件
+    @GetMapping("/myletter/del/{id}")
+    public Msg delMyLetter(HttpServletRequest request,@PathVariable Integer id){
+        Integer uid = JwtToken.RequestGetUid(request);
+        letterService.delMyLetter(uid,id);
+        return ResultUtil.success("删除成功！");
+    }
+
 }

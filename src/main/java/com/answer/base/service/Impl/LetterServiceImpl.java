@@ -99,4 +99,12 @@ public class LetterServiceImpl implements LetterService {
         return letterVO;
     }
 
+    @Override
+    public void delMyLetter(Integer uid, Integer id) {
+        Boolean bool = letterMapper.delMyLetter(uid,id);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+    }
+
 }

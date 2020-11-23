@@ -21,4 +21,5 @@ public interface LetterService {
     LetterVO getPlanLetterById(Integer id);
     void setLetterOverById(Integer id);
     LetterVO getPublicLetterById(Integer id);
+    void delMyLetter(Integer uid,Integer id);
 }

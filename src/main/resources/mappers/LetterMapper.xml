@@ -45,7 +45,7 @@
     </sql>
 
     <insert id="insertOne" parameterType="com.answer.base.entity.Letter">
-        insert into letter(uid,title,content,email,plan_time) values(#{uid},#{title},#{content},#{email},#{planTime}) ON DUPLICATE KEY
+        insert into letter(uid,title,content,email,plan_time,type) values(#{uid},#{title},#{content},#{email},#{planTime},#{type}) ON DUPLICATE KEY
          UPDATE title = values(title),content=values(content),email=values(email),plan_time=values(plan_time)
     </insert>
 
@@ -160,4 +160,11 @@
         u.avatar_url as avatarUrl
         from letter l join user u on l.uid = u.id where l.uid = #{uid} and l.id = #{id} and  l.delete_time is null
     </select>
+    <update id="delMyLetter">
+        update letter
+        <set>
+            delete_time = current_timestamp
+        </set>
+        where uid = #{uid} and id= #{id} and delete_time is null 
+    </update>
 </mapper>
