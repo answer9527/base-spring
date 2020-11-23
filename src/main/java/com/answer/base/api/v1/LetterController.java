@@ -64,8 +64,8 @@ public class LetterController {
     @GetMapping("/myletter/detail/{id}")
     public Msg getMyLetterDetaiById(HttpServletRequest request,@PathVariable Integer id){
         Integer uid = JwtToken.RequestGetUid(request);
-        Letter letter = letterService.getMyLetterDetail(uid,id);
-        return ResultUtil.success(letter);
+        LetterVO letterVO = letterService.getMyLetterDetail(uid,id);
+        return ResultUtil.success(letterVO);
     }
 //
     @PostMapping("/update")
@@ -74,7 +74,7 @@ public class LetterController {
         Integer uid = JwtToken.RequestGetUid(request);
         letter.setUid(uid);
         letterService.updateLetter(letter);
-        return ResultUtil.success("成功！");
+        return ResultUtil.success("更新成功！");
     }
 
     @PostMapping("/list")

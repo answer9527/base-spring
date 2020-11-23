@@ -43,9 +43,9 @@ public class LetterServiceImpl implements LetterService {
     }
 
     @Override
-    public Letter getMyLetterDetail(Integer uid, Integer id) {
-        Letter letter = letterMapper.getMyLetterDetail(uid, id);
-        return letter;
+    public LetterVO getMyLetterDetail(Integer uid, Integer id) {
+        LetterVO letterVO = letterMapper.getMyLetterDetail(uid, id);
+        return letterVO;
     }
 
 

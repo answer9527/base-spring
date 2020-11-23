@@ -142,4 +142,22 @@
         from letter l join user u on u.id = l.uid
         where l.type != 1 and l.id = #{id}
     </select>
+
+
+    <select id="getMyLetterDetail" resultType="com.answer.base.vo.LetterVO">
+        select
+        l.id,
+        l.create_time as createTime,
+        l.email,
+        l.type,
+        l.image,
+        l.title,
+        l.content,
+        l.pending,
+        l.plan_time as planTime,
+        l.post_time as postTime,
+        u.user_name as userName,
+        u.avatar_url as avatarUrl
+        from letter l join user u on l.uid = u.id where l.uid = #{uid} and l.id = #{id} and  l.delete_time is null
+    </select>
 </mapper>

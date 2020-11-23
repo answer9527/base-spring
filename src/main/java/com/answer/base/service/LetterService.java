@@ -13,7 +13,7 @@ public interface LetterService {
     void insertOne(Letter letter);
     Letter getMyLetter(Integer uid);
     Pager<Letter> getMyLetterList(PagingDTO pagingDTO);
-    Letter getMyLetterDetail(Integer uid,Integer id);
+    LetterVO getMyLetterDetail(Integer uid,Integer id);
     void updateLetter(Letter letter);
     Pager<LetterVO> getLetterList(PagingDTO pagingDTO);
     List<MonthCountVO> getLetterMonthPlan(Integer y,Integer m);
