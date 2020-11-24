@@ -54,7 +54,7 @@ public class LetterController {
 //    获取我的信件列表
     @PostMapping("/myletter/list")
     @ScopeLevel(0)
-    public Msg getMyLetterList(HttpServletRequest request,PagingDTO pagingDTO){
+    public Msg getMyLetterList(HttpServletRequest request,@RequestBody  PagingDTO pagingDTO){
         Integer uid = JwtToken.RequestGetUid(request);
         pagingDTO.setKey(uid);
         Pager<Letter> letterPager = letterService.getMyLetterList(pagingDTO);
