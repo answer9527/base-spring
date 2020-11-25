@@ -165,6 +165,6 @@
         <set>
             delete_time = current_timestamp
         </set>
-        where uid = #{uid} and id= #{id} and delete_time is null 
+        where uid = #{uid} and id= #{id} and delete_time is null
     </update>
 </mapper>
