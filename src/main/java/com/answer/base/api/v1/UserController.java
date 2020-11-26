@@ -72,7 +72,7 @@ public class UserController {
     @PostMapping("/pwdToken")
     public Msg getTokenByPwd(@RequestBody @Validated PwdTokenDTO pwdTokenDTO){
         Optional<UserInfoVO> userOptional = Optional.ofNullable(userService.selectUserByAccPwd(pwdTokenDTO));
-        UserInfoVO userInfoVO = userOptional.orElseThrow(()->new TokenException(20002));
+        UserInfoVO userInfoVO = userOptional.orElseThrow(()->new TokenException(40007));
         String token = JwtToken.makeToken(userInfoVO.getId());
         LoginResultVO loginResultVO = LoginResultVO.builder().token(token).uid(userInfoVO.getId()).userInfo(userInfoVO).build();
         return ResultUtil.success(loginResultVO,"登陆成功");
@@ -82,7 +82,7 @@ public class UserController {
     @PostMapping("/pwdToken/admin")
     public Msg getAdminTokenByPwd(@RequestBody @Validated PwdTokenDTO pwdTokenDTO){
         Optional<UserInfoVO> userOptional = Optional.ofNullable(userService.selectUserByAccPwd(pwdTokenDTO));
-        UserInfoVO userInfoVO = userOptional.orElseThrow(()->new TokenException(20002));
+        UserInfoVO userInfoVO = userOptional.orElseThrow(()->new TokenException(40007));
         String token = JwtToken.makeToken(userInfoVO.getId(),userInfoVO.getScope());
         LoginResultVO loginResultVO = LoginResultVO.builder().token(token).uid(userInfoVO.getId()).userInfo(userInfoVO).build();
         return ResultUtil.success(loginResultVO,"登陆成功");
