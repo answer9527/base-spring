@@ -70,7 +70,7 @@ public class TestController {
     @GetMapping("/scope")
     public Msg getScope(){
         Map map = new HashMap();
-        map.put("scope",false);
+        map.put("scope",true);
         return ResultUtil.success(map);
     }
 
