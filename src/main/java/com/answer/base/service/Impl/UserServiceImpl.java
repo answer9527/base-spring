@@ -7,6 +7,7 @@ import com.answer.base.dto.UpdateUserDTO;
 import com.answer.base.dto.UserRegisterDTO;
 import com.answer.base.entity.User;
 import com.answer.base.exception.http.ParameterException;
+import com.answer.base.exception.http.TokenException;
 import com.answer.base.service.UserService;
 import com.answer.base.vo.Pager;
 import com.answer.base.vo.UserInfoVO;
@@ -67,9 +68,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectUserIdByOpenid(String openid) {
-        User user = userMapper.selectUserByOpenid(openid);
-        return user;
+    public UserInfoVO selectUserIdByOpenid(String openid) {
+        Optional<UserInfoVO> optionalUserInfoVO =Optional.ofNullable(userMapper.selectUserByOpenid(openid));
+        UserInfoVO userInfoVO = optionalUserInfoVO.orElseThrow(()->new TokenException(40005));
+        return userInfoVO;
     }
 
     @Override

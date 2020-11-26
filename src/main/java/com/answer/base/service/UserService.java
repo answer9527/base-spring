@@ -16,7 +16,7 @@ public interface UserService {
 //    微信code 换取openid
     String code2session(String code);
 //    根据openid查询用户
-    User selectUserIdByOpenid(String openid);
+    UserInfoVO selectUserIdByOpenid(String openid);
 //    根据openid查询uid
     Integer selectUidByOpenid(String openid);
 

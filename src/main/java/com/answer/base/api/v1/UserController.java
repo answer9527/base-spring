@@ -92,17 +92,20 @@ public class UserController {
     @GetMapping("/codeLogin")
     public Msg getTokenByCode(@RequestParam String code){
         String openid = userService.code2session(code);
-        Optional<Integer> uidOptional = Optional.ofNullable(userService.selectUidByOpenid(openid));
-        if(uidOptional.isPresent()){
-            Integer uid = uidOptional.get();
-            String token = JwtToken.makeToken(uid);
-            Map<String,String> tokenMap = new HashMap<>();
-            tokenMap.put("token",token);
-            tokenMap.put("uid",Integer.toString(uid));
-            return ResultUtil.success(tokenMap,"登陆成功");
-        }else{
-            throw new TokenException(40005);
-        }
+//        Optional<Integer> uidOptional = Optional.ofNullable(userService.selectUidByOpenid(openid));
+//        if(uidOptional.isPresent()){
+//            Integer uid = uidOptional.get();
+//            String token = JwtToken.makeToken(uid);
+//            Map<String,String> tokenMap = new HashMap<>();
+//            tokenMap.put("token",token);
+//            tokenMap.put("uid",Integer.toString(uid));
+//            return ResultUtil.success(tokenMap,"登陆成功");
+//        }else{
+//            throw new TokenException(40005);
+//        }
+        UserInfoVO userInfoVO = userService.selectUserIdByOpenid(openid);
+        LoginResultVO loginResultVO = LoginResultVO.builder().token(JwtToken.makeToken(userInfoVO.getId())).uid(userInfoVO.getId()).userInfo(userInfoVO).build();
+        return ResultUtil.success(loginResultVO);
     }
 
 //    更新个人用户信息
@@ -121,6 +124,8 @@ public class UserController {
         Pager<UserInfoVO> pager = userService.selectUserList(pagingDTO);
         return ResultUtil.success(pager);
     }
+
+
 
 
 

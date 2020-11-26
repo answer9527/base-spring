@@ -32,8 +32,8 @@
     </select>
 
 <!--  根据openid查找用户  -->
-    <select id="selectUserByOpenid" parameterType="String"  resultMap="UserMap">
-        select * from user where openid =#{openid} limit 1;
+    <select id="selectUserByOpenid" parameterType="String"  resultType="com.answer.base.vo.UserInfoVO">
+        select id,user_name as userName,avatar_url as avatarUrl,gender from user where openid =#{openid} limit 1;
     </select>
 
 <!--    根据openid查找用户id-->
