@@ -35,5 +35,10 @@ public interface UserService {
 //    获取用户列表
     Pager<UserInfoVO> selectUserList(PagingDTO pagingDTO);
 
+//    获取小程序后台微信AccessToken
+    String getAccessToken();
+//    发送模板消息
+    void sendTemplateMsg(String accessToken);
+
 
 }

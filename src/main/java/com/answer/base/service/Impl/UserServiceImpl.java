@@ -9,6 +9,7 @@ import com.answer.base.entity.User;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.exception.http.TokenException;
 import com.answer.base.service.UserService;
+import com.answer.base.util.RestUtil;
 import com.answer.base.vo.Pager;
 import com.answer.base.vo.UserInfoVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,7 +18,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.MessageFormat;
@@ -40,6 +44,8 @@ public class UserServiceImpl implements UserService {
     @Value("${wx.code2session}")
     private String code2sessionUrl;
 
+    @Value("${wx.accessTokenUrl}")
+    private String accessTokenUrl;
     @Autowired
     private UserMapper userMapper;
     @Override
@@ -109,6 +115,67 @@ public class UserServiceImpl implements UserService {
         Pager<UserInfoVO> pager = new Pager<>(pageInfo);
         return pager;
     }
+
+    @Override
+    public String getAccessToken() {
+        String url = MessageFormat.format(this.accessTokenUrl,this.appid,this.appsecret);
+        RestTemplate rest = new RestTemplate();
+        String accessString = rest.getForObject(url,String.class);
+        Map<String,Object> accessToken = new HashMap<>();
+        try {
+            accessToken= mapper.readValue(accessString,Map.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        String tokenString = (String) accessToken.get("access_token");
+        return tokenString;
+    }
+
+    @Override
+    public void sendTemplateMsg(String accessToken) {
+        String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token="+accessToken;
+        RestTemplate rest = new RestTemplate();
+
+
+        Map map1 = new HashMap();
+        Map map2 = new HashMap();
+        Map map3 = new HashMap();
+        Map map4 = new HashMap();
+        Map map5 = new HashMap();
+        map1.put("value",1);
+        map2.put("value",2);
+        map3.put("value",3);
+        map4.put("value",4);
+        map5.put("value",5);
+
+        Map mapY = new HashMap();
+        mapY.put("thing1",map1);
+        mapY.put("time2",map2);
+        mapY.put("name3",map3);
+        mapY.put("thing5",map4);
+        mapY.put("thing6",map5);
+
+        Map mapX = new HashMap();
+        mapX.put("template_id","2hbbRktn9dBnQ6Sni4l3cQgzkJvtgcVUoSy7psVCxPQ");
+        mapX.put("page","pages/writeLetter/index");
+        mapX.put("data",mapY);
+        mapX.put("emphasis_keyword","test");
+
+
+//        MultiValueMap<String, Object> request = new LinkedMultiValueMap<>();
+//        request.add("access_token",accessToken);
+//        request.add("touser","oXj-L5V1I110yGhhDyCCpZfKKFcQ");
+//        request.add("weapp_template_msg",mapX);
+        Map request = new HashMap();
+        request.put("access_token",accessToken);
+        request.put("touser","oXj-L5V1I110yGhhDyCCpZfKKFcQ");
+        request.put("weapp_template_msg",mapX);
+//        String res = rest.postForObject(url,request,String.class);
+//        String res = RestUtil.generatePostJson(request)
+        ResponseEntity<String> apiResponse = rest.postForEntity(url,RestUtil.generatePostJson(request),String.class);
+
+    }
+
 
 
 }
