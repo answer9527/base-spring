@@ -24,11 +24,16 @@ public class CommentMsgVO extends BaseEntity {
     private Integer holeOrClassicId;
 
     public String getAvatarUrl() {
-        Boolean bool = avatarUrl.matches("http(.*)");
-        if(bool){
-            return avatarUrl;
+        if(avatarUrl!=null){
+            Boolean bool = avatarUrl.matches("http(.*)");
+            if(bool){
+                return avatarUrl;
+            }else{
+                return _domain()+avatarUrl;
+            }
         }else{
-            return _domain()+avatarUrl;
+            return null;
         }
+
     }
 }

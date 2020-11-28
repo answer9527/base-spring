@@ -5,10 +5,13 @@ import com.answer.base.dto.UserDTO;
 import com.answer.base.entity.User;
 import com.answer.base.exception.http.NotFoundException;
 import com.answer.base.service.TestService;
+import com.answer.base.util.FetchUtil;
 import com.answer.base.util.Msg;
+import com.answer.base.util.RestUtil;
 import com.answer.base.util.ResultUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +27,6 @@ import java.util.Map;
 public class TestController {
     @Autowired
     private TestService testService;
-
     @GetMapping("/get")
     public Msg getUser(@RequestParam int id){
 //        User user= testService.searchUser(id);
@@ -70,8 +72,17 @@ public class TestController {
     @GetMapping("/scope")
     public Msg getScope(){
         Map map = new HashMap();
-        map.put("scope",false);
+        map.put("scope",true);
         return ResultUtil.success(map);
+    }
+
+    @Value("${wx.accessTokenUrl}")
+    private String accessTokenUrl;
+    @GetMapping("/rest")
+    public Msg testRest(){
+        FetchUtil<Map> fetchUtil = new FetchUtil();
+//        fetchUtil.getForObject(accessTokenUrl,Map)
+        return  null;
     }
 
 

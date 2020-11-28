@@ -5,11 +5,11 @@ import com.answer.base.dto.PagingDTO;
 import com.answer.base.dto.PwdTokenDTO;
 import com.answer.base.dto.UpdateUserDTO;
 import com.answer.base.dto.UserRegisterDTO;
-import com.answer.base.entity.User;
 import com.answer.base.exception.http.ParameterException;
 import com.answer.base.exception.http.TokenException;
 import com.answer.base.service.UserService;
 import com.answer.base.util.RestUtil;
+import com.answer.base.util.RestUtilImpl;
 import com.answer.base.vo.Pager;
 import com.answer.base.vo.UserInfoVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,13 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -48,6 +45,9 @@ public class UserServiceImpl implements UserService {
     private String accessTokenUrl;
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RestUtil restUtil;
     @Override
     public Integer register(UserRegisterDTO userRegisterDTO) {
         Optional<Integer> uidOptional =  Optional.ofNullable(this.selectUidByAccount(userRegisterDTO.getAccount()));
@@ -168,14 +168,14 @@ public class UserServiceImpl implements UserService {
 //        request.add("weapp_template_msg",mapX);
         Map request = new HashMap();
         request.put("access_token",accessToken);
-        request.put("touser","oXj-L5f181gCoZndLA_JIVWLGicg");
+        request.put("touser","oXj-L5V1I110yGhhDyCCpZfKKFcQ");
 //        request.put("weapp_template_msg",mapX);
         request.put("template_id","2hbbRktn9dBnQ6Sni4l3cQgzkJvtgcVUoSy7psVCxPQ");
         request.put("data",mapY);
         request.put("page","pages/letterDetail/index?id=132");
 //        String res = rest.postForObject(url,request,String.class);
 //        String res = RestUtil.generatePostJson(request)
-        ResponseEntity<String> apiResponse = rest.postForEntity(url,RestUtil.generatePostJson(request),String.class);
+        ResponseEntity<String> apiResponse = rest.postForEntity(url, restUtil.generatePostJson(request),String.class);
 
     }
 
