@@ -30,4 +30,13 @@ public class LetterVO extends BaseEntity {
             return _domain()+avatarUrl;
         }
     }
+
+    public String getImage() {
+        Boolean bool = image.matches("http(.*)");
+        if(bool){
+            return image;
+        }else{
+            return _domain()+image;
+        }
+    }
 }

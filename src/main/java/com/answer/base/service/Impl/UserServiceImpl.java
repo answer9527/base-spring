@@ -142,11 +142,11 @@ public class UserServiceImpl implements UserService {
         Map map3 = new HashMap();
         Map map4 = new HashMap();
         Map map5 = new HashMap();
-        map1.put("value",1);
-        map2.put("value",2);
-        map3.put("value",3);
-        map4.put("value",4);
-        map5.put("value",5);
+        map1.put("value","1111");
+        map2.put("value","2020/11/27 17:00:00");
+        map3.put("value","Aslan");
+        map4.put("value","4444");
+        map5.put("value","5555");
 
         Map mapY = new HashMap();
         mapY.put("thing1",map1);
@@ -155,11 +155,11 @@ public class UserServiceImpl implements UserService {
         mapY.put("thing5",map4);
         mapY.put("thing6",map5);
 
-        Map mapX = new HashMap();
-        mapX.put("template_id","2hbbRktn9dBnQ6Sni4l3cQgzkJvtgcVUoSy7psVCxPQ");
-        mapX.put("page","pages/writeLetter/index");
-        mapX.put("data",mapY);
-        mapX.put("emphasis_keyword","test");
+//        Map mapX = new HashMap();
+//        mapX.put("template_id","2hbbRktn9dBnQ6Sni4l3cQgzkJvtgcVUoSy7psVCxPQ");
+//        mapX.put("page","pages/writeLetter/index");
+//        mapX.put("data",mapY);
+//        mapX.put("emphasis_keyword","test");
 
 
 //        MultiValueMap<String, Object> request = new LinkedMultiValueMap<>();
@@ -168,8 +168,11 @@ public class UserServiceImpl implements UserService {
 //        request.add("weapp_template_msg",mapX);
         Map request = new HashMap();
         request.put("access_token",accessToken);
-        request.put("touser","oXj-L5V1I110yGhhDyCCpZfKKFcQ");
-        request.put("weapp_template_msg",mapX);
+        request.put("touser","oXj-L5f181gCoZndLA_JIVWLGicg");
+//        request.put("weapp_template_msg",mapX);
+        request.put("template_id","2hbbRktn9dBnQ6Sni4l3cQgzkJvtgcVUoSy7psVCxPQ");
+        request.put("data",mapY);
+        request.put("page","pages/letterDetail/index?id=132");
 //        String res = rest.postForObject(url,request,String.class);
 //        String res = RestUtil.generatePostJson(request)
         ResponseEntity<String> apiResponse = rest.postForEntity(url,RestUtil.generatePostJson(request),String.class);

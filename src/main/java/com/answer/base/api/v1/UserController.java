@@ -104,8 +104,8 @@ public class UserController {
 //        }else{
 //            throw new TokenException(40005);
 //        }
-        String accessToken = userService.getAccessToken();
-        userService.sendTemplateMsg(accessToken);
+//        String accessToken = userService.getAccessToken();
+//        userService.sendTemplateMsg(accessToken);
         UserInfoVO userInfoVO = userService.selectUserIdByOpenid(openid);
         LoginResultVO loginResultVO = LoginResultVO.builder().token(JwtToken.makeToken(userInfoVO.getId())).uid(userInfoVO.getId()).userInfo(userInfoVO).build();
         return ResultUtil.success(loginResultVO);
