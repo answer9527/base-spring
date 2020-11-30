@@ -222,7 +222,7 @@ public class LetterController {
             sdf.applyPattern("yyyy-MM-dd HH:mm:ss");// a为am/pm的标记
 
             map1.put("value","给自己的信！");
-            map2.put("value","您好，管理员已上传您的自己的信的文件（手抄信件或语音信件），请注意查收！");
+            map2.put("value","您好，管理员已上传附件，请注意查收！");
             map3.put("value",sdf.format(date));
 
 
