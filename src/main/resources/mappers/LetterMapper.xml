@@ -77,11 +77,13 @@
         select
         l.id,
         l.create_time as createTime,
+        l.title,
         l.email,
         l.type,
         l.image,
         (case when l.type=1 then "********" else l.content end) content,
         l.pending,
+        l.uid,
         l.plan_time as planTime,
         l.post_time as postTime,
         u.user_name as userName,
@@ -166,5 +168,12 @@
             delete_time = current_timestamp
         </set>
         where uid = #{uid} and id= #{id} and delete_time is null
+    </update>
+    <update id="setLetterImage">
+        update letter
+        <set>
+            image = #{image}
+        </set>
+        where id = #{id} and type != 1 and delete_time is null
     </update>
 </mapper>

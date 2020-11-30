@@ -40,4 +40,7 @@ public interface LetterMapper {
 
 //    删除我的某封信件
     Boolean delMyLetter(@Param("uid") Integer uid,@Param("id") Integer id);
+
+//    设置手抄信的图片
+    Boolean setLetterImage(@Param("id") Integer id,@Param("image") String image);
 }

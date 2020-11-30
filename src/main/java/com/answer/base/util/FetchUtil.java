@@ -25,7 +25,8 @@ public class FetchUtil<T> {
 
     public ResponseEntity<T> postForEntity(String url,Map data,Class T){
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(url,generatePostJson(data),T);
+        ResponseEntity<T> responseEntity = restTemplate.postForEntity(url,generatePostJson(data),T);
+        return responseEntity;
     }
 
     public ResponseEntity<T> getForObject(String url,Class T){

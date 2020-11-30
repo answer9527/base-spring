@@ -14,8 +14,10 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper {
-    //    根据id查询
+    //    根据id查询用户
     User selectUser(int id);
+    //    根据id查询微信注册的用户
+    User selectHasOpenid(Integer id);
     //    新增测试
     int insertUser(User user);
 
@@ -42,4 +44,5 @@ public interface UserMapper {
 
 //    分页获取用户列表
     List<UserInfoVO> selectUserList(PagingDTO pagingDTO);
+
 }

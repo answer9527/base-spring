@@ -26,6 +26,7 @@ public class LetterServiceImpl implements LetterService {
        if(!bool) {
            throw new ParameterException(50003);
        }
+
     }
 
     @Override
@@ -102,6 +103,14 @@ public class LetterServiceImpl implements LetterService {
     @Override
     public void delMyLetter(Integer uid, Integer id) {
         Boolean bool = letterMapper.delMyLetter(uid,id);
+        if(!bool){
+            throw new ParameterException(50003);
+        }
+    }
+
+    @Override
+    public void setLetterImage(Integer id, String image) {
+        Boolean bool = letterMapper.setLetterImage(id,image);
         if(!bool){
             throw new ParameterException(50003);
         }

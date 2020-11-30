@@ -18,10 +18,10 @@
         <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP"></result>
         <result column="user_name" property="userName" jdbcType="VARCHAR"></result>
         <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR"></result>
+        <result column="openid" property="openId" jdbcType="VARCHAR"></result>
     </resultMap>
-
     <sql id="base_column_list">
-        id,user_name,age,create_time
+         id,user_name,age,create_time
     </sql>
     <sql id="login_result">
         id,user_name as userName,avatar_url as avatarUrl,gender,account,create_time as createTime,update_time as updateTime,scope
@@ -30,6 +30,10 @@
     <select id="selectUser" parameterType="INTEGER" resultMap="UserMap">
         select <include refid="base_column_list"></include> from user where id=#{id};
     </select>
+    <select id="selectHasOpenid" parameterType="INTEGER" resultMap="UserMap">
+        select <include refid="base_column_list"></include>,openid from user where id=#{id} and openid is not null ;
+    </select>
+
 
 <!--  根据openid查找用户  -->
     <select id="selectUserByOpenid" parameterType="String"  resultType="com.answer.base.vo.UserInfoVO">

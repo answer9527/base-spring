@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/article")
 public class ArticleController {
-    @Autowired
-    private ArticleService articleService;
-    @GetMapping("/detail/{id}")
-//    @ScopeLevel(value = 0)
-    public Msg getArticleDetail(@PathVariable Integer id){
-       Article article= articleService.getDetail(id);
-        return ResultUtil.success(article);
-    }
+//    @Autowired
+//    private ArticleService articleService;
+//    @GetMapping("/detail/{id}")
+////    @ScopeLevel(value = 0)
+//    public Msg getArticleDetail(@PathVariable Integer id){
+//       Article article= articleService.getDetail(id);
+//        return ResultUtil.success(article);
+//    }
 }

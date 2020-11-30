@@ -12,8 +12,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
 
-    @Override
-    public Article getDetail(Integer id) {
-        return articleMapper.getArticleDetail(id);
-    }
+//    @Override
+//    public Article getDetail(Integer id) {
+//        return articleMapper.getArticleDetail(id);
+//    }
 }

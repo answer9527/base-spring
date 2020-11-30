@@ -23,7 +23,7 @@ public class LetterVO extends BaseEntity {
     private Date postTime;
     private Date planTime;
     public String getAvatarUrl() {
-        if(image!=null){
+        if(avatarUrl!=null){
             Boolean bool = avatarUrl.matches("http(.*)");
             if(bool){
                 return avatarUrl;

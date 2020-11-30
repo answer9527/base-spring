@@ -1,11 +1,12 @@
 package com.answer.base.dao;
 
-import com.answer.base.entity.Article;
+import com.answer.base.entity.AccessToken;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-public interface ArticleMapper {
-//    Article getArticleDetail(Integer id);
+public interface WxMapper {
+    String getAccessToken();
+    Boolean insertAccessToken(String token);
 }

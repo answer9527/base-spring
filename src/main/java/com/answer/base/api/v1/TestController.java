@@ -1,23 +1,23 @@
 package com.answer.base.api.v1;
 
-import com.answer.base.dao.UserMapper;
 import com.answer.base.dto.UserDTO;
 import com.answer.base.entity.User;
 import com.answer.base.exception.http.NotFoundException;
 import com.answer.base.service.TestService;
 import com.answer.base.util.FetchUtil;
 import com.answer.base.util.Msg;
-import com.answer.base.util.RestUtil;
 import com.answer.base.util.ResultUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,11 +78,19 @@ public class TestController {
 
     @Value("${wx.accessTokenUrl}")
     private String accessTokenUrl;
+    @Value("${wx.appid}")
+    private String appid;
+    @Value("${wx.appsecret}")
+    private String appsecret;
     @GetMapping("/rest")
     public Msg testRest(){
+        String url = MessageFormat.format(this.accessTokenUrl,this.appid,this.appsecret);
         FetchUtil<Map> fetchUtil = new FetchUtil();
-//        fetchUtil.getForObject(accessTokenUrl,Map)
-        return  null;
+
+       ResponseEntity<Map> map = fetchUtil.getForObject(url,Map.class);
+       Map map1 = map.getBody();
+       String access_token = (String) map1.get("access_token");
+        return  ResultUtil.success(map.getBody());
     }
 
 

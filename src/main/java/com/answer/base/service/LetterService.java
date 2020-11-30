@@ -22,4 +22,6 @@ public interface LetterService {
     void setLetterOverById(Integer id);
     LetterVO getPublicLetterById(Integer id);
     void delMyLetter(Integer uid,Integer id);
+//    设置上传手抄信文件
+    void setLetterImage(Integer id,String image);
 }

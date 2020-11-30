@@ -9,8 +9,11 @@ import com.answer.base.vo.Pager;
 import com.answer.base.vo.UserInfoVO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
+//    根据id获取用户
+    Optional<User> selectHasOpenid(Integer id);
 //  注册用户
     Integer register(UserRegisterDTO userRegisterDTO);
 //    微信code 换取openid
@@ -35,10 +38,7 @@ public interface UserService {
 //    获取用户列表
     Pager<UserInfoVO> selectUserList(PagingDTO pagingDTO);
 
-//    获取小程序后台微信AccessToken
-    String getAccessToken();
-//    发送模板消息
-    void sendTemplateMsg(String accessToken);
+
 
 
 }

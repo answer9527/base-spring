@@ -11,7 +11,7 @@
         <result column="user_name" property="userName" jdbcType="INTEGER"></result>
         <result column="avatar_url" property="avatarUrl" jdbcType="INTEGER"></result>
     </resultMap>
-    <select id="getArticleDetail" parameterType="INTEGER" resultMap="ArticleMap">
-        select a.id,a.create_time,a.title,a.intro,a.content,a.uid,u.user_name,u.avatar_url  from article a Join user u ON u.id=a.uid where a.id=#{id} and a.delete_time is  null
-    </select>
+<!--    <select id="getArticleDetail" parameterType="INTEGER" resultMap="ArticleMap">-->
+<!--        select a.id,a.create_time,a.title,a.intro,a.content,a.uid,u.user_name,u.avatar_url  from article a Join user u ON u.id=a.uid where a.id=#{id} and a.delete_time is null-->
+<!--    </select>-->
 </mapper>
